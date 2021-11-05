@@ -54,7 +54,7 @@ jobs:
       - name: Create release
         env:
           GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-        run: node dev/scripts/gh-release.py
+        run: node dev/scripts/gh_release.py
 
   dockerize:
     if: github.event_name == 'release'
