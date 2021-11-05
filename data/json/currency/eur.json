@@ -1,0 +1,9 @@
+{
+  "iso_4217_code": "eur",
+  "iso_4217_numeric_code": "978",
+  "name": "Euro",
+  "symbol": "€",
+  "decimal_places": 2,
+  "major_unit": "euro",
+  "minor_unit": "cent"
+}

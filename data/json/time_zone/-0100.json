@@ -1,0 +1,34 @@
+[
+  {
+    "abbreviation": "AZOT",
+    "name": "Azores Time",
+    "offset_display_text": "UTC -01:00",
+    "offset_text": "-01:00",
+    "offset_text_clean": "-0100",
+    "offset_minutes": -60
+  },
+  {
+    "abbreviation": "CVT",
+    "name": "Cape Verde Time",
+    "offset_display_text": "UTC -01:00",
+    "offset_text": "-01:00",
+    "offset_text_clean": "-0100",
+    "offset_minutes": -60
+  },
+  {
+    "abbreviation": "EGT",
+    "name": "East Greenland Time",
+    "offset_display_text": "UTC -01:00",
+    "offset_text": "-01:00",
+    "offset_text_clean": "-0100",
+    "offset_minutes": -60
+  },
+  {
+    "abbreviation": "N",
+    "name": "November Time Zone",
+    "offset_display_text": "UTC -01:00",
+    "offset_text": "-01:00",
+    "offset_text_clean": "-0100",
+    "offset_minutes": -60
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "abbreviation": "ACST",
+    "name": "Australian Central Standard Time",
+    "offset_display_text": "UTC +09:30",
+    "offset_text": "+09:30",
+    "offset_text_clean": "+0930",
+    "offset_minutes": 570
+  },
+  {
+    "abbreviation": "ACT",
+    "name": "Australian Central Time",
+    "offset_display_text": "UTC +09:30",
+    "offset_text": "+09:30",
+    "offset_text_clean": "+0930",
+    "offset_minutes": 570
+  }
+]

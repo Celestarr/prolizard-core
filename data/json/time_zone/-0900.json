@@ -1,0 +1,34 @@
+[
+  {
+    "abbreviation": "AKST",
+    "name": "Alaska Standard Time",
+    "offset_display_text": "UTC -09:00",
+    "offset_text": "-09:00",
+    "offset_text_clean": "-0900",
+    "offset_minutes": -540
+  },
+  {
+    "abbreviation": "GAMT",
+    "name": "Gambier Time",
+    "offset_display_text": "UTC -09:00",
+    "offset_text": "-09:00",
+    "offset_text_clean": "-0900",
+    "offset_minutes": -540
+  },
+  {
+    "abbreviation": "HDT",
+    "name": "Hawaii-Aleutian Daylight Time",
+    "offset_display_text": "UTC -09:00",
+    "offset_text": "-09:00",
+    "offset_text_clean": "-0900",
+    "offset_minutes": -540
+  },
+  {
+    "abbreviation": "V",
+    "name": "Victor Time Zone",
+    "offset_display_text": "UTC -09:00",
+    "offset_text": "-09:00",
+    "offset_text_clean": "-0900",
+    "offset_minutes": -540
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "abbreviation": "AWST",
+    "name": "Australian Western Standard Time",
+    "offset_display_text": "UTC +08:00",
+    "offset_text": "+08:00",
+    "offset_text_clean": "+0800",
+    "offset_minutes": 480
+  },
+  {
+    "abbreviation": "BNT",
+    "name": "Brunei Darussalam Time",
+    "offset_display_text": "UTC +08:00",
+    "offset_text": "+08:00",
+    "offset_text_clean": "+0800",
+    "offset_minutes": 480
+  },
+  {
+    "abbreviation": "CAST",
+    "name": "Casey Time",
+    "offset_display_text": "UTC +08:00",
+    "offset_text": "+08:00",
+    "offset_text_clean": "+0800",
+    "offset_minutes": 480
+  },
+  {
+    "abbreviation": "CHOT",
+    "name": "Choibalsan Time",
+    "offset_display_text": "UTC +08:00",
+    "offset_text": "+08:00",
+    "offset_text_clean": "+0800",
+    "offset_minutes": 480
+  },
+  {
+    "abbreviation": "CST",
+    "name": "China Standard Time",
+    "offset_display_text": "UTC +08:00",
+    "offset_text": "+08:00",
+    "offset_text_clean": "+0800",
+    "offset_minutes": 480
+  },
+  {
+    "abbreviation": "H",
+    "name": "Hotel Time Zone",
+    "offset_display_text": "UTC +08:00",
+    "offset_text": "+08:00",
+    "offset_text_clean": "+0800",
+    "offset_minutes": 480
+  },
+  {
+    "abbreviation": "HKT",
+    "name": "Hong Kong Time",
+    "offset_display_text": "UTC +08:00",
+    "offset_text": "+08:00",
+    "offset_text_clean": "+0800",
+    "offset_minutes": 480
+  },
+  {
+    "abbreviation": "HOVST",
+    "name": "Hovd Summer Time",
+    "offset_display_text": "UTC +08:00",
+    "offset_text": "+08:00",
+    "offset_text_clean": "+0800",
+    "offset_minutes": 480
+  },
+  {
+    "abbreviation": "IRKT",
+    "name": "Irkutsk Time",
+    "offset_display_text": "UTC +08:00",
+    "offset_text": "+08:00",
+    "offset_text_clean": "+0800",
+    "offset_minutes": 480
+  },
+  {
+    "abbreviation": "KRAST",
+    "name": "Krasnoyarsk Summer Time",
+    "offset_display_text": "UTC +08:00",
+    "offset_text": "+08:00",
+    "offset_text_clean": "+0800",
+    "offset_minutes": 480
+  },
+  {
+    "abbreviation": "MYT",
+    "name": "Malaysia Time",
+    "offset_display_text": "UTC +08:00",
+    "offset_text": "+08:00",
+    "offset_text_clean": "+0800",
+    "offset_minutes": 480
+  },
+  {
+    "abbreviation": "PHT",
+    "name": "Philippine Time",
+    "offset_display_text": "UTC +08:00",
+    "offset_text": "+08:00",
+    "offset_text_clean": "+0800",
+    "offset_minutes": 480
+  },
+  {
+    "abbreviation": "SGT",
+    "name": "Singapore Time",
+    "offset_display_text": "UTC +08:00",
+    "offset_text": "+08:00",
+    "offset_text_clean": "+0800",
+    "offset_minutes": 480
+  },
+  {
+    "abbreviation": "ULAT",
+    "name": "Ulaanbaatar Time",
+    "offset_display_text": "UTC +08:00",
+    "offset_text": "+08:00",
+    "offset_text_clean": "+0800",
+    "offset_minutes": 480
+  },
+  {
+    "abbreviation": "WITA",
+    "name": "Central Indonesian Time",
+    "offset_display_text": "UTC +08:00",
+    "offset_text": "+08:00",
+    "offset_text_clean": "+0800",
+    "offset_minutes": 480
+  }
+]

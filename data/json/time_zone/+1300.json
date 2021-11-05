@@ -1,0 +1,50 @@
+[
+  {
+    "abbreviation": "FJST",
+    "name": "Fiji Summer Time",
+    "offset_display_text": "UTC +13:00",
+    "offset_text": "+13:00",
+    "offset_text_clean": "+1300",
+    "offset_minutes": 780
+  },
+  {
+    "abbreviation": "NZDT",
+    "name": "New Zealand Daylight Time",
+    "offset_display_text": "UTC +13:00",
+    "offset_text": "+13:00",
+    "offset_text_clean": "+1300",
+    "offset_minutes": 780
+  },
+  {
+    "abbreviation": "PHOT",
+    "name": "Phoenix Island Time",
+    "offset_display_text": "UTC +13:00",
+    "offset_text": "+13:00",
+    "offset_text_clean": "+1300",
+    "offset_minutes": 780
+  },
+  {
+    "abbreviation": "TKT",
+    "name": "Tokelau Time",
+    "offset_display_text": "UTC +13:00",
+    "offset_text": "+13:00",
+    "offset_text_clean": "+1300",
+    "offset_minutes": 780
+  },
+  {
+    "abbreviation": "TOT",
+    "name": "Tonga Time",
+    "offset_display_text": "UTC +13:00",
+    "offset_text": "+13:00",
+    "offset_text_clean": "+1300",
+    "offset_minutes": 780
+  },
+  {
+    "abbreviation": "WST",
+    "name": "West Samoa Time",
+    "offset_display_text": "UTC +13:00",
+    "offset_text": "+13:00",
+    "offset_text_clean": "+1300",
+    "offset_minutes": 780
+  }
+]

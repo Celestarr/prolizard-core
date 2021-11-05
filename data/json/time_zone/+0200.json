@@ -1,0 +1,58 @@
+[
+  {
+    "abbreviation": "B",
+    "name": "Bravo Time Zone",
+    "offset_display_text": "UTC +02:00",
+    "offset_text": "+02:00",
+    "offset_text_clean": "+0200",
+    "offset_minutes": 120
+  },
+  {
+    "abbreviation": "CAT",
+    "name": "Central Africa Time",
+    "offset_display_text": "UTC +02:00",
+    "offset_text": "+02:00",
+    "offset_text_clean": "+0200",
+    "offset_minutes": 120
+  },
+  {
+    "abbreviation": "CEST",
+    "name": "Central European Summer Time",
+    "offset_display_text": "UTC +02:00",
+    "offset_text": "+02:00",
+    "offset_text_clean": "+0200",
+    "offset_minutes": 120
+  },
+  {
+    "abbreviation": "EET",
+    "name": "Eastern European Time",
+    "offset_display_text": "UTC +02:00",
+    "offset_text": "+02:00",
+    "offset_text_clean": "+0200",
+    "offset_minutes": 120
+  },
+  {
+    "abbreviation": "IST",
+    "name": "Israel Standard Time",
+    "offset_display_text": "UTC +02:00",
+    "offset_text": "+02:00",
+    "offset_text_clean": "+0200",
+    "offset_minutes": 120
+  },
+  {
+    "abbreviation": "SAST",
+    "name": "South Africa Standard Time",
+    "offset_display_text": "UTC +02:00",
+    "offset_text": "+02:00",
+    "offset_text_clean": "+0200",
+    "offset_minutes": 120
+  },
+  {
+    "abbreviation": "WAST",
+    "name": "West Africa Summer Time",
+    "offset_display_text": "UTC +02:00",
+    "offset_text": "+02:00",
+    "offset_text_clean": "+0200",
+    "offset_minutes": 120
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "abbreviation": "NST",
+    "name": "Newfoundland Standard Time",
+    "offset_display_text": "UTC -03:30",
+    "offset_text": "-03:30",
+    "offset_text_clean": "-0330",
+    "offset_minutes": -210
+  }
+]

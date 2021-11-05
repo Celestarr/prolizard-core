@@ -1,0 +1,10 @@
+[
+  {
+    "abbreviation": "CHADT",
+    "name": "Chatham Island Daylight Time",
+    "offset_display_text": "UTC +13:45",
+    "offset_text": "+13:45",
+    "offset_text_clean": "+1345",
+    "offset_minutes": 825
+  }
+]

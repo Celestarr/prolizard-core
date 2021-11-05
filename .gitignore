@@ -1,0 +1,22 @@
+# */**/static/*
+# !static/.gitkeep
+*/**/staticfiles/*
+!staticfiles/.gitkeep
+media/*
+!media/.gitkeep
+*.db
+*.log
+*.py[cod]
+*.sqlite3
+.env
+.idea
+.vscode
+**/settings/local.py
+__pycache__
+pip-delete-this-directory.txt
+pip-log.txt
+venv
+schema*[.yml,.yaml]
+swagger*[.yml,.yaml]
+env
+.tox

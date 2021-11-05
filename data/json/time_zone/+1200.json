@@ -1,0 +1,122 @@
+[
+  {
+    "abbreviation": "ANAST",
+    "name": "Anadyr Summer Time",
+    "offset_display_text": "UTC +12:00",
+    "offset_text": "+12:00",
+    "offset_text_clean": "+1200",
+    "offset_minutes": 720
+  },
+  {
+    "abbreviation": "ANAT",
+    "name": "Anadyr Time",
+    "offset_display_text": "UTC +12:00",
+    "offset_text": "+12:00",
+    "offset_text_clean": "+1200",
+    "offset_minutes": 720
+  },
+  {
+    "abbreviation": "FJT",
+    "name": "Fiji Time",
+    "offset_display_text": "UTC +12:00",
+    "offset_text": "+12:00",
+    "offset_text_clean": "+1200",
+    "offset_minutes": 720
+  },
+  {
+    "abbreviation": "GILT",
+    "name": "Gilbert Island Time",
+    "offset_display_text": "UTC +12:00",
+    "offset_text": "+12:00",
+    "offset_text_clean": "+1200",
+    "offset_minutes": 720
+  },
+  {
+    "abbreviation": "M",
+    "name": "Mike Time Zone",
+    "offset_display_text": "UTC +12:00",
+    "offset_text": "+12:00",
+    "offset_text_clean": "+1200",
+    "offset_minutes": 720
+  },
+  {
+    "abbreviation": "MAGST",
+    "name": "Magadan Summer Time",
+    "offset_display_text": "UTC +12:00",
+    "offset_text": "+12:00",
+    "offset_text_clean": "+1200",
+    "offset_minutes": 720
+  },
+  {
+    "abbreviation": "MHT",
+    "name": "Marshall Islands Time",
+    "offset_display_text": "UTC +12:00",
+    "offset_text": "+12:00",
+    "offset_text_clean": "+1200",
+    "offset_minutes": 720
+  },
+  {
+    "abbreviation": "NFDT",
+    "name": "Norfolk Daylight Time",
+    "offset_display_text": "UTC +12:00",
+    "offset_text": "+12:00",
+    "offset_text_clean": "+1200",
+    "offset_minutes": 720
+  },
+  {
+    "abbreviation": "NRT",
+    "name": "Nauru Time",
+    "offset_display_text": "UTC +12:00",
+    "offset_text": "+12:00",
+    "offset_text_clean": "+1200",
+    "offset_minutes": 720
+  },
+  {
+    "abbreviation": "NZST",
+    "name": "New Zealand Standard Time",
+    "offset_display_text": "UTC +12:00",
+    "offset_text": "+12:00",
+    "offset_text_clean": "+1200",
+    "offset_minutes": 720
+  },
+  {
+    "abbreviation": "PETST",
+    "name": "Kamchatka Summer Time",
+    "offset_display_text": "UTC +12:00",
+    "offset_text": "+12:00",
+    "offset_text_clean": "+1200",
+    "offset_minutes": 720
+  },
+  {
+    "abbreviation": "PETT",
+    "name": "Kamchatka Time",
+    "offset_display_text": "UTC +12:00",
+    "offset_text": "+12:00",
+    "offset_text_clean": "+1200",
+    "offset_minutes": 720
+  },
+  {
+    "abbreviation": "TVT",
+    "name": "Tuvalu Time",
+    "offset_display_text": "UTC +12:00",
+    "offset_text": "+12:00",
+    "offset_text_clean": "+1200",
+    "offset_minutes": 720
+  },
+  {
+    "abbreviation": "WAKT",
+    "name": "Wake Time",
+    "offset_display_text": "UTC +12:00",
+    "offset_text": "+12:00",
+    "offset_text_clean": "+1200",
+    "offset_minutes": 720
+  },
+  {
+    "abbreviation": "WFT",
+    "name": "Wallis and Futuna Time",
+    "offset_display_text": "UTC +12:00",
+    "offset_text": "+12:00",
+    "offset_text_clean": "+1200",
+    "offset_minutes": 720
+  }
+]

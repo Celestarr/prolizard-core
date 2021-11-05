@@ -1,0 +1,10 @@
+[
+  {
+    "abbreviation": "CHAST",
+    "name": "Chatham Island Standard Time",
+    "offset_display_text": "UTC +12:45",
+    "offset_text": "+12:45",
+    "offset_text_clean": "+1245",
+    "offset_minutes": 765
+  }
+]

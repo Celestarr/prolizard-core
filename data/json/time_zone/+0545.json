@@ -1,0 +1,10 @@
+[
+  {
+    "abbreviation": "NPT",
+    "name": "Nepal Time",
+    "offset_display_text": "UTC +05:45",
+    "offset_text": "+05:45",
+    "offset_text_clean": "+0545",
+    "offset_minutes": 345
+  }
+]

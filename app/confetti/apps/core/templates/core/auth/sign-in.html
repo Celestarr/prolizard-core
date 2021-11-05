@@ -1,0 +1,46 @@
+{% extends "core/auth/base.html" %}
+
+{% load static %}
+
+{% block page_title %}MyFoLab | Sign In{% endblock %}
+
+{% block page_specific_styles %}
+<link href="{% static 'core/auth/css/sign-in.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block body_classes %}text-center{% endblock %}
+
+{% block content %}
+<main class="form-signin">
+  <form method="POST">
+    {% csrf_token %}
+    <img class="mb-4" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    {% if form.non_field_errors %}{{ form.non_field_errors.0 }}{% endif %}
+    <div class="form-floating">
+      <input {% if form.email.field.required %}required{% endif %} {% if form.email.field.widget.attrs.autofocus %}autofocus{% endif %} type="{{ form.email.field.widget.input_type }}" name="{{ form.email.html_name }}" class="{{ form.email.field.widget.attrs.class }}{% if form.email.errors %} is-invalid{% endif %}" id="{{ form.email.id_for_label }}" placeholder="{{ form.email.field.widget.attrs.placeholder }}" value="{% if form.email.value %}{{ form.email.value }}{% endif %}"
+      {% if form.email.errors %}aria-describedby="emailInvalidFeedback"{% endif %} />
+      {{ form.email.label_tag }}
+      {% if form.email.errors %}
+        <div id="emailInvalidFeedback" class="invalid-feedback">{{ form.email.errors.0 }}</div>
+      {% endif %}
+    </div>
+    <div class="form-floating">
+      <input {% if form.password.field.required %}required{% endif %} type="{{ form.password.field.widget.input_type }}" name="{{ form.password.html_name }}" class="{{ form.password.field.widget.attrs.class }}{% if form.password.errors %} is-invalid{% endif %}" id="{{ form.password.id_for_label }}" placeholder="{{ form.password.field.widget.attrs.placeholder }}" value="{% if form.password.value %}{{ form.password.value }}{% endif %}"
+      {% if form.password.errors %}aria-describedby="emailPasswordFeedback"{% endif %} />
+      {{ form.password.label_tag }}
+      {% if form.password.errors %}
+        <div id="emailPasswordFeedback" class="invalid-feedback">{{ form.password.errors.0 }}</div>
+      {% endif %}
+    </div>
+
+    <div class="checkbox mb-3">
+      <label>
+        {{ form.remember_me }} Remember me
+      </label>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+  </form>
+</main>
+{% endblock %}

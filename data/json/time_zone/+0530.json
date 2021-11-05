@@ -1,0 +1,10 @@
+[
+  {
+    "abbreviation": "IST",
+    "name": "India Standard Time",
+    "offset_display_text": "UTC +05:30",
+    "offset_text": "+05:30",
+    "offset_text_clean": "+0530",
+    "offset_minutes": 330
+  }
+]

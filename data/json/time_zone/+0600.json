@@ -1,0 +1,82 @@
+[
+  {
+    "abbreviation": "ALMT",
+    "name": "Alma-Ata Time",
+    "offset_display_text": "UTC +06:00",
+    "offset_text": "+06:00",
+    "offset_text_clean": "+0600",
+    "offset_minutes": 360
+  },
+  {
+    "abbreviation": "BST",
+    "name": "Bangladesh Standard Time",
+    "offset_display_text": "UTC +06:00",
+    "offset_text": "+06:00",
+    "offset_text_clean": "+0600",
+    "offset_minutes": 360
+  },
+  {
+    "abbreviation": "BTT",
+    "name": "Bhutan Time",
+    "offset_display_text": "UTC +06:00",
+    "offset_text": "+06:00",
+    "offset_text_clean": "+0600",
+    "offset_minutes": 360
+  },
+  {
+    "abbreviation": "F",
+    "name": "Foxtrot Time Zone",
+    "offset_display_text": "UTC +06:00",
+    "offset_text": "+06:00",
+    "offset_text_clean": "+0600",
+    "offset_minutes": 360
+  },
+  {
+    "abbreviation": "IOT",
+    "name": "Indian Chagos Time",
+    "offset_display_text": "UTC +06:00",
+    "offset_text": "+06:00",
+    "offset_text_clean": "+0600",
+    "offset_minutes": 360
+  },
+  {
+    "abbreviation": "KGT",
+    "name": "Kyrgyzstan Time",
+    "offset_display_text": "UTC +06:00",
+    "offset_text": "+06:00",
+    "offset_text_clean": "+0600",
+    "offset_minutes": 360
+  },
+  {
+    "abbreviation": "OMST",
+    "name": "Omsk Standard Time",
+    "offset_display_text": "UTC +06:00",
+    "offset_text": "+06:00",
+    "offset_text_clean": "+0600",
+    "offset_minutes": 360
+  },
+  {
+    "abbreviation": "QYZT",
+    "name": "Qyzylorda Time",
+    "offset_display_text": "UTC +06:00",
+    "offset_text": "+06:00",
+    "offset_text_clean": "+0600",
+    "offset_minutes": 360
+  },
+  {
+    "abbreviation": "VOST",
+    "name": "Vostok Time",
+    "offset_display_text": "UTC +06:00",
+    "offset_text": "+06:00",
+    "offset_text_clean": "+0600",
+    "offset_minutes": 360
+  },
+  {
+    "abbreviation": "YEKST",
+    "name": "Yekaterinburg Summer Time",
+    "offset_display_text": "UTC +06:00",
+    "offset_text": "+06:00",
+    "offset_text_clean": "+0600",
+    "offset_minutes": 360
+  }
+]

@@ -1,0 +1,106 @@
+[
+  {
+    "abbreviation": "AMT",
+    "name": "Amazon Time",
+    "offset_display_text": "UTC -04:00",
+    "offset_text": "-04:00",
+    "offset_text_clean": "-0400",
+    "offset_minutes": -240
+  },
+  {
+    "abbreviation": "AST",
+    "name": "Atlantic Standard Time",
+    "offset_display_text": "UTC -04:00",
+    "offset_text": "-04:00",
+    "offset_text_clean": "-0400",
+    "offset_minutes": -240
+  },
+  {
+    "abbreviation": "AT",
+    "name": "Atlantic Time",
+    "offset_display_text": "UTC -04:00",
+    "offset_text": "-04:00",
+    "offset_text_clean": "-0400",
+    "offset_minutes": -240
+  },
+  {
+    "abbreviation": "BOT",
+    "name": "Bolivia Time",
+    "offset_display_text": "UTC -04:00",
+    "offset_text": "-04:00",
+    "offset_text_clean": "-0400",
+    "offset_minutes": -240
+  },
+  {
+    "abbreviation": "CDT",
+    "name": "Cuba Daylight Time",
+    "offset_display_text": "UTC -04:00",
+    "offset_text": "-04:00",
+    "offset_text_clean": "-0400",
+    "offset_minutes": -240
+  },
+  {
+    "abbreviation": "CIDST",
+    "name": "Cayman Islands Daylight Saving Time",
+    "offset_display_text": "UTC -04:00",
+    "offset_text": "-04:00",
+    "offset_text_clean": "-0400",
+    "offset_minutes": -240
+  },
+  {
+    "abbreviation": "CLT",
+    "name": "Chile Standard Time",
+    "offset_display_text": "UTC -04:00",
+    "offset_text": "-04:00",
+    "offset_text_clean": "-0400",
+    "offset_minutes": -240
+  },
+  {
+    "abbreviation": "EDT",
+    "name": "Eastern Daylight Time",
+    "offset_display_text": "UTC -04:00",
+    "offset_text": "-04:00",
+    "offset_text_clean": "-0400",
+    "offset_minutes": -240
+  },
+  {
+    "abbreviation": "FKT",
+    "name": "Falkland Island Time",
+    "offset_display_text": "UTC -04:00",
+    "offset_text": "-04:00",
+    "offset_text_clean": "-0400",
+    "offset_minutes": -240
+  },
+  {
+    "abbreviation": "GYT",
+    "name": "Guyana Time",
+    "offset_display_text": "UTC -04:00",
+    "offset_text": "-04:00",
+    "offset_text_clean": "-0400",
+    "offset_minutes": -240
+  },
+  {
+    "abbreviation": "PYT",
+    "name": "Paraguay Time",
+    "offset_display_text": "UTC -04:00",
+    "offset_text": "-04:00",
+    "offset_text_clean": "-0400",
+    "offset_minutes": -240
+  },
+  {
+    "abbreviation": "Q",
+    "name": "Quebec Time Zone",
+    "offset_display_text": "UTC -04:00",
+    "offset_text": "-04:00",
+    "offset_text_clean": "-0400",
+    "offset_minutes": -240
+  },
+  {
+    "abbreviation": "VET",
+    "name": "Venezuelan Standard Time",
+    "offset_display_text": "UTC -04:00",
+    "offset_text": "-04:00",
+    "offset_text_clean": "-0400",
+    "offset_minutes": -240
+  }
+]

@@ -1,0 +1,206 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Chicago Gray Resume Template
+    style(type="text/css").
+      *, *::after, *::before {
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 15px;
+        line-height: 1.2;
+      }
+
+      h1 {
+        font-size: 30px;
+        margin: 0px;
+      }
+
+      small {
+        font-size: 13px;
+      }
+
+      ul, li {
+        margin: 0px;
+        padding: 0px;
+        list-style-position: inside;
+      }
+
+      .about-section {
+        margin-top: 16px;
+        margin-bottom: 16px;
+      }
+
+      .additional-info {
+        margin-top: 5px;
+        text-align: justify;
+        white-space: pre-wrap;
+      }
+
+      .d-flex {
+        display: flex;
+      }
+
+      .ml-auto {
+        margin-left: auto;
+      }
+
+      .section {}
+
+      .section:not(:first-child) {
+        margin-top: 30px;
+      }
+
+      .section-item {
+        margin-top: 20px;
+      }
+
+      .section-item:first-child {
+        margin-top: 0px;
+      }
+
+      .section-title {
+        color: gray;
+        font-size: 18px;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 0;
+        margin: 0 0 10px;
+        border-bottom: 1px solid gray;
+        line-height: 1;
+      }
+
+      .text-16px {
+        font-size: 16px;
+      }
+
+      .text-bold {
+        font-weight: 700;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      .text-gray {
+        color: gray;
+      }
+
+      .text-italic {
+        font-style: italic;
+      }
+
+      .text-right {
+        text-align: right;
+      }
+
+      .text-upper {
+        text-transform: uppercase;
+      }
+
+  body
+    div
+      div.text-center
+        h1.text-gray.text-upper.
+          #{first_name} #{last_name}
+        if location
+          div
+            small #{location}
+        if phone
+          div
+            small #{phone}
+        div
+          small #{email}
+        div.about-section.text-center.text-italic #{about}
+
+      if work_experiences.length
+        div.section
+          div.section-title professional experience
+          each item, index in work_experiences
+            div.section-item
+              div.d-flex
+                div
+                  div.text-16px.text-bold #{item.company}
+                  div.text-italic #{item.job_title}
+                div.ml-auto.text-right
+                  if item.location
+                    div.text-16px.text-bold #{item.location}
+                  div.text-italic #{item.date_line}
+              if item.description
+                div.additional-info #{item.description}
+
+      if academic_records.length
+        div.section
+          div.section-title education
+          each item, index in academic_records
+            div.section-item
+              div.d-flex
+                div
+                  div.text-16px.text-bold #{item.school}
+                  div.text-italic #{item.degree_line}
+                div.ml-auto.text-right
+                  if item.location
+                    div.text-16px.text-bold #{item.location}
+                  div.text-italic #{item.date_line}
+              if item.description
+                div.additional-info #{item.description}
+
+      if projects.length
+        div.section
+          div.section-title projects
+          each item, index in projects
+            div.section-item
+              div.d-flex
+                div
+                  div.text-16px.text-bold #{item.name}
+                  div.text-italic #{item.date_line}
+              if item.description
+                div.additional-info #{item.description}
+
+      if skills.length
+        div.section
+          div.section-title skills
+          ul
+            each item, index in skills
+              li #{item.name}
+
+      if languages.length
+        div.section
+          div.section-title languages
+          ul
+            each item, index in languages
+              li #{item.name}
+
+      if certifications.length
+        div.section
+          div.section-title certifications
+          each item, index in certifications
+            div.section-item
+              div.d-flex
+                div
+                  div.text-16px.text-bold #{item.title}
+                  div.text-italic Offered by #{item.issuer}
+                if item.date_line
+                  div.ml-auto.text-right
+                    div.text-italic #{item.date_line}
+              if item.description
+                div.additional-info #{item.description}
+
+      if publications.length
+        div.section
+          div.section-title publications
+          each item, index in publications
+            div.section-item
+              div.d-flex
+                div
+                  div.text-16px.text-bold #{item.title}
+                  div.text-italic Published by #{item.publisher}
+                if item.date_line
+                  div.ml-auto.text-right
+                    div.text-italic #{item.date_line}
+              if item.description
+                div.additional-info #{item.description}

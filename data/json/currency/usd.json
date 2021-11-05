@@ -1,0 +1,9 @@
+{
+  "iso_4217_code": "usd",
+  "iso_4217_numeric_code": "840",
+  "name": "US Dollar",
+  "symbol": "$",
+  "decimal_places": 2,
+  "major_unit": "dollar",
+  "minor_unit": "cent"
+}

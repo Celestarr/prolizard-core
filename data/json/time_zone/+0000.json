@@ -1,0 +1,58 @@
+[
+  {
+    "abbreviation": "AZOST",
+    "name": "Azores Summer Time",
+    "offset_display_text": "UTC +00:00",
+    "offset_text": "+00:00",
+    "offset_text_clean": "+0000",
+    "offset_minutes": 0
+  },
+  {
+    "abbreviation": "EGST",
+    "name": "Eastern Greenland Summer Time",
+    "offset_display_text": "UTC +00:00",
+    "offset_text": "+00:00",
+    "offset_text_clean": "+0000",
+    "offset_minutes": 0
+  },
+  {
+    "abbreviation": "GMT",
+    "name": "Greenwich Mean Time",
+    "offset_display_text": "UTC +00:00",
+    "offset_text": "+00:00",
+    "offset_text_clean": "+0000",
+    "offset_minutes": 0
+  },
+  {
+    "abbreviation": "UTC",
+    "name": "Coordinated Universal Time",
+    "offset_display_text": "UTC +00:00",
+    "offset_text": "+00:00",
+    "offset_text_clean": "+0000",
+    "offset_minutes": 0
+  },
+  {
+    "abbreviation": "WET",
+    "name": "Western European Time",
+    "offset_display_text": "UTC +00:00",
+    "offset_text": "+00:00",
+    "offset_text_clean": "+0000",
+    "offset_minutes": 0
+  },
+  {
+    "abbreviation": "WT",
+    "name": "Western Sahara Standard Time",
+    "offset_display_text": "UTC +00:00",
+    "offset_text": "+00:00",
+    "offset_text_clean": "+0000",
+    "offset_minutes": 0
+  },
+  {
+    "abbreviation": "Z",
+    "name": "Zulu Time Zone",
+    "offset_display_text": "UTC +00:00",
+    "offset_text": "+00:00",
+    "offset_text_clean": "+0000",
+    "offset_minutes": 0
+  }
+]

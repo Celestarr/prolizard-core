@@ -1,0 +1,302 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+
+    title Engineering Ultimate Resume Template
+
+    link(rel="preconnect", href="https://fonts.gstatic.com")
+    link(href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap", rel="stylesheet")
+
+    style(type="text/css").
+      *, *::after, *::before {
+        box-sizing: border-box;
+      }
+
+      html {
+        color: #384347;
+        font-size: 13px;
+        line-height: 17px;
+      }
+
+      body {
+        font-family: 'Open Sans', sans-serif;
+      }
+
+      .basic-info-block {
+        align-items: center;
+        color: #65696d;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        margin-bottom: 2px;
+      }
+
+      .basic-info-block a {
+        text-decoration: none;
+      }
+
+      .basic-info-block a,
+      .basic-info-block a:focus,
+      .basic-info-block a:visited {
+        color: inherit;
+      }
+
+      .basic-info-block i {
+        color: #555555 !important;
+        font-size: 11px;
+        font-weight: 600;
+        margin-right: 5px;
+      }
+
+      .basic-info-row {
+        margin: 0 -5px;
+        overflow: hidden;
+        flex-wrap: wrap;
+      }
+
+      .basic-info-row:not(:last-child) {
+        margin-bottom: 2px;
+      }
+
+      .basic-info-row .basic-info-block {
+        margin: 0 5px;
+      }
+
+      .body .left {
+        margin-right: 40px;
+        width: 65%;
+      }
+
+      .date-line {
+        color: #65696d;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: normal;
+        text-transform: uppercase;
+      }
+
+      .description {
+        white-space: pre-wrap;
+      }
+
+      .flex-grow {
+        flex: 1;
+      }
+
+      .flex-row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+      }
+
+      .flex-wrap {
+        flex-wrap: wrap !important;
+      }
+
+      .header {
+        margin-bottom: 50px;
+      }
+
+      .item .heading {
+        font-size: 21px;
+        line-height: 28px;
+      }
+
+      .location {
+        color: #65696d;
+        font-size: 11px;
+        line-height: normal;
+        margin-left: 20px;
+      }
+
+      .ml-0 {
+        margin-left: 0 !important;
+      }
+
+      .ml-10 {
+        margin-left: 10px !important;
+      }
+
+      .name {
+        font-size: 31px;
+        font-weight: 400;
+        line-height: 41px;
+      }
+
+      .organization {
+        color: #008CFF !important;
+        font-size: 14px;
+        line-height: 18px;
+      }
+
+      .section:not(:last-child) {
+        margin-bottom: 35px;
+      }
+
+      .section .body .item:not(:last-child) {
+        margin-bottom: 20px;
+      }
+
+      .section .body .item .description {
+        margin-top: 5px;
+      }
+
+      .section .title {
+        color: #65696d;
+        font-size: 11px;
+        line-height: 16px;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+
+      .section.awards .body .item:not(:last-child),
+      .section.languages .body .item:not(:last-child) {
+        margin-bottom: 10px;
+      }
+
+      .section.awards .body .item .level,
+      .section.languages .body .item .level {
+        color: #008CFF;
+        font-size: 13px;
+        line-height: 1.35;
+        padding-top: 2px;
+      }
+
+      .section.awards .body .item .name,
+      .section.languages .body .item .name {
+        color: #000000;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 1.35;
+      }
+
+      .section.skills .body {
+        margin-left: -10px;
+        margin-top: -10px;
+      }
+
+      .section.skills .body .item {
+        border-bottom: 1px solid #a9a9a9;
+        color: #000000;
+        font-size: 13px;
+        font-weight: 700;
+        margin: 5px 10px;
+        padding: 4px 0;
+        display: inline-block;
+      }
+
+      .text-justify {
+        text-align: justify !important;
+      }
+
+  body
+    div.header.flex-row
+      div.left.flex-grow
+        div.name.
+          #{first_name} #{last_name}
+        if location
+          div.basic-info-block.flex-row
+            i(class="fas fa-map-marker-alt")
+            span #{location}
+        div.flex-row.basic-info-row
+          if phone
+            div.basic-info-block.flex-row
+              i(class="fas fa-phone-alt")
+              a(href=`tel:${phone}`).
+                #{phone}
+          div.basic-info-block.flex-row
+            i(class="fas fa-at")
+            span #{email}
+        if web_links.length
+          div.flex-row.basic-info-row
+            each link in web_links
+              div.basic-info-block.flex-row
+                i(class=`${link.iconClasses}`)
+                a(href=`${link.value}`).
+                  #{link.label || link.value}
+      div.right
+
+    div.body.flex-row
+      div.left
+        if about
+          div.section
+            div.title summary
+            div.body.text-justify #{about}
+
+        if academic_records.length
+          div.section
+            div.title education
+            div.body
+              each item, index in academic_records
+                div.item
+                  div.heading #{item.degree_line}
+                  d.flex-row
+                    div.flex-grow
+                      span.organization #{item.school}
+                      if item.location
+                        span.location #{item.location}
+                    div.date-line #{item.date_line}
+                  if item.description
+                    div.description.text-justify #{item.description}
+
+        if work_experiences.length
+          div.section
+            div.title experience
+            div.body
+              each item, index in work_experiences
+                div.item
+                  div.heading #{item.job_title}
+                  d.flex-row
+                    div.flex-grow
+                      span.organization #{item.company}
+                      if item.location
+                        span.location #{item.location}
+                    div.date-line #{item.date_line}
+                  if item.description
+                    div.description.text-justify #{item.description}
+
+        if projects.length
+          div.section
+            div.title projects
+            div.body
+              each item, index in projects
+                div.item
+                  div.heading #{item.name}
+                  d.flex-row
+                    div.date-line #{item.date_line}
+                  if item.description
+                    div.description.text-justify #{item.description}
+
+      div.right.flex-grow
+        if skills.length
+          div.section.skills
+            div.title skills
+            div.body
+              each item, index in skills
+                span.item #{item.name}
+
+        if languages.length
+          div.section.languages
+            div.title languages
+            div.body
+              each item, index in languages
+                div.item
+                  div.name #{item.name}
+                  div.location.ml-0 #{item.proficiency.label}
+
+        if honors_or_awards.length
+          div.section.awards
+            div.title awards
+            div.body
+              each item, index in honors_or_awards
+                div.item
+                  div.name #{item.title}
+                  div
+                    span.level.location.ml-0 #{item.issuer}
+                    if item.date_line
+                      span.location.ml-10 #{item.date_line}
+
+    script(src="https://kit.fontawesome.com/48ac55d9a4.js", crossorigin="anonymous")

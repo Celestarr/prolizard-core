@@ -1,0 +1,58 @@
+[
+  {
+    "abbreviation": "BRST",
+    "name": "Bras\u00edlia Summer Time",
+    "offset_display_text": "UTC -02:00",
+    "offset_text": "-02:00",
+    "offset_text_clean": "-0200",
+    "offset_minutes": -120
+  },
+  {
+    "abbreviation": "FNT",
+    "name": "Fernando de Noronha Time",
+    "offset_display_text": "UTC -02:00",
+    "offset_text": "-02:00",
+    "offset_text_clean": "-0200",
+    "offset_minutes": -120
+  },
+  {
+    "abbreviation": "GST",
+    "name": "South Georgia Time",
+    "offset_display_text": "UTC -02:00",
+    "offset_text": "-02:00",
+    "offset_text_clean": "-0200",
+    "offset_minutes": -120
+  },
+  {
+    "abbreviation": "O",
+    "name": "Oscar Time Zone",
+    "offset_display_text": "UTC -02:00",
+    "offset_text": "-02:00",
+    "offset_text_clean": "-0200",
+    "offset_minutes": -120
+  },
+  {
+    "abbreviation": "PMDT",
+    "name": "Pierre & Miquelon Daylight Time",
+    "offset_display_text": "UTC -02:00",
+    "offset_text": "-02:00",
+    "offset_text_clean": "-0200",
+    "offset_minutes": -120
+  },
+  {
+    "abbreviation": "UYST",
+    "name": "Uruguay Summer Time",
+    "offset_display_text": "UTC -02:00",
+    "offset_text": "-02:00",
+    "offset_text_clean": "-0200",
+    "offset_minutes": -120
+  },
+  {
+    "abbreviation": "WGST",
+    "name": "Western Greenland Summer Time",
+    "offset_display_text": "UTC -02:00",
+    "offset_text": "-02:00",
+    "offset_text_clean": "-0200",
+    "offset_minutes": -120
+  }
+]

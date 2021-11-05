@@ -1,0 +1,58 @@
+[
+  {
+    "abbreviation": "A",
+    "name": "Alpha Time Zone",
+    "offset_display_text": "UTC +01:00",
+    "offset_text": "+01:00",
+    "offset_text_clean": "+0100",
+    "offset_minutes": 60
+  },
+  {
+    "abbreviation": "BST",
+    "name": "British Summer Time",
+    "offset_display_text": "UTC +01:00",
+    "offset_text": "+01:00",
+    "offset_text_clean": "+0100",
+    "offset_minutes": 60
+  },
+  {
+    "abbreviation": "CET",
+    "name": "Central European Time",
+    "offset_display_text": "UTC +01:00",
+    "offset_text": "+01:00",
+    "offset_text_clean": "+0100",
+    "offset_minutes": 60
+  },
+  {
+    "abbreviation": "IST",
+    "name": "Irish Standard Time",
+    "offset_display_text": "UTC +01:00",
+    "offset_text": "+01:00",
+    "offset_text_clean": "+0100",
+    "offset_minutes": 60
+  },
+  {
+    "abbreviation": "WAT",
+    "name": "West Africa Time",
+    "offset_display_text": "UTC +01:00",
+    "offset_text": "+01:00",
+    "offset_text_clean": "+0100",
+    "offset_minutes": 60
+  },
+  {
+    "abbreviation": "WEST",
+    "name": "Western European Summer Time",
+    "offset_display_text": "UTC +01:00",
+    "offset_text": "+01:00",
+    "offset_text_clean": "+0100",
+    "offset_minutes": 60
+  },
+  {
+    "abbreviation": "WST",
+    "name": "Western Sahara Summer Time",
+    "offset_display_text": "UTC +01:00",
+    "offset_text": "+01:00",
+    "offset_text_clean": "+0100",
+    "offset_minutes": 60
+  }
+]
