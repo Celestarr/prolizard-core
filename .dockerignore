@@ -2,7 +2,6 @@
 /.idea
 /.vscode
 /dev
-/docker
 /docs
 /venv
 /.bandit.yml

@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from confetti.apps.core import models
 from confetti.apps.core.models import TimeStampedModel
 
 
