@@ -2,7 +2,7 @@ from django.db import IntegrityError, transaction
 from django.utils.translation import gettext
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.exceptions import APIException, NotFound, PermissionDenied
+from rest_framework.exceptions import APIException, NotFound, PermissionDenied, ValidationError
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
@@ -79,6 +79,8 @@ class MemberViewSet(ModelViewSet):
         except kafka.errors.MessageNotSent as e:
             print(e)
             raise APIException(gettext("Something went wrong."))
+        except ValidationError as e:
+            raise e
         except IntegrityError as e:
             print(e)
             raise APIException(gettext("Something went wrong."))

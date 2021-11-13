@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from confetti.apps.core.models import TimeStampedModel
+from confetti.apps.member.constants import UI_MODE_DARK, UI_MODE_LIGHT, UI_MODE_SYSTEM
 
 
 def get_default_resume_template():
@@ -14,7 +15,12 @@ def get_default_resume_template():
 
 class MemberPreference(TimeStampedModel):
     user = models.OneToOneField("core.User", on_delete=models.CASCADE, related_name="member_preference")
-    web_app_dark_mode = models.BooleanField(blank=True, default=False)
+    UI_MODE_CHOICES = (
+        (UI_MODE_DARK, UI_MODE_DARK),
+        (UI_MODE_LIGHT, UI_MODE_LIGHT),
+        (UI_MODE_SYSTEM, UI_MODE_SYSTEM),
+    )
+    ui_mode = models.CharField(blank=True, choices=UI_MODE_CHOICES, max_length=20, default=UI_MODE_SYSTEM)
     portfolio_template = models.ForeignKey(
         "PortfolioTemplate", null=True, on_delete=models.SET_NULL, related_name="member_preference_set"
     )
