@@ -15,11 +15,12 @@ from confetti.apps.core.serializers import (
     TimeZoneSerializer,
 )
 from confetti.apps.core.viewsets import ModelViewSet
-from confetti.apps.member.models import EmploymentType, LanguageProficiencyLevel, SkillProficiencyLevel
+from confetti.apps.member.models import EmploymentType, LanguageProficiencyLevel, SkillProficiencyLevel, ResumeTemplate
 from confetti.apps.member.serializers import (
     EmploymentTypeSerializer,
     LanguageProficiencyLevelSerializer,
     SkillProficiencyLevelSerializer,
+    ResumeTemplateSerializer
 )
 
 
@@ -47,6 +48,7 @@ class MetadataViewSet(ModelViewSet):
             LanguageProficiencyLevel.objects.all(), many=True
         ).data
         skill_proficiency_levels = SkillProficiencyLevelSerializer(SkillProficiencyLevel.objects.all(), many=True).data
+        resume_templates = ResumeTemplateSerializer(ResumeTemplate.objects.all(), many=True).data
 
         return Response(
             {
@@ -56,6 +58,7 @@ class MetadataViewSet(ModelViewSet):
                 "genders": genders,
                 "employment_types": employment_types,
                 "language_proficiency_levels": language_proficiency_levels,
+                "resume_templates": resume_templates,
                 "skill_proficiency_levels": skill_proficiency_levels,
             }
         )

@@ -24,6 +24,7 @@ from .profile_section import (
     WorkExperienceSerializerForResumeTemplate,
     WorkExperienceWriteOnlySerializer,
 )
+from .template import ResumeTemplateSerializer
 
 __all__ = [
     "EmploymentTypeSerializer",
@@ -56,4 +57,5 @@ __all__ = [
     "WorkExperienceSerializerForResumeTemplate",
     "WebLinkSerializerForResumeTemplate",
     "MemberProfileSerializerForResumeTemplate",
+    "ResumeTemplateSerializer",
 ]
