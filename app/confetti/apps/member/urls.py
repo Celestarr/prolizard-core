@@ -33,6 +33,4 @@ router.register(r"profile-sections/web-links", WebLinkViewSet)
 router.register(r"profile-sections/work-experiences", WorkExperienceViewSet)
 router.register(r"", MemberViewSet)
 
-urlpatterns = [
-    *router.urls,
-]
+urlpatterns = router.urls

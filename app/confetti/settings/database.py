@@ -2,12 +2,12 @@ from os import getenv
 
 DATABASES = {
     "default": {
-        "NAME": getenv("DB_NAME"),
+        "NAME": getenv("RDS_DB_NAME") or getenv("DB_NAME"),
         "ENGINE": "django.db.backends.postgresql",
-        "USER": getenv("DB_USER"),
-        "PASSWORD": getenv("DB_PASSWORD"),
-        "HOST": getenv("DB_HOST"),
-        "PORT": getenv("DB_PORT"),
+        "USER": getenv("RDS_USERNAME") or getenv("DB_USER"),
+        "PASSWORD": getenv("RDS_PASSWORD") or getenv("DB_PASSWORD"),
+        "HOST": getenv("RDS_HOSTNAME") or getenv("DB_HOST"),
+        "PORT": getenv("RDS_PORT") or getenv("DB_PORT"),
     }
 }
 

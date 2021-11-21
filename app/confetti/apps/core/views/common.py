@@ -15,12 +15,12 @@ from confetti.apps.core.serializers import (
     TimeZoneSerializer,
 )
 from confetti.apps.core.viewsets import ModelViewSet
-from confetti.apps.member.models import EmploymentType, LanguageProficiencyLevel, SkillProficiencyLevel, ResumeTemplate
+from confetti.apps.member.models import EmploymentType, LanguageProficiencyLevel, ResumeTemplate, SkillProficiencyLevel
 from confetti.apps.member.serializers import (
     EmploymentTypeSerializer,
     LanguageProficiencyLevelSerializer,
+    ResumeTemplateSerializer,
     SkillProficiencyLevelSerializer,
-    ResumeTemplateSerializer
 )
 
 
@@ -64,4 +64,19 @@ class MetadataViewSet(ModelViewSet):
         )
 
 
-__all__ = ["MetadataViewSet", "NotFoundView"]
+class HealthViewSet(ModelViewSet):
+    permission_classes_by_action = {}
+    permission_classes = (AllowAny,)
+    http_method_names = ["get", "head", "options"]
+
+    def list(self, request, *args, **kwargs):
+        del request, args, kwargs
+
+        return Response(
+            {
+                "alive": True,
+            }
+        )
+
+
+__all__ = ["MetadataViewSet", "NotFoundView", "HealthViewSet"]
