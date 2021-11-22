@@ -13,7 +13,7 @@ ALLOWED_HOSTS = [host for host in getenv("ALLOWED_HOSTS", "").split(",") if host
 EC2_PRIVATE_IP = None
 
 try:
-    EC2_PRIVATE_IP = requests.get('http://169.254.169.254/latest/meta-data/local-ipv4', timeout=5).text.strip()
+    EC2_PRIVATE_IP = requests.get("http://169.254.169.254/latest/meta-data/local-ipv4", timeout=5).text.strip()
 except requests.exceptions.RequestException:
     pass
 

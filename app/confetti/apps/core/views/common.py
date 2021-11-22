@@ -64,19 +64,4 @@ class MetadataViewSet(ModelViewSet):
         )
 
 
-class HealthViewSet(ModelViewSet):
-    permission_classes_by_action = {}
-    permission_classes = (AllowAny,)
-    http_method_names = ["get", "head", "options"]
-
-    def list(self, request, *args, **kwargs):
-        del request, args, kwargs
-
-        return Response(
-            {
-                "alive": True,
-            }
-        )
-
-
-__all__ = ["MetadataViewSet", "NotFoundView", "HealthViewSet"]
+__all__ = ["MetadataViewSet", "NotFoundView"]
