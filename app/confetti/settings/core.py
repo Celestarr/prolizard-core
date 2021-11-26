@@ -33,9 +33,13 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [host for host in getenv("CORS_ALLOWED_ORIGINS", "").split(",") if host]
 
+SESSION_COOKIE_DOMAIN = getenv("SESSION_COOKIE_DOMAIN")
+
 SESSION_COOKIE_SECURE = getenv("SESSION_COOKIE_SECURE", "false").lower() == "true"
 
-SESSION_COOKIE_DOMAIN = getenv("SESSION_COOKIE_DOMAIN")
+CSRF_COOKIE_DOMAIN = getenv("CSRF_COOKIE_DOMAIN")
+
+CSRF_COOKIE_SECURE = getenv("CSRF_COOKIE_SECURE", "false").lower() == "true"
 
 # External urls
 
