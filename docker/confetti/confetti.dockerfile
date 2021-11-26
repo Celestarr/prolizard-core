@@ -8,7 +8,7 @@ RUN apt-get install -y gettext
 
 # Copy docker entrypoint script to appropriate location, give execute
 # permissions.
-COPY docker/scripts/entrypoint.sh /usr/local/sbin/
+COPY docker/confetti/entrypoint.sh /usr/local/sbin/
 RUN chmod a+x /usr/local/sbin/entrypoint.sh
 
 WORKDIR /confetti/

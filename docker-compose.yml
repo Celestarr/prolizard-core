@@ -1,6 +1,14 @@
 version: "3.8"
 
 services:
+  fluentd:
+    container_name: myfolab_confetti_dev_fluentd
+    build:
+      context: .
+      dockerfile: docker/fluentd/fluentd.dockerfile
+    volumes:
+      - ./docker/fluentd/fluent.conf:/fluentd/etc/fluent.conf
+
   db:
     container_name: myfolab_confetti_dev_db
     image: postgres:13.4
@@ -46,12 +54,13 @@ services:
     container_name: myfolab_confetti_dev
     build:
       context: .
-      dockerfile: docker/confetti.dockerfile
+      dockerfile: docker/confetti/confetti.dockerfile
     env_file:
       - .env
     depends_on:
       - db
       - passage
+      - fluentd
       # - kafka
     volumes:
       - .:/confetti

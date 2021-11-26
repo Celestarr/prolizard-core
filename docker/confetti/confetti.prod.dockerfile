@@ -9,10 +9,10 @@ RUN apt-get install -y gettext
 
 # Copy docker entrypoint script to appropriate location, give execute
 # permissions.
-COPY docker/scripts/entrypoint.prod.sh /usr/local/sbin/entrypoint.sh
+COPY docker/confetti/entrypoint.prod.sh /usr/local/sbin/entrypoint.sh
 RUN chmod a+x /usr/local/sbin/entrypoint.sh
 
-COPY docker/configs/gunicorn.prod.conf.py /etc/gunicorn.conf.py
+COPY docker/confetti/gunicorn.prod.conf.py /etc/gunicorn.conf.py
 
 COPY . /confetti/
 
