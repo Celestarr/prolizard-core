@@ -1,5 +1,11 @@
 from django.urls import path
 
-from .views import DownloadResumeView
+from .views import DownloadResumeViewSet
 
-urlpatterns = [path("member-resume/<str:member_username>/", DownloadResumeView.as_view())]
+from rest_framework.routers import SimpleRouter
+
+router = SimpleRouter()
+
+router.register(r'member-resume', DownloadResumeViewSet, basename='store-member-resume')
+
+urlpatterns = router.urls

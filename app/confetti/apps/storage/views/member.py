@@ -1,25 +1,23 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
-from django.http.response import Http404
-from django.shortcuts import redirect
-from django.views.generic import ListView
-
+from rest_framework.response import Response
 from confetti.apps.core.models import User
 from confetti.apps.storage.models import MemberResume
 from confetti.services import passage
-from confetti.utils import hash_string
+from confetti.utils import hash_string, aws_s3_create_presigned_url
+from confetti.apps.core.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated
 
+class DownloadResumeViewSet(ModelViewSet):
+    permission_classes_by_action = {}
+    permission_classes = (IsAuthenticated,)
+    http_method_names = ["get", "head", "options"]
+    queryset = User.objects.all()
+    lookup_field = 'username'
 
-class DownloadResumeView(LoginRequiredMixin, ListView):
-    def get(self, request, *args, **kwargs):
-        del request, args
+    def retrieve(self, request, *args, **kwargs):
+        del request, args, kwargs
 
-        member_username = kwargs["member_username"]
-
-        try:
-            member = User.objects.get(username=member_username)
-        except User.DoesNotExist:
-            raise Http404()
+        member = self.get_object()
 
         try:
             resume = MemberResume.objects.get(member=member)
@@ -31,18 +29,24 @@ class DownloadResumeView(LoginRequiredMixin, ListView):
         if not resume.download_url or resume.version != current_version:
             with transaction.atomic():
                 # Acquire db-level lock to make sure only one of many request is
-                # updating download url and version
+                # updating download url and version.
                 resume = MemberResume.objects.select_for_update().get(member=member)
 
                 # Check pre-condition again because it's possible for columns
-                # to be changed by others during lock-acquiring period
+                # to be changed by others during lock-acquiring period.
                 if not resume.download_url or resume.version != current_version:
                     res = passage.make_member_resume(member, current_version)
                     resume.download_url = res["downloadUrl"]
                     resume.version = current_version
                     resume.save()
+                else:
+                    # Reload the object in the event of an update during
+                    # lock acquiring period.
+                    resume = MemberResume.objects.get(member=member)
 
-        return redirect(resume.download_url)
+        return Response({
+            'download_url': aws_s3_create_presigned_url(resume.download_url, expiration=600),
+        })
 
 
-__all__ = ["DownloadResumeView"]
+__all__ = ["DownloadResumeViewSet"]

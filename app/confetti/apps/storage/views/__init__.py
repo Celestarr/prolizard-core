@@ -1,3 +1,3 @@
-from .member import DownloadResumeView
+from .member import DownloadResumeViewSet
 
-__all__ = ["DownloadResumeView"]
+__all__ = ["DownloadResumeViewSet"]

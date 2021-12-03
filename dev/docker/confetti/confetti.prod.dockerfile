@@ -18,10 +18,8 @@ COPY . /confetti/
 
 WORKDIR /confetti/
 
-RUN python -m venv venv
-
-RUN . venv/bin/activate && python -m pip install --upgrade pip
-RUN . venv/bin/activate && pip install --requirement requirements.txt
+RUN python -m pip install --upgrade pip
+RUN pip install --requirement requirements.txt
 
 WORKDIR /confetti/app/
 

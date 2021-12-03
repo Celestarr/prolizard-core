@@ -63,9 +63,13 @@ services:
       - fluentd
       # - kafka
     volumes:
+      - ./.editorconfig:/confetti/.editorconfig:ro
+      - ./.git:/confetti/.git:ro
+      - ./.gitignore:/confetti/.gitignore:ro
+      - ./.vscoe:/confetti/.vscode
       - ./app:/confetti/app
       - ./data:/confetti/data:ro
+      - ./Makefile:/confetti/Makefile:ro
       - ./requirements.txt:/confetti/requirements.txt
-      - ./venv:/confetti/venv
     ports:
       - "0.0.0.0:8000:9901"
