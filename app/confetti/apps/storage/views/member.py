@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import transaction
 from django.http.response import Http404
 from django.shortcuts import redirect
 from django.views.generic import ListView
@@ -28,10 +29,18 @@ class DownloadResumeView(LoginRequiredMixin, ListView):
         current_version = hash_string(str(member.updated_at))
 
         if not resume.download_url or resume.version != current_version:
-            res = passage.make_member_resume(member, current_version)
-            resume.download_url = res["downloadUrl"]
-            resume.version = current_version
-            resume.save()
+            # Acquire db-level lock to make sure only one of many request is
+            # updating download url and version
+            resume = MemberResume.objects.select_for_update().filter(member=member)
+
+            with transaction.atomic():
+                # Check pre-condition again because it's possible for columns
+                # to be changed by others during lock-acquiring period
+                if not resume.download_url or resume.version != current_version:
+                    res = passage.make_member_resume(member, current_version)
+                    resume.download_url = res["downloadUrl"]
+                    resume.version = current_version
+                    resume.save()
 
         return redirect(resume.download_url)
 
