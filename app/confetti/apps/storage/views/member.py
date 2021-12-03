@@ -31,7 +31,7 @@ class DownloadResumeView(LoginRequiredMixin, ListView):
         if not resume.download_url or resume.version != current_version:
             # Acquire db-level lock to make sure only one of many request is
             # updating download url and version
-            resume = MemberResume.objects.select_for_update().filter(member=member)
+            resume = MemberResume.objects.select_for_update().get(member=member)
 
             with transaction.atomic():
                 # Check pre-condition again because it's possible for columns
