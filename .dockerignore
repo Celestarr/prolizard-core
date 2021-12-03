@@ -1,21 +1,6 @@
-/.github
-/.idea
-/.vscode
-/dev
-/docs
-/venv
-/.bandit.yml
-/.editorconfig
-/.env
-/.env.sample
-/.flake8
-/.pylintrc
-/docker-compose.yml
-/Makefile
-/pyproject.toml
-/README.md
+**
 
-**/*.pyc
-**/*.pyd
-**/*.pyo
-**/__pycache__
+!app
+!data
+!dev
+!requirements.txt

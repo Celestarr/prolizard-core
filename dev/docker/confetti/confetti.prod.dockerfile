@@ -9,17 +9,19 @@ RUN apt-get install -y gettext
 
 # Copy docker entrypoint script to appropriate location, give execute
 # permissions.
-COPY docker/confetti/entrypoint.prod.sh /usr/local/sbin/entrypoint.sh
+COPY dev/docker/confetti/entrypoint.prod.sh /usr/local/sbin/entrypoint.sh
 RUN chmod a+x /usr/local/sbin/entrypoint.sh
 
-COPY docker/confetti/gunicorn.prod.conf.py /etc/gunicorn.conf.py
+COPY dev/docker/confetti/gunicorn.prod.conf.py /etc/gunicorn.conf.py
 
 COPY . /confetti/
 
 WORKDIR /confetti/
 
-RUN python -m pip install --user --upgrade pip
-RUN pip install --requirement requirements.txt
+RUN python -m venv venv
+
+RUN . venv/bin/activate && python -m pip install --upgrade pip
+RUN . venv/bin/activate && pip install --requirement requirements.txt
 
 WORKDIR /confetti/app/
 

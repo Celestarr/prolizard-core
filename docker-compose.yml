@@ -2,22 +2,22 @@ version: "3.8"
 
 services:
   fluentd:
-    container_name: myfolab_confetti_dev_fluentd
+    container_name: myfo__confetti__fluentd
     build:
       context: .
-      dockerfile: docker/fluentd/fluentd.dockerfile
+      dockerfile: dev/docker/fluentd/fluentd.dockerfile
     volumes:
-      - ./docker/fluentd/fluent.conf:/fluentd/etc/fluent.conf
+      - ./dev/docker/fluentd/fluent.conf:/fluentd/etc/fluent.conf
 
   db:
-    container_name: myfolab_confetti_dev_db
+    container_name: myfo__confetti__db
     image: postgres:13.4
     environment:
       - "POSTGRES_DB=myfolab_confetti_dev"
       - "POSTGRES_PASSWORD=postgres"
 
   adminer:
-    container_name: myfolab_confetti_dev_adminer
+    container_name: myfo__confetti__adminer
     image: adminer:4.8.1
     ports:
       - "0.0.0.0:8080:8080"
@@ -47,14 +47,14 @@ services:
   #     - zookeeper
 
   passage:
-    container_name: myfolab_confetti_dev_passage
+    container_name: myfo__confetti__passage
     image: myfolab/passage:latest
 
   confetti:
-    container_name: myfolab_confetti_dev
+    container_name: myfo__confetti
     build:
       context: .
-      dockerfile: docker/confetti/confetti.dockerfile
+      dockerfile: dev/docker/confetti/confetti.dockerfile
     env_file:
       - .env
     depends_on:
@@ -63,6 +63,9 @@ services:
       - fluentd
       # - kafka
     volumes:
-      - .:/confetti
+      - ./app:/confetti/app
+      - ./data:/confetti/data:ro
+      - ./requirements.txt:/confetti/requirements.txt
+      - ./venv:/confetti/venv
     ports:
       - "0.0.0.0:8000:9901"

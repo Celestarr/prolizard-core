@@ -1,6 +1,10 @@
 #!/bin/bash
 
-python -m pip install --user --upgrade pip
+python -m venv --clear venv
+
+source venv/bin/activate
+
+python -m pip install --upgrade pip
 pip install --requirement requirements.txt
 
 cd app
