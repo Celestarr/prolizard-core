@@ -1,6 +1,6 @@
 **
 
-!app
-!data
-!dev
-!requirements.txt
+!/app/**
+!/data/**
+!/dev/**
+!/requirements.txt
