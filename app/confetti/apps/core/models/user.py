@@ -19,7 +19,13 @@ class User(AbstractUser, TimeStampedModel):
 
     about = models.CharField(blank=True, max_length=1000, null=True)
     address = models.CharField(blank=True, max_length=250, null=True)
-    country = models.ForeignKey("Country", blank=True, null=True, on_delete=models.SET_NULL, related_name="user_set")
+    country = models.ForeignKey(
+        "Country",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="user_set",
+    )
     date_of_birth = models.DateField(blank=True, null=True)
     email = models.EmailField(
         _("email address"),
@@ -38,7 +44,13 @@ class User(AbstractUser, TimeStampedModel):
         max_length=settings.FIELD_META["first_name"]["max_length"],
         validators=[MinLengthValidator(settings.FIELD_META["first_name"]["min_length"])],
     )
-    gender = models.ForeignKey("Gender", blank=True, null=True, on_delete=models.SET_NULL, related_name="user_set")
+    gender = models.ForeignKey(
+        "Gender",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="user_set",
+    )
     headline = models.CharField(blank=True, max_length=250, null=True)
     is_active = models.BooleanField(
         _("active"),

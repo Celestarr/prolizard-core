@@ -14,10 +14,25 @@ class UserAdmin(BaseUserAdmin):
         (
             _("Permissions"),
             {
-                "fields": ("is_active", "is_staff", "is_superuser", "groups", "user_permissions"),
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                ),
             },
         ),
         # (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
-    list_display = ("id", "username", "email", "first_name", "last_name", "is_active", "is_staff", "updated_at")
+    list_display = (
+        "id",
+        "username",
+        "email",
+        "first_name",
+        "last_name",
+        "is_active",
+        "is_staff",
+        "updated_at",
+    )
     ordering = ("-id",)

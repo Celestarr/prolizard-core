@@ -1,3 +1,5 @@
+from django.db.models import Q
+from django.http import Http404
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -7,24 +9,78 @@ from confetti.apps.core.permissions import IsObjectOwner
 
 
 class ModelViewSet(BaseModelViewSet):
-    permission_classes_by_action = {
-        "create": [IsAuthenticated],
-        "destroy": [IsAuthenticated, IsObjectOwner],
-        "list": [IsAuthenticated],
-        "retrieve": [IsAuthenticated, IsObjectOwner],
-        "partial_update": [IsAuthenticated, IsObjectOwner],
-        "update": [IsAuthenticated, IsObjectOwner],
-    }
-    write_only_serializer_class = None
+    # permission_classes_by_action = {
+    #     "create": [IsAuthenticated],
+    #     "destroy": [IsAuthenticated, IsObjectOwner],
+    #     "list": [IsAuthenticated],
+    #     "retrieve": [IsAuthenticated, IsObjectOwner],
+    #     "partial_update": [IsAuthenticated, IsObjectOwner],
+    #     "update": [IsAuthenticated, IsObjectOwner],
+    # }
+    permission_classes_by_action = None
+
+    # Serializer to be used when performing creation/update.
+    # A value of none indicates that default `serializer_class` will be used
+    #   for everything (retrieval, creation and updates).
+    serializer_class_write_only = None
+
+    # Holds the updated object after `perform_update` is called.
     updated_instance = None
 
+    # List of lookup fields, e.g. ["pk", "username", "email"]
+    # If default `lookup_field` is not enough and it is required to
+    #   match object against multiple fields, use this.
+    # A value of None indicates that default `lookup_field` will be used.
+    lookup_fields = None
+
+    # List of allowed actions, e.g. ["list", "retrieve"]
+    # A value of None indicates that all actions are allowed.
+    allowed_actions = None
+
+    def check_permissions(self, request):
+        if self.allowed_actions and self.action not in self.allowed_actions:
+            raise Http404
+
+        return super().check_permissions(request)
+
     def get_permissions(self):
-        try:
-            # return permission_classes depending on `action`
-            return [permission() for permission in self.permission_classes_by_action[self.action]]
-        except KeyError:
-            # action is not set return default permission_classes
-            return [permission() for permission in self.permission_classes]
+        if self.permission_classes_by_action is not None:
+            return [permission() for permission in self.permission_classes_by_action.get(self.action, [])]
+
+        return super().get_permissions()
+
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
+
+        assert lookup_url_kwarg in self.kwargs, (
+            "Expected view %s to be called with a URL keyword argument "
+            'named "%s". Fix your URL conf, or set the `.lookup_field` '
+            "attribute on the view correctly." % (self.__class__.__name__, lookup_url_kwarg)
+        )
+
+        if self.lookup_fields:
+            filters = None
+
+            for item in self.lookup_fields:
+                if not filters:
+                    filters = Q(**{item: self.kwargs[lookup_url_kwarg]})
+                else:
+                    filters |= Q(**{item: self.kwargs[lookup_url_kwarg]})
+
+            obj = queryset.filter(filters).first()
+        else:
+            filter_kwargs = {self.lookup_field: self.kwargs[lookup_url_kwarg]}
+            obj = queryset.filter(**filter_kwargs).first()
+
+        if not obj:
+            raise Http404
+
+        # May raise a permission denied
+        self.check_object_permissions(self.request, obj)
+
+        return obj
 
     def get_write_only_serializer(self, *args, **kwargs):
         """
@@ -39,8 +95,8 @@ class ModelViewSet(BaseModelViewSet):
         """
         Return the class to use for the serializer.
         """
-        if write_only and self.write_only_serializer_class is not None:
-            return self.write_only_serializer_class
+        if write_only and self.serializer_class_write_only is not None:
+            return self.serializer_class_write_only
         else:
             assert self.serializer_class is not None, (  # nosec
                 "'%s' should either include a `serializer_class` attribute, "

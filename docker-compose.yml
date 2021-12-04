@@ -70,6 +70,7 @@ services:
       - ./app:/confetti/app
       - ./data:/confetti/data:ro
       - ./Makefile:/confetti/Makefile:ro
+      - ./pyproject.toml:/confetti/pyproject.toml:ro
       - ./requirements.txt:/confetti/requirements.txt
     ports:
       - "0.0.0.0:8000:9901"

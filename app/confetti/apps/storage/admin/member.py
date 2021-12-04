@@ -8,7 +8,13 @@ from ..models import MemberResume
 
 @admin.register(MemberResume)
 class MemberResumeAdmin(admin.ModelAdmin):
-    list_display = ("id", "link_to_edit_member", "download_url", "version", "updated_at")
+    list_display = (
+        "id",
+        "link_to_edit_member",
+        "download_url",
+        "version",
+        "updated_at",
+    )
     ordering = ("-id",)
 
     def link_to_edit_member(self, obj):

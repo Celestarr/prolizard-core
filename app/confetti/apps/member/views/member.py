@@ -22,21 +22,28 @@ from confetti.services import kafka
 
 class MemberViewSet(ModelViewSet):
     serializer_class = UserSerializer
-    write_only_serializer_class = UserWriteOnlySerializer
+    serializer_class_write_only = UserWriteOnlySerializer
     queryset = User.objects.all()
     permission_classes_by_action = {
-        "create": [AllowAny],
-        "destroy": [IsAuthenticated, IsObjectOwner],
-        "list": [IsAuthenticated],
         "retrieve": [IsAuthenticated, IsObjectOwner],
-        "update": [IsAuthenticated, IsObjectOwner],
-        "retrieve_profile_by_username": [AllowAny],
         "me": [IsAuthenticated],
-        "generate_resume": [IsAuthenticated],
         "preferences": [IsAuthenticated],
     }
+    lookup_fields = ["username", "pk"]
+    allowed_actions = ['retrieve', 'me', 'preferences']
 
-    @action(detail=False, methods=["get", "patch"], url_name="retrieve-or-update-current-user")
+    def retrieve(self, request, *args, **kwargs):
+        del request, args, kwargs
+
+        instance = self.get_object()
+        serializer = MemberProfileExtendedSerializer(instance)
+        return Response(serializer.data)
+
+    @action(
+        detail=False,
+        methods=["get", "patch"],
+        url_name="retrieve-or-update-current-user",
+    )
     def me(self, request):
         user = request.user
         extended_profile = None
@@ -54,7 +61,10 @@ class MemberViewSet(ModelViewSet):
 
                     return partial_update_res
         except kafka.errors.MessageNotSent:
-            return Response({"detail": gettext("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(
+                {"detail": gettext("Something went wrong.")},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
         return Response(extended_profile if extended_profile else MemberProfileExtendedSerializer(user).data)
 
@@ -87,56 +97,6 @@ class MemberViewSet(ModelViewSet):
         except Exception as ex:
             print(ex)
             raise APIException(gettext("Something went wrong."))
-
-    @action(
-        detail=False, methods=["get"], url_name="retrieve-profile-by-username", url_path="profile/(?P<username>.+)"
-    )
-    def retrieve_profile_by_username(self, request, username):
-        del request
-
-        try:
-            user = User.objects.get(username=username)
-            return Response(MemberProfileExtendedSerializer(user).data)
-        except User.DoesNotExist:
-            raise NotFound(gettext("Member profile not found."))
-
-    # @action(
-    #     detail=False,
-    #     methods=["get"],
-    #     url_name="generate-resume-by-username",
-    #     url_path="generate-resume/(?P<username>.+)",
-    # )
-    # def generate_resume(self, _, username):
-    #     response_data = {}
-    #     response_content_type = "application/json"
-    #     response_status_code = status.HTTP_200_OK
-    #     resume_generator_endpoint = urljoin(settings.PDF_GENERATOR_URL, "generate-resume")
-    #     try:
-    #         user = User.objects.filter(username=username)
-    #         if user:
-    #             user_data = UserExtendedSerializer(user[0]).data
-    #             resume_generator_payload = {
-    #                 "user": user_data,
-    #             }
-    #             res = requests.post(resume_generator_endpoint, json=resume_generator_payload)
-    #             if res.ok:
-    #                 response_data = res.content
-    #                 response_content_type = "application/pdf"
-    #             else:
-    #                 response_data["detail"] = "Could not generate resume."
-    #                 response_status_code = status.HTTP_502_BAD_GATEWAY
-    #         else:
-    #             response_data["detail"] = "User not found."
-    #             response_status_code = status.HTTP_404_NOT_FOUND
-    #     except Exception as ex:
-    #         print(ex)
-    #         response_data["detail"] = str(ex)
-    #         response_status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
-    #     finally:
-    #         if response_content_type == "application/json":
-    #             return Response(response_data, status=response_status_code)
-    #         else:
-    #             return HttpResponse(response_data, content_type=response_content_type, status=response_status_code)
 
 
 __all__ = ["MemberViewSet"]

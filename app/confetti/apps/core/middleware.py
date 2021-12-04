@@ -40,6 +40,9 @@ def global_exception_handler(exc, context):
             "message": custom_error_message,
         }
     else:
-        response = Response({"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        response = Response(
+            {"message": _("Something went wrong.")},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
 
     return response

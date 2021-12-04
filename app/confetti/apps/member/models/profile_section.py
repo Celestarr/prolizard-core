@@ -46,7 +46,9 @@ class AcademicRecord(TimeStampedModel):
 class Skill(TimeStampedModel):
     name = models.CharField(_("name of skill"), blank=True, max_length=150)
     proficiency = models.ForeignKey(
-        SkillProficiencyLevel, on_delete=models.CASCADE, related_name="proficiency_skill_set"
+        SkillProficiencyLevel,
+        on_delete=models.CASCADE,
+        related_name="proficiency_skill_set",
     )
     user = models.ForeignKey("core.User", on_delete=models.CASCADE, related_name="member_skill_set")
 
@@ -69,7 +71,9 @@ class WorkExperience(TimeStampedModel):
     company = models.CharField(_("company"), blank=True, max_length=150)
     description = models.TextField(_("additional information"), blank=True, default=None, null=True)
     employment_type = models.ForeignKey(
-        EmploymentType, on_delete=models.CASCADE, related_name="employment_type_work_experience_set"
+        EmploymentType,
+        on_delete=models.CASCADE,
+        related_name="employment_type_work_experience_set",
     )
     end_date = models.DateField(_("end date"), blank=True, default=None, null=True)
     is_ongoing = models.BooleanField(_("currently working"), blank=True, default=False)
@@ -104,7 +108,9 @@ class WorkExperience(TimeStampedModel):
 class Language(TimeStampedModel):
     name = models.CharField(_("name of language"), blank=True, max_length=100)
     proficiency = models.ForeignKey(
-        LanguageProficiencyLevel, on_delete=models.CASCADE, related_name="proficiency_language_set"
+        LanguageProficiencyLevel,
+        on_delete=models.CASCADE,
+        related_name="proficiency_language_set",
     )
     user = models.ForeignKey("core.User", on_delete=models.CASCADE, related_name="member_language_set")
 

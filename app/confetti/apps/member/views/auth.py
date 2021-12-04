@@ -111,10 +111,16 @@ class MemberSignUpViewSet(CreateModelMixin, GenericViewSet):
                 self.perform_create(serializer)
         except (IntegrityError, ValidationError) as e:
             print(e)
-            return Response({"detail": gettext("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(
+                {"detail": gettext("Something went wrong.")},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
         except Exception as e:
             print(e)
-            return Response({"detail": gettext("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(
+                {"detail": gettext("Something went wrong.")},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
         if EMAIL_CONFIRMATION_REQUIRED:
             return Response({"message": gettext("Signed up successfully. Please confirm your email to continue.")})
@@ -146,7 +152,8 @@ class MemberSignInViewSet(CreateModelMixin, GenericViewSet):
         sign_in_serializer.is_valid(raise_exception=True)
 
         user = authenticate(
-            email=sign_in_serializer.validated_data["email"], password=sign_in_serializer.validated_data["password"]
+            email=sign_in_serializer.validated_data["email"],
+            password=sign_in_serializer.validated_data["password"],
         )
 
         if not user:
@@ -200,7 +207,10 @@ class MemberConfirmEmailViewSet(CreateModelMixin, GenericViewSet):
         except UserEmail.DoesNotExist:
             raise ParseError(detail=_("Confirmation key might be invalid for this user."))
         except (IntegrityError, ValidationError):
-            return Response({"detail": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(
+                {"detail": _("Something went wrong.")},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
         return Response({"message": _("Email confirmed successfully.")})
 
@@ -229,4 +239,9 @@ class MemberSignOutViewSet(CreateModelMixin, GenericViewSet):
         return Response({"message": _("Signed out successfully.")})
 
 
-__all__ = ["MemberConfirmEmailViewSet", "MemberSignInViewSet", "MemberSignUpViewSet", "MemberSignOutViewSet"]
+__all__ = [
+    "MemberConfirmEmailViewSet",
+    "MemberSignInViewSet",
+    "MemberSignUpViewSet",
+    "MemberSignOutViewSet",
+]

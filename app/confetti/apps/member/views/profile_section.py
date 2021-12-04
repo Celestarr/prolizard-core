@@ -33,7 +33,7 @@ class AcademicRecordViewSet(ProfileSectionViewSet):
 
 class SkillViewSet(ProfileSectionViewSet):
     serializer_class = SkillSerializer
-    write_only_serializer_class = SkillWriteOnlySerializer
+    serializer_class_write_only = SkillWriteOnlySerializer
     queryset = Skill.objects.all()
 
 
@@ -44,13 +44,13 @@ class WebLinkViewSet(ProfileSectionViewSet):
 
 class WorkExperienceViewSet(ProfileSectionViewSet):
     serializer_class = WorkExperienceSerializer
-    write_only_serializer_class = WorkExperienceWriteOnlySerializer
+    serializer_class_write_only = WorkExperienceWriteOnlySerializer
     queryset = WorkExperience.objects.all()
 
 
 class LanguageViewSet(ProfileSectionViewSet):
     serializer_class = LanguageSerializer
-    write_only_serializer_class = LanguageWriteOnlySerializer
+    serializer_class_write_only = LanguageWriteOnlySerializer
     queryset = Language.objects.all()
 
 

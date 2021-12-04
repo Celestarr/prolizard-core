@@ -1,10 +1,16 @@
 from rest_framework.permissions import BasePermission, IsAuthenticated
 
+from confetti.apps.core.models import User
+
 
 class IsObjectOwner(BasePermission):
     def has_object_permission(self, request, view, obj):
         del view
-        return request.user == obj.user
+
+        if isinstance(obj, User):
+            return request.user == obj
+
+        return False
 
 
 class IsUnauthenticated(IsAuthenticated):

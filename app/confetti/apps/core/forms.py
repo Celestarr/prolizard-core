@@ -78,5 +78,7 @@ class AdminAuthenticationForm(AuthenticationForm):
         super().confirm_login_allowed(user)
         if not user.is_staff:
             raise ValidationError(
-                self.error_messages["invalid_login"], code="invalid_login", params={"email": "email"}
+                self.error_messages["invalid_login"],
+                code="invalid_login",
+                params={"email": "email"},
             )

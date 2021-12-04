@@ -22,7 +22,10 @@ class MemberPreference(TimeStampedModel):
     )
     ui_mode = models.CharField(blank=True, choices=UI_MODE_CHOICES, max_length=20, default=UI_MODE_SYSTEM)
     portfolio_template = models.ForeignKey(
-        "PortfolioTemplate", null=True, on_delete=models.SET_NULL, related_name="member_preference_set"
+        "PortfolioTemplate",
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="member_preference_set",
     )
     resume_template = models.ForeignKey(
         "ResumeTemplate",

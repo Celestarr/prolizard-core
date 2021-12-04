@@ -15,7 +15,10 @@ class PortfolioTemplate(TimeStampedModel):
 class ResumeTemplate(TimeStampedModel):
     name = models.CharField(_("name of template"), blank=True, max_length=100, unique=True)
     template_file_name = models.CharField(
-        _("name of file containing template definition"), blank=True, max_length=150, unique=True
+        _("name of file containing template definition"),
+        blank=True,
+        max_length=150,
+        unique=True,
     )
     puppeteer_config = models.JSONField(blank=True, default=dict)
 

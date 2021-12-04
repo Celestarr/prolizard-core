@@ -8,7 +8,10 @@ from .common import TimeStampedModel
 
 class UserEmail(TimeStampedModel):
     confirmation_key = models.OneToOneField(
-        "ConfirmationKey", on_delete=models.SET_NULL, null=True, related_name="user_email"
+        "ConfirmationKey",
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="user_email",
     )
     email = models.EmailField(
         _("email address"),

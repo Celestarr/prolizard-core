@@ -20,23 +20,14 @@ MyFoLab's primary backend service.
 Run the following commands to get your development services up and running:
 
 ```bash
-# Build and create docker containers.
-# Run only once (or after changing docker/entrypoint.sh or docker/confetti.dockerfile).
-CURRENT_USER=$(id -u):$(id -g) docker-compose up --build --no-start
+# Create a .env from provided sample
+cp .env.sample .env
 
-# Start containers.
-docker-compose start
-
-# Create database sequence.
-# Needed for user's username, which is auto generated on user creation.
-# Run once per docker build.
-docker exec -it myfolab_core_confetti_dev python app/manage.py create_db_sequence --name core_users_username_seq --start 100 --increment 3
-
-# Create a superuser.
-docker exec -it myfolab_core_confetti_dev python app/manage.py create_superuser --email <super_user_email> --password <super_user_password>
+# Start containers with docker compose
+docker-compose up
 ```
 
-Navigate to [localhost:8000/admin](http://localhost:8000/admin/) if everything ran successfully. Login with superuser credentials and you should be able to get into the admin panel.
+Navigate to [localhost:8000/admin](http://localhost:8000/admin/) if everything ran successfully. Login with superuser credentials (email: `su@myfolab.com`, password: `suadmin`) and you should be able to get into the admin panel.
 
 --
 
@@ -45,19 +36,13 @@ Navigate to [localhost:8000/admin](http://localhost:8000/admin/) if everything r
 Check source code issues and try to resolve them:
 
 ```bash
-docker exec -it myfolab_core_confetti_dev bandit -r .
-docker exec -it myfolab_core_confetti_dev flake8 .
-# Or
-make check
+docker exec -it myfo__confetti make check
 ```
 
 Finally format code:
 
 ```bash
-docker exec -it myfolab_core_confetti_dev black .
-docker exec -it myfolab_core_confetti_dev isort .
-# Or
-make fmt
+docker exec -it myfo__confetti make fmt
 ```
 
 Commit and push if everything is alright.
@@ -67,34 +52,34 @@ Commit and push if everything is alright.
 To install a new pip package:
 
 ```bash
-docker exec -it myfolab_core_confetti_dev pip install tox
+docker exec -it myfo__confetti pip install <new-package>
 ```
 
 Sync _requirements.txt_ after installing new packages:
 
 ```bash
-docker exec -it myfolab_core_confetti_dev pip freeze > requirements.txt
+docker exec -it myfo__confetti pip freeze > requirements.txt
 ```
 
 --
 
 Generate/Update Translation Files:
 ```bash
-docker exec -it myfolab_core_confetti_dev python app/manage.py makemessages --ignore "venv/**/*.py" --ignore "docker/**/*.py" --ignore "requirements.txt" --locale <locale_code>
+docker exec -it myfo__confetti python app/manage.py makemessages --ignore "venv/**/*.py" --ignore "dev/**/*.py" --ignore "requirements.txt" --locale <locale_code>
 ```
 
 --
 
 Generate Migrations:
 ```bash
-docker exec -it myfolab_core_confetti_dev python app/manage.py makemigrations
+docker exec -it myfo__confetti python app/manage.py makemigrations
 ```
 
 --
 
 Generate OpenAPI schema file:
 ```bash
-docker exec -it myfolab_core_confetti_dev python app/manage.py spectacular --file schema.yml
+docker exec -it myfo__confetti python app/manage.py spectacular --file schema.yml
 ```
 
 Visualize the schema using redoc:
