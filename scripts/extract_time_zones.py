@@ -7,6 +7,8 @@ import pandas as pd
 
 from utils import format_cell
 
+OUT_FILE = Path(__file__).parent.parent / "data/json/time_zones.json"
+
 
 def make_offsets(offset: str):
     numeric_part = None
@@ -55,17 +57,14 @@ def format_name(name: str):
 def main():
     url = "https://www.timeanddate.com/time/zones/"
     df = pd.read_html(url, header=0)[0]
-    data = {}
+    data = []
 
     for item in df.itertuples():
         abbr = format_cell(item[1])
         name = format_name(format_cell(item[2]))
         offset_display_text, offset_text, offset_text_clean, offset_minutes = make_offsets(format_cell(item[4]))
 
-        if offset_text_clean not in data:
-            data[offset_text_clean] = []
-
-        data[offset_text_clean].append(
+        data.append(
             {
                 "abbreviation": abbr,
                 "name": name,
@@ -76,13 +75,9 @@ def main():
             }
         )
 
-    for key in data.keys():
-        item = data[key]
-        src_file = Path(__file__).parent.parent / "data" / "json" / "time_zone" / "{}.json".format(key)
-
-        with src_file.open("w") as f:
-            f.write(json.dumps(item, indent=2))
-            f.write("\n")
+    with OUT_FILE.open("w+") as f:
+        f.write(json.dumps(data, indent=2))
+        f.write("\n")
 
 
 if __name__ == "__main__":

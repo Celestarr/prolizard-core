@@ -10,9 +10,6 @@ class Country(SmallTimeStampedModel):
     iso_3166_1_numeric_code = models.CharField(blank=True, max_length=10, unique=True)
     name = models.CharField(blank=True, max_length=150, unique=True)
     formal_name = models.CharField(blank=True, max_length=150, unique=True)
-    capital = models.CharField(blank=True, max_length=150, unique=True)
-    internet_tld = models.CharField(blank=True, max_length=10)
-    calling_code = models.CharField(blank=True, max_length=10)
 
     class Meta:
         verbose_name = _("country")

@@ -8,17 +8,23 @@ from confetti.apps.core.models import Currency
 
 
 def populate_currencies():
-    src_dir = settings.DATA_DIR / "json" / "currency"
+    src_file = settings.DATA_DIR / "json" / "currencies.json"
+    currencies = json.loads(src_file.read_text())
     new_items = []
 
-    for src_file in src_dir.iterdir():
-        item = json.loads(src_file.absolute().read_text().strip() or "{}")
+    for item in currencies:
         qs = Currency.objects.filter(iso_4217_code=item["iso_4217_code"])
+        payload = {
+            "iso_4217_code": item["iso_4217_code"],
+            "iso_4217_numeric_code": item["iso_4217_numeric_code"],
+            "name": item["name"],
+            "symbol": item["symbol"],
+        }
 
         if qs.exists():
-            qs.update(**item)
+            qs.update(**payload)
         else:
-            new_items.append(Currency(**item))
+            new_items.append(Currency(**payload))
 
     Currency.objects.bulk_create(new_items, ignore_conflicts=True)
 

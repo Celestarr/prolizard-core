@@ -4,29 +4,30 @@ from pathlib import Path
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from confetti.apps.core.models import Language, Locale
+from confetti.apps.core.models import SupportedLocale
 
 
 def populate_locales():
-    src_dir = settings.DATA_DIR / "json" / "locale"
+    src_file = settings.DATA_DIR / "json" / "locales.json"
+    supported_locales = json.loads(src_file.read_text())
     new_items = []
 
-    for src_file in src_dir.iterdir():
-        item = json.loads(src_file.absolute().read_text().strip() or "{}")
-        qs = Locale.objects.filter(locale_tag=item["locale_tag"])
-
-        try:
-            item["language"] = Language.objects.get(iso_639_2_code=item["iso_639_2_code"])
-            del item["iso_639_2_code"]
-        except Language.DoesNotExist:
-            continue
+    for item in supported_locales:
+        qs = SupportedLocale.objects.filter(locale_tag=item["locale_tag"])
+        payload = {
+            'locale_tag': item['locale_tag'],
+            'iso_639_1_code': item['iso_639_1_code'],
+            'iso_639_2_code': item['iso_639_2_code'],
+            'name': item['name'],
+            'native_name': item['native_name'],
+        }
 
         if qs.exists():
-            qs.update(**item)
+            qs.update(**payload)
         else:
-            new_items.append(Locale(**item))
+            new_items.append(SupportedLocale(**payload))
 
-    Locale.objects.bulk_create(new_items, ignore_conflicts=True)
+    SupportedLocale.objects.bulk_create(new_items, ignore_conflicts=True)
 
 
 class Command(BaseCommand):

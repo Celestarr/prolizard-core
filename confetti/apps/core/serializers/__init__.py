@@ -1,7 +1,7 @@
 from .country import CountrySerializer
 from .currency import CurrencySerializer
 from .gender import GenderSerializer
-from .language import LanguageSerializer, LocaleSerializer
+from .i18n import LocaleSerializer
 from .time_zone import TimeZoneSerializer
 from .user import UserSerializer, UserWriteOnlySerializer
 
@@ -10,7 +10,6 @@ __all__ = [
     "GenderSerializer",
     "UserSerializer",
     "UserWriteOnlySerializer",
-    "LanguageSerializer",
     "LocaleSerializer",
     "CurrencySerializer",
     "TimeZoneSerializer",

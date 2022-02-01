@@ -6,11 +6,10 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 
-from confetti.apps.core.models import Country, Gender, Language, Locale, TimeZone
+from confetti.apps.core.models import Country, Gender, SupportedLocale, TimeZone
 from confetti.apps.core.serializers import (
     CountrySerializer,
     GenderSerializer,
-    LanguageSerializer,
     LocaleSerializer,
     TimeZoneSerializer,
 )
@@ -40,7 +39,7 @@ class MetadataViewSet(ModelViewSet):
         del request, args, kwargs
 
         countries = CountrySerializer(Country.objects.all(), many=True).data
-        locales = LocaleSerializer(Locale.objects.all(), many=True).data
+        locales = LocaleSerializer(SupportedLocale.objects.all(), many=True).data
         time_zones = TimeZoneSerializer(TimeZone.objects.all(), many=True).data
         genders = GenderSerializer(Gender.objects.all(), many=True).data
         employment_types = EmploymentTypeSerializer(EmploymentType.objects.all(), many=True).data

@@ -8,7 +8,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         del args, options
 
-        call_command("populate_languages")
         call_command("populate_currencies")
         call_command("populate_locales")
         call_command("populate_time_zones")

@@ -1,0 +1,23 @@
+[
+  {
+    "locale_tag": "bn_BD",
+    "iso_639_1_code": "bn",
+    "iso_639_2_code": "ben",
+    "name": "Bengali (Bangladesh)",
+    "native_name": "বাংলা (বাংলাদেশ)"
+  },
+  {
+    "locale_tag": "en_GB",
+    "iso_639_1_code": "en",
+    "iso_639_2_code": "eng",
+    "name": "English (United Kingdom)",
+    "native_name": "English (United Kingdom)"
+  },
+  {
+    "locale_tag": "en_US",
+    "iso_639_1_code": "en",
+    "iso_639_2_code": "eng",
+    "name": "English (United States)",
+    "native_name": "English (United States)"
+  }
+]

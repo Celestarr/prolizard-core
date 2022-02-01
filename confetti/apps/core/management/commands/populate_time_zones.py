@@ -8,19 +8,25 @@ from confetti.apps.core.models import TimeZone
 
 
 def populate_time_zones():
-    src_dir = settings.DATA_DIR / "json" / "time_zone"
+    src_file = settings.DATA_DIR / "json" / "time_zones.json"
+    time_zones = json.loads(src_file.read_text())
     new_items = []
 
-    for src_file in src_dir.iterdir():
-        items = json.loads(src_file.absolute().read_text().strip() or "[]")
+    for item in time_zones:
+        qs = TimeZone.objects.filter(name=item["name"])
+        payload = {
+            "abbreviation": item["abbreviation"],
+            "name": item["name"],
+            "offset_display_text": item["offset_display_text"],
+            "offset_text": item["offset_text"],
+            "offset_text_clean": item["offset_text_clean"],
+            "offset_minutes": item["offset_minutes"],
+        }
 
-        for item in items:
-            qs = TimeZone.objects.filter(name=item["name"])
-
-            if qs.exists():
-                qs.update(**item)
-            else:
-                new_items.append(TimeZone(**item))
+        if qs.exists():
+            qs.update(**payload)
+        else:
+            new_items.append(TimeZone(**payload))
 
     TimeZone.objects.bulk_create(new_items, ignore_conflicts=True)
 

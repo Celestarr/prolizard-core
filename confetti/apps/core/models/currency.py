@@ -9,9 +9,6 @@ class Currency(SmallTimeStampedModel):
     iso_4217_numeric_code = models.CharField(blank=True, max_length=10, unique=True)
     name = models.CharField(blank=True, max_length=100, unique=True)
     symbol = models.CharField(blank=True, max_length=20)
-    major_unit = models.CharField(blank=True, max_length=50)
-    minor_unit = models.CharField(blank=True, max_length=50)
-    decimal_places = models.PositiveSmallIntegerField(blank=True, default=2)
 
     class Meta:
         verbose_name = _("currency")

@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 
+import pycountry
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
@@ -9,17 +10,26 @@ from confetti.apps.core.models import Country
 
 
 def populate_countries():
-    src_dir = settings.DATA_DIR / "json" / "territory"
     new_items = []
 
-    for src_file in src_dir.iterdir():
-        item = json.loads(src_file.absolute().read_text().strip() or "{}")
-        qs = Country.objects.filter(iso_3166_1_alpha_3_code=item["iso_3166_1_alpha_3_code"])
+    for item in pycountry.countries:
+        qs = Country.objects.filter(iso_3166_1_alpha_3_code=item.alpha_3)
+
+        payload = {
+            "iso_3166_1_alpha_2_code": item.alpha_2,
+            "iso_3166_1_alpha_3_code": item.alpha_3,
+            "iso_3166_1_numeric_code": item.numeric,
+            "name": item.name,
+
+            # Fallback to short/display name if official name is
+            # not provided.
+            "formal_name": getattr(item, 'official_name', item.name),
+        }
 
         if qs.exists():
-            qs.update(**item)
+            qs.update(**payload)
         else:
-            new_items.append(Country(**item))
+            new_items.append(Country(**payload))
 
     Country.objects.bulk_create(new_items, ignore_conflicts=True)
 
