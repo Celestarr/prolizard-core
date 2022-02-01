@@ -1,3 +1,16 @@
+# Dockerfile for multi-stage build.
+# Will be used by CI to generate final image.
+
+FROM node:16.12.0-bullseye
+
+RUN apt-get update && apt-get -y upgrade
+
+WORKDIR /project
+COPY ./ /project
+
+RUN yarn install --frozen-lockfile
+RUN yarn build
+
 FROM python:3.9.7-bullseye
 
 ENV PORT 9901
@@ -14,14 +27,12 @@ RUN chmod a+x /usr/local/sbin/entrypoint.sh
 
 COPY dev/docker/confetti/gunicorn.prod.conf.py /etc/gunicorn.conf.py
 
-COPY . /confetti/
+COPY --from=0 /project ./
 
-WORKDIR /confetti/
+WORKDIR /project/
 
 RUN python -m pip install --upgrade pip
 RUN pip install --requirement requirements.txt
-
-WORKDIR /confetti/app/
 
 EXPOSE 9901
 

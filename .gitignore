@@ -1,16 +1,17 @@
-# */**/static/*
-# !static/.gitkeep
-*/**/staticfiles/*
-!staticfiles/.gitkeep
-media/*
-!media/.gitkeep
+# Django artifacts
+/media/
+/static/
+/static_build/
+
 *.db
 *.log
 *.py[cod]
 *.sqlite3
 .env
-.idea
-.vscode
+
+/.idea
+/.vscode
+
 **/settings/local.py
 __pycache__
 pip-delete-this-directory.txt
@@ -19,4 +20,7 @@ venv
 schema*[.yml,.yaml]
 swagger*[.yml,.yaml]
 env
-.tox
+
+
+# Node.js
+node_modules

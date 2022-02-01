@@ -1,76 +1,23 @@
 version: "3.8"
 
 services:
-  fluentd:
-    container_name: myfo__confetti__fluentd
-    build:
-      context: .
-      dockerfile: dev/docker/fluentd/fluentd.dockerfile
-    volumes:
-      - ./dev/docker/fluentd/fluent.conf:/fluentd/etc/fluent.conf
-
   db:
     container_name: myfo__confetti__db
     image: postgres:13.4
     environment:
-      - "POSTGRES_DB=myfolab_confetti_dev"
+      - "POSTGRES_DB=myfo"
       - "POSTGRES_PASSWORD=postgres"
-
-  adminer:
-    container_name: myfo__confetti__adminer
-    image: adminer:4.8.1
-    ports:
-      - "0.0.0.0:8080:8080"
-    depends_on:
-      - db
-
-  # zookeeper:
-  #   container_name: myfolab_core_zookeeper_dev
-  #   image: bitnami/zookeeper:3.7.0
-  #   ports:
-  #     - "0.0.0.0:8003:2181"
-  #   environment:
-  #     - ALLOW_ANONYMOUS_LOGIN=yes
-  # kafka:
-  #   container_name: myfolab_core_kafka_dev
-  #   image: bitnami/kafka:3.0.0
-  #   ports:
-  #     - "0.0.0.0:8004:9092"
-  #   environment:
-  #     - KAFKA_BROKER_ID=1
-  #     - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
-  #     - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
-  #     - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
-  #     - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-  #     - ALLOW_PLAINTEXT_LISTENER=yes
-  #   depends_on:
-  #     - zookeeper
-
-  passage:
-    container_name: myfo__confetti__passage
-    image: myfolab/passage:latest
 
   confetti:
     container_name: myfo__confetti
     build:
       context: .
-      dockerfile: dev/docker/confetti/confetti.dockerfile
+      dockerfile: dev/docker/confetti/confetti.dev.dockerfile
     env_file:
       - .env
     depends_on:
       - db
-      - passage
-      - fluentd
-      # - kafka
     volumes:
-      - ./.editorconfig:/confetti/.editorconfig:ro
-      - ./.git:/confetti/.git:ro
-      - ./.gitignore:/confetti/.gitignore:ro
-      - ./.vscoe:/confetti/.vscode
-      - ./app:/confetti/app
-      - ./data:/confetti/data:ro
-      - ./Makefile:/confetti/Makefile:ro
-      - ./pyproject.toml:/confetti/pyproject.toml:ro
-      - ./requirements.txt:/confetti/requirements.txt
+      - ./:/project
     ports:
       - "0.0.0.0:8000:9901"

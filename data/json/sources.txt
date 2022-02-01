@@ -3,3 +3,4 @@ Currency codes:
     - https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/amendments/lists/list_one.xml
     - https://www.thefinancials.com/Default.aspx?SubSectionID=curformat
 Locales: https://lh.2xlibre.net/locales/
+Timezones: https://github.com/vvo/tzdb
