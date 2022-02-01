@@ -29,7 +29,7 @@ class MemberViewSet(ModelViewSet):
         "preferences": [IsAuthenticated],
     }
     lookup_fields = ["username", "pk"]
-    allowed_actions = ['retrieve', 'me', 'preferences']
+    allowed_actions = ["retrieve", "me", "preferences"]
 
     def retrieve(self, request, *args, **kwargs):
         del request, args, kwargs

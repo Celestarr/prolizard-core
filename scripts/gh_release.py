@@ -3,7 +3,7 @@ from pathlib import Path
 
 import requests
 
-version_file = Path(__file__).parent.parent.parent / "version.txt"
+version_file = Path(__file__).parent.parent / "version.txt"
 version = version_file.read_text().strip()
 headers = {
     "Authorization": "token {}".format(os.getenv("GH_ACCESS_TOKEN")),

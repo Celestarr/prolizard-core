@@ -11,7 +11,7 @@ class LogLevel(Enum):
 
 class Logger:
     def __init__(self) -> None:
-        self.server_url = ''
+        self.server_url = ""
 
     def _log(self, log_level: LogLevel, message_obj: dict):
         pass

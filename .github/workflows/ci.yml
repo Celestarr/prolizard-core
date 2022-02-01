@@ -54,7 +54,7 @@ jobs:
       - name: Create release
         env:
           GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-        run: python dev/scripts/gh_release.py
+        run: python scripts/gh_release.py
 
   dockerize:
     if: github.event_name == 'release'
@@ -83,7 +83,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./dev/docker/confetti/confetti.prod.dockerfile
+          file: ./docker/confetti/confetti.prod.dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

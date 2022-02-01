@@ -31,13 +31,13 @@ EMAIL_CONFIRMATION_REQUIRED = False
 LOGIN_URL = "/identity/login/"
 
 OAUTH2_PROVIDER = {
-    'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore',
+    "OAUTH2_BACKEND_CLASS": "oauth2_provider.oauth2_backends.JSONOAuthLibCore",
     # this is the list of available scopes
-    'SCOPES': {
-        'read': 'Read scope',
-        'write': 'Write scope',
-        'groups': 'Access to your groups',
-        'member': 'Member access',
+    "SCOPES": {
+        "read": "Read scope",
+        "write": "Write scope",
+        "groups": "Access to your groups",
+        "member": "Member access",
     },
-    'PKCE_REQUIRED': True,
+    "PKCE_REQUIRED": True,
 }
