@@ -13,14 +13,13 @@ class PortfolioTemplate(TimeStampedModel):
 
 
 class ResumeTemplate(TimeStampedModel):
-    name = models.CharField(_("name of template"), blank=True, max_length=100, unique=True)
-    template_file_name = models.CharField(
-        _("name of file containing template definition"),
+    slug = models.CharField(_("slug/unique id of template"), blank=True, max_length=100, unique=True)
+    name = models.CharField(_("name of template"), blank=True, max_length=100)
+    template_entrypoint = models.CharField(
+        _("name of entrypoint file containing latex template definition"),
         blank=True,
         max_length=150,
-        unique=True,
     )
-    puppeteer_config = models.JSONField(blank=True, default=dict)
 
     class Meta:
         verbose_name = _("resume template")

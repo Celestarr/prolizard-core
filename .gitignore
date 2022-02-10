@@ -1,4 +1,5 @@
 # Django artifacts
+/cv_templates/
 /media/
 /static/
 /static_build/

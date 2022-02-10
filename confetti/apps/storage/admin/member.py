@@ -11,7 +11,7 @@ class MemberResumeAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "link_to_edit_member",
-        "download_url",
+        "pdf",
         "version",
         "updated_at",
     )

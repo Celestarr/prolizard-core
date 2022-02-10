@@ -1,53 +1,50 @@
 from django.conf import settings
+import json
 from django.core.management.base import BaseCommand
 
 from confetti.apps.member.models import ResumeTemplate
-from confetti.utils import snake_case_to_title
-
-TEMPLATE_PUPPETEER_CONFIGS = {
-    "Chicago Gray": {
-        "format": "a4",
-        "printBackground": True,
-        "margin": {
-            "bottom": "0.75in",
-            "left": "1in",
-            "right": "1in",
-            "top": "0.75in",
-        },
-    },
-    "Engineering Ultimate": {
-        "format": "a4",
-        "printBackground": True,
-        "margin": {
-            "bottom": "0.75in",
-            "left": "0.75in",
-            "right": "0.75in",
-            "top": "0.75in",
-        },
-    },
-}
 
 
 def populate_resume_templates():
-    src_dir = settings.DATA_DIR / "pug" / "templates" / "resume"
+    src_dir = settings.BASE_DIR / "templates" / "latex"
     new_items = []
-    name_transformer = lambda x: x.split(".")[0]
 
-    for src_file in src_dir.iterdir():
-        src_file_name = src_file.name
-
-        if src_file_name == ".gitkeep":
+    for item in src_dir.iterdir():
+        if item.is_file():
             continue
 
-        qs = ResumeTemplate.objects.filter(template_file_name=src_file_name)
+        dir_name = item.name
+        definition = None
+        entrypoint = None
+
+        for dir_file in item.iterdir():
+            if not dir_file.is_file():
+                continue
+
+            file_name = dir_file.name
+
+            if file_name != 'definition.json':
+                continue
+
+            definition = json.loads(dir_file.read_text())
+
+            if definition['type'] != 'cv':
+                break
+
+            entrypoint = definition['entrypoint']
+            break
+
+        if not definition or not entrypoint:
+            continue
+
+        qs = ResumeTemplate.objects.filter(slug=dir_name)
 
         if not qs.exists():
-            template_name = snake_case_to_title(src_file_name, transformer=name_transformer)
             new_items.append(
                 ResumeTemplate(
-                    name=template_name,
-                    template_file_name=src_file_name,
-                    puppeteer_config=TEMPLATE_PUPPETEER_CONFIGS.get(template_name, {}),
+                    slug=dir_name,
+                    name=definition['name'],
+                    template_entrypoint=entrypoint,
                 )
             )
 

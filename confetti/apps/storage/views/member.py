@@ -6,6 +6,7 @@ from confetti.apps.core.models import User
 from confetti.apps.core.viewsets import ModelViewSet
 from confetti.apps.storage.models import MemberResume
 from confetti.utils import aws_s3_create_presigned_url, hash_string
+from confetti.services.cv import generate_cv_pdf
 
 
 class DownloadResumeViewSet(ModelViewSet):
@@ -27,7 +28,7 @@ class DownloadResumeViewSet(ModelViewSet):
 
         current_version = hash_string(str(member.updated_at))
 
-        if not resume.download_url or resume.version != current_version:
+        if not resume.pdf or resume.version != current_version:
             with transaction.atomic():
                 # Acquire db-level lock to make sure only one of many request is
                 # updating download url and version.
@@ -35,10 +36,11 @@ class DownloadResumeViewSet(ModelViewSet):
 
                 # Check pre-condition again because it's possible for columns
                 # to be changed by others during lock-acquiring period.
-                if not resume.download_url or resume.version != current_version:
+                if not resume.pdf or resume.version != current_version:
                     # TODO: Redo, without passage
                     # res = passage.make_member_resume(member, current_version)
                     # resume.download_url = res["downloadUrl"]
+                    generate_cv_pdf(member, current_version)
                     resume.version = current_version
                     resume.save()
                 else:

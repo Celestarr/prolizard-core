@@ -91,5 +91,12 @@ class User(AbstractUser, TimeStampedModel):
 
         return super().save(*args, **kwargs)
 
+    @property
+    def location(self):
+        if self.address and self.country:
+            return f'{self.address}, {self.country}'
+
+        return self.address or self.country or None
+
 
 __all__ = ["User"]

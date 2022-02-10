@@ -4,7 +4,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update && apt-get -y upgrade
-RUN apt-get install -y gettext
+RUN apt-get install -y texlive-core gettext
 
 # Copy docker entrypoint script to appropriate location, give execute
 # permissions.
