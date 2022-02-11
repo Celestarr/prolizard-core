@@ -20,10 +20,9 @@ def populate_countries():
             "iso_3166_1_alpha_3_code": item.alpha_3,
             "iso_3166_1_numeric_code": item.numeric,
             "name": item.name,
-
             # Fallback to short/display name if official name is
             # not provided.
-            "formal_name": getattr(item, 'official_name', item.name),
+            "formal_name": getattr(item, "official_name", item.name),
         }
 
         if qs.exists():

@@ -94,7 +94,7 @@ class User(AbstractUser, TimeStampedModel):
     @property
     def location(self):
         if self.address and self.country:
-            return f'{self.address}, {self.country}'
+            return f"{self.address}, {self.country}"
 
         return self.address or self.country or None
 

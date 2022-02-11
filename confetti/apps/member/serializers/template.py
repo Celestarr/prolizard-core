@@ -15,8 +15,6 @@ class PortfolioTemplateSerializer(serializers.ModelSerializer):
 class ResumeTemplateSerializer(serializers.ModelSerializer):
     class Meta:
         exclude = (
-            "template_file_name",
-            "puppeteer_config",
             "created_at",
             "updated_at",
         )

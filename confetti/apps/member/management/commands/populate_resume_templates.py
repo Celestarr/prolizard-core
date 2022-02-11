@@ -1,5 +1,6 @@
-from django.conf import settings
 import json
+
+from django.conf import settings
 from django.core.management.base import BaseCommand
 
 from confetti.apps.member.models import ResumeTemplate
@@ -23,15 +24,15 @@ def populate_resume_templates():
 
             file_name = dir_file.name
 
-            if file_name != 'definition.json':
+            if file_name != "definition.json":
                 continue
 
             definition = json.loads(dir_file.read_text())
 
-            if definition['type'] != 'cv':
+            if definition["type"] != "cv":
                 break
 
-            entrypoint = definition['entrypoint']
+            entrypoint = definition["entrypoint"]
             break
 
         if not definition or not entrypoint:
@@ -43,7 +44,7 @@ def populate_resume_templates():
             new_items.append(
                 ResumeTemplate(
                     slug=dir_name,
-                    name=definition['name'],
+                    name=definition["name"],
                     template_entrypoint=entrypoint,
                 )
             )

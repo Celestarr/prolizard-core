@@ -17,6 +17,9 @@ class MemberResumeAdmin(admin.ModelAdmin):
     )
     ordering = ("-id",)
 
+    def has_change_permission(self, request, obj=None):
+        return False
+
     def link_to_edit_member(self, obj):
         link = reverse("admin:core_user_change", args=[obj.member_id])
         return format_html('<a href="{}">{}</a>', link, obj.member.email)

@@ -5,7 +5,7 @@ from confetti.apps.core.models import TimeStampedModel
 
 
 def generate_cv_upload_path(instance, filename):
-    return f'member_cv/id_{instance.member.id}/{filename}'
+    return f"cv/{filename}"
 
 
 class MemberResume(TimeStampedModel):

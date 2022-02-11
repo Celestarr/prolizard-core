@@ -15,11 +15,11 @@ def populate_locales():
     for item in supported_locales:
         qs = SupportedLocale.objects.filter(locale_tag=item["locale_tag"])
         payload = {
-            'locale_tag': item['locale_tag'],
-            'iso_639_1_code': item['iso_639_1_code'],
-            'iso_639_2_code': item['iso_639_2_code'],
-            'name': item['name'],
-            'native_name': item['native_name'],
+            "locale_tag": item["locale_tag"],
+            "iso_639_1_code": item["iso_639_1_code"],
+            "iso_639_2_code": item["iso_639_2_code"],
+            "name": item["name"],
+            "native_name": item["native_name"],
         }
 
         if qs.exists():

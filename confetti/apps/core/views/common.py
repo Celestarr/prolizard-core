@@ -7,12 +7,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 
 from confetti.apps.core.models import Country, Gender, SupportedLocale, TimeZone
-from confetti.apps.core.serializers import (
-    CountrySerializer,
-    GenderSerializer,
-    LocaleSerializer,
-    TimeZoneSerializer,
-)
+from confetti.apps.core.serializers import CountrySerializer, GenderSerializer, LocaleSerializer, TimeZoneSerializer
 from confetti.apps.core.viewsets import ModelViewSet
 from confetti.apps.member.models import EmploymentType, LanguageProficiencyLevel, ResumeTemplate, SkillProficiencyLevel
 from confetti.apps.member.serializers import (

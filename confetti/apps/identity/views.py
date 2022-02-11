@@ -8,35 +8,34 @@ from confetti.apps.core.models.utils import get_username_sequence_value
 from confetti.apps.member.models.preference import MemberPreference
 from confetti.utils.ds import update_immutable_querydict
 
-from .forms import AuthenticationForm
+from .forms import AuthenticationForm, UserRegistrationForm
 
 
 class RegistrationView(CreateView):
     template_name = "identity/registration.html"
     success_template_name = "identity/registration_success.html"
     model = User
-    fields = ("first_name", "last_name", "email", "is_active", "password", "username")
+    form_class = UserRegistrationForm
+    # fields = ("first_name", "last_name", "email", "is_active", "password", "username")
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.object = None
 
     @transaction.atomic
     def form_valid(self, form: ModelForm):
         self.object = form.save()
-        MemberPreference.objects.create(user=self.object)
-
-    def get(self, request, *args, **kwargs):
-        self.object = None
-        return super().get(request, *args, **kwargs)
+        MemberPreference.objects.create(user=form.save())
 
     def post(self, request, *args, **kwargs):
         """
         Handle POST requests: instantiate a form instance with the passed
         POST variables and then check if it's valid.
         """
-        self.object = None
-
         form = self.get_form()
 
-        update_immutable_querydict(form.data, "is_active", True)  # TODO: decide later
-        update_immutable_querydict(form.data, "username", get_username_sequence_value())
+        # update_immutable_querydict(form.data, "is_active", True)  # TODO: decide later
+        # update_immutable_querydict(form.data, "username", get_username_sequence_value())
 
         if form.is_valid():
             self.form_valid(form)

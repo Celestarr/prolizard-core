@@ -11,7 +11,7 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
-    path("api/core/", include("confetti.apps.core.urls")),
+    path("api/", include("confetti.apps.core.urls")),
     path("api/members/", include("confetti.apps.member.urls")),
     path("api/store/", include("confetti.apps.storage.urls")),
     path("identity/", include("confetti.apps.identity.urls")),

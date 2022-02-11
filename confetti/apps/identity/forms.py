@@ -6,6 +6,9 @@ from django.core.exceptions import ValidationError
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 
+from confetti.apps.core.models import User
+from confetti.apps.core.models.utils import get_username_sequence_value
+
 
 class AuthenticationForm(BaseAuthenticationForm):
     email = forms.EmailField(
@@ -82,3 +85,49 @@ class AdminAuthenticationForm(AuthenticationForm):
                 code="invalid_login",
                 params={"email": "email"},
             )
+
+
+class UserRegistrationForm(forms.ModelForm):
+    """
+    A form that creates a user, with no privileges, from the given username and
+    password.
+    """
+
+    error_messages = {
+        "password_mismatch": _("The two password fields didn’t match."),
+    }
+    password = forms.CharField(
+        label=_("Password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
+        help_text=password_validation.password_validators_help_text_html(),
+    )
+
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name", "email", "password")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self._meta.model.USERNAME_FIELD in self.fields:
+            self.fields[self._meta.model.USERNAME_FIELD].widget.attrs["autofocus"] = True
+
+    def _post_clean(self):
+        super()._post_clean()
+        # Validate the password after self.instance is updated with form data
+        # by super().
+        password = self.cleaned_data.get("password")
+        if password:
+            try:
+                password_validation.validate_password(password, self.instance)
+            except ValidationError as error:
+                self.add_error("password", error)
+
+    def save(self, commit=True):
+        self.instance.is_active = True
+        self.instance.username = get_username_sequence_value()
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password"])
+        if commit:
+            user.save()
+        return user
