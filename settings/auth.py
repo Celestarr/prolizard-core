@@ -44,4 +44,4 @@ OAUTH2_PROVIDER = {
     "PKCE_REQUIRED": True,
 }
 
-APP_LOGIN_URL = urljoin(APP_URL, '/login')
+APP_LOGIN_URL = urljoin(APP_URL, "/login")

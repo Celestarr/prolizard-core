@@ -22,10 +22,10 @@ RUN apt-get install -y texlive-core gettext
 
 # Copy docker entrypoint script to appropriate location, give execute
 # permissions.
-COPY dev/docker/confetti/entrypoint.prod.sh /usr/local/sbin/entrypoint.sh
+COPY docker/confetti/entrypoint.prod.sh /usr/local/sbin/entrypoint.sh
 RUN chmod a+x /usr/local/sbin/entrypoint.sh
 
-COPY dev/docker/confetti/gunicorn.prod.conf.py /etc/gunicorn.conf.py
+COPY docker/confetti/gunicorn.prod.conf.py /etc/gunicorn.conf.py
 
 COPY --from=0 /project ./
 
