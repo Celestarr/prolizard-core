@@ -1,8 +1,8 @@
 {
-  "name": "mortred",
+  "name": "confetti",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:MyFoLab/mortred.git",
+  "repository": "git@github.com:MyFoLab/confetti.git",
   "author": "Mezbaul Haque <mezba109@gmail.com>",
   "license": "MIT",
   "engines": {

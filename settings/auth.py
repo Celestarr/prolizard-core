@@ -1,3 +1,7 @@
+from urllib.parse import urljoin
+
+from .common import APP_URL
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -39,3 +43,5 @@ OAUTH2_PROVIDER = {
     },
     "PKCE_REQUIRED": True,
 }
+
+APP_LOGIN_URL = urljoin(APP_URL, '/login')

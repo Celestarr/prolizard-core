@@ -2,6 +2,8 @@ from os import getenv
 
 import requests
 
+from .common import APP_URL
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = getenv("SECRET_KEY")
 
@@ -33,7 +35,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [host for host in getenv("CORS_ALLOWED_ORIGINS", "").split(",") if host]
 
-CORS_ALLOWED_ORIGINS.append("http://localhost:3000")
+CORS_ALLOWED_ORIGINS.append(APP_URL)
 
 SESSION_COOKIE_DOMAIN = getenv("SESSION_COOKIE_DOMAIN")
 

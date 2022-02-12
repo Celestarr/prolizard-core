@@ -8,7 +8,7 @@ RUN apt-get install -y texlive-core gettext
 
 # Copy docker entrypoint script to appropriate location, give execute
 # permissions.
-COPY dev/docker/mortred/entrypoint.dev.sh /usr/local/sbin/entrypoint.sh
+COPY dev/docker/confetti/entrypoint.dev.sh /usr/local/sbin/entrypoint.sh
 RUN chmod a+x /usr/local/sbin/entrypoint.sh
 
 WORKDIR /project

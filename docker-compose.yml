@@ -2,17 +2,17 @@ version: "3.8"
 
 services:
   db:
-    container_name: myfo__mortred__db
+    container_name: myfo__confetti__db
     image: postgres:13.4
     environment:
       - "POSTGRES_DB=myfo"
       - "POSTGRES_PASSWORD=postgres"
 
-  mortred:
-    container_name: myfo__mortred
+  confetti:
+    container_name: myfo__confetti
     build:
       context: .
-      dockerfile: dev/docker/mortred/mortred.dev.dockerfile
+      dockerfile: dev/docker/confetti/confetti.dev.dockerfile
     env_file:
       - .env
     depends_on:

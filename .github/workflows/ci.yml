@@ -66,7 +66,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: myfolab/mortred
+          images: myfolab/confetti
           tags: |
             type=ref,event=tag
       - name: Set up QEMU
@@ -83,7 +83,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./docker/mortred/mortred.prod.dockerfile
+          file: ./docker/confetti/confetti.prod.dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

@@ -7,6 +7,6 @@ python manage.py init
 
 exec gunicorn wsgi \
     --config /etc/gunicorn.conf.py \
-    --name mortred \
+    --name confetti \
     --log-level=debug \
     "$@"

@@ -1,4 +1,4 @@
-# mortred
+# confetti
 
 MyFoLab's primary backend service.
 
