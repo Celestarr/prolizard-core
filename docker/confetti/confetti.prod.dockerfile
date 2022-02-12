@@ -27,9 +27,9 @@ RUN chmod a+x /usr/local/sbin/entrypoint.sh
 
 COPY docker/confetti/gunicorn.prod.conf.py /etc/gunicorn.conf.py
 
-COPY --from=0 /project ./
+COPY --from=0 /project /project
 
-WORKDIR /project/
+WORKDIR /project
 
 RUN python -m pip install --upgrade pip
 RUN pip install --requirement requirements.txt
