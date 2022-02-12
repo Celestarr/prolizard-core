@@ -5,8 +5,8 @@ python manage.py compilemessages
 python manage.py collectstatic --noinput
 python manage.py init
 
-exec gunicorn confetti.wsgi \
+exec gunicorn wsgi \
     --config /etc/gunicorn.conf.py \
-    --name confetti \
+    --name mortred \
     --log-level=debug \
     "$@"

@@ -1,12 +1,23 @@
 [MASTER]
 
 # Profiled execution.
-profile  =  no
+profile = no
 
 # Add <file or directory> to the black list. It should be a base name, not a
 # path. You may set this option multiple times.
-ignore  =
-    migrations
+# ignore =
+
+# Pickle collected data for later comparisons.
+persistent = yes
+
+# When enabled, pylint would attempt to guess common misconfiguration and emit
+# user-friendly hints instead of false-positive error messages.
+suggestion-mode = yes
+
+# Allow loading of arbitrary C extensions. Extensions are imported into the
+# active Python interpreter and may run arbitrary code.
+unsafe-load-any-extension = no
+
 
 [MESSAGES CONTROL]
 
@@ -114,10 +125,10 @@ const-rgx = (([A-Z_][A-Z0-9_]*)|(__.*__))$
 class-rgx = [A-Z_][a-zA-Z0-9]+$
 
 # Regular expression which should only match correct function names
-function-rgx = [a-z_][a-z0-9_]{2,30}$
+function-rgx = [a-z_][a-z0-9_]{2,50}$
 
 # Regular expression which should only match correct method names
-method-rgx = [a-z_][a-z0-9_]{2,30}$
+method-rgx = [a-z_][a-z0-9_]{2,50}$
 
 # Regular expression which should only match correct instance attribute names
 attr-rgx = [a-z_][a-z0-9_]{2,30}$
@@ -164,7 +175,7 @@ max-branchs = 12
 max-statements = 50
 
 # Maximum number of parents for a class (see R0901).
-max-parents = 7
+max-parents = 15
 
 # Maximum number of attributes for a class (see R0902).
 max-attributes = 7
@@ -239,7 +250,7 @@ notes = FIXME,XXX,TODO
 [SIMILARITIES]
 
 # Minimum lines number of a similarity.
-min-similarity-lines = 4
+min-similarity-lines = 5
 
 # Ignore comments when computing similarities.
 ignore-comments = yes

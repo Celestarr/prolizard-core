@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name
+
 import multiprocessing
 
 bind = "0.0.0.0:9901"

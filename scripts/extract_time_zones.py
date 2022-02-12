@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from utils import format_cell
+from .utils import format_cell
 
 OUT_FILE = Path(__file__).parent.parent / "data/json/time_zones.json"
 
@@ -43,9 +43,9 @@ def make_offsets(offset: str):
         minutes *= -1
 
     return (
-        "UTC {}{}".format(sep, numeric_part),
-        "{}{}".format(sep, numeric_part),
-        "{}{}".format(sep, numeric_part_no_colon),
+        f"UTC {sep}{numeric_part}",
+        f"{sep}{numeric_part}",
+        f"{sep}{numeric_part_no_colon}",
         minutes,
     )
 
@@ -56,10 +56,10 @@ def format_name(name: str):
 
 def main():
     url = "https://www.timeanddate.com/time/zones/"
-    df = pd.read_html(url, header=0)[0]
+    dataframe = pd.read_html(url, header=0)[0]
     data = []
 
-    for item in df.itertuples():
+    for item in dataframe.itertuples():
         abbr = format_cell(item[1])
         name = format_name(format_cell(item[2]))
         offset_display_text, offset_text, offset_text_clean, offset_minutes = make_offsets(format_cell(item[4]))
@@ -75,9 +75,9 @@ def main():
             }
         )
 
-    with OUT_FILE.open("w+") as f:
-        f.write(json.dumps(data, indent=2))
-        f.write("\n")
+    with OUT_FILE.open("w+") as file:
+        file.write(json.dumps(data, indent=2))
+        file.write("\n")
 
 
 if __name__ == "__main__":

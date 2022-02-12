@@ -4,9 +4,9 @@ reset:
 check: ## Check source code issues
 	black --diff --check .
 	isort --diff --check .
-	bandit --recursive ./app ./dev ./docker --configfile .bandit.yml
+	bandit -r . --configfile pyproject.toml
 	flake8 .
-	pylint app dev docker
+	find . -iname "*.py" -not -path "./venv/*" -not -path "*/migrations/*" -not -path "*/node_modules/*" | xargs pylint
 
 deps: ## Install dependencies
 	pip install -r requirements.txt

@@ -4,18 +4,18 @@ from typing import Any
 import pandas as pd
 
 
-def format_cell(s: Any) -> str:
-    if pd.isna(s):
+def format_cell(data: Any) -> str:
+    if pd.isna(data):
         return ""
 
-    if not isinstance(s, str):
-        return str(s)
+    if not isinstance(data, str):
+        return str(data)
 
-    return s.strip()
+    return data.strip()
 
 
-def strip_ref(s: Any) -> str:
-    if not isinstance(s, str):
-        s = format_cell(s)
+def strip_ref(data: Any) -> str:
+    if not isinstance(data, str):
+        data = format_cell(data)
 
-    return re.sub(r"\[[0-9A-Za-z]+\]", "", s).strip()
+    return re.sub(r"\[[0-9A-Za-z]+\]", "", data).strip()
