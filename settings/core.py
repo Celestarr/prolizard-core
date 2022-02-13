@@ -7,9 +7,6 @@ from .common import APP_URL
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = getenv("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = getenv("DEBUG", "false").lower() == "true"
-
 ALLOWED_HOSTS = [host for host in getenv("ALLOWED_HOSTS", "").split(",") if host]
 
 EC2_PRIVATE_IP = None

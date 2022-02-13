@@ -10,6 +10,7 @@ load_dotenv()
 
 from .apps import *
 from .auth import *
+from .aws import *
 from .common import *
 from .core import *
 from .database import *
