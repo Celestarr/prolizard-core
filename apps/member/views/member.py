@@ -59,7 +59,7 @@ class MemberViewSet(ModelViewSet):
         return Response(extended_profile if extended_profile else MemberProfileExtendedSerializer(user).data)
 
     @action(detail=False, methods=["patch"], url_name="update-current-user-preferences")
-    def preferences(self, request):
+    def preferences(self, request):  # pylint: disable=no-self-use
         user = request.user
 
         try:
@@ -70,17 +70,17 @@ class MemberViewSet(ModelViewSet):
                 model_instance = serializer.save()
 
                 return Response(MemberPreferenceSerializer(model_instance).data)
-        except MemberPreference.DoesNotExist:
+        except MemberPreference.DoesNotExist as exception:
             print("member preference object not found")
-            raise APIException(gettext("Something went wrong."))
-        except ValidationError as e:
-            raise e
-        except IntegrityError as e:
-            print(e)
-            raise APIException(gettext("Something went wrong."))
-        except Exception as ex:
-            print(ex)
-            raise APIException(gettext("Something went wrong."))
+            raise APIException(gettext("Something went wrong.")) from exception
+        except ValidationError as exception:
+            raise exception
+        except IntegrityError as exception:
+            print(exception)
+            raise APIException(gettext("Something went wrong.")) from exception
+        except Exception as exception:
+            print(exception)
+            raise APIException(gettext("Something went wrong.")) from exception
 
 
 __all__ = ["MemberViewSet"]

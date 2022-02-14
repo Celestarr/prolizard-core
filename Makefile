@@ -7,6 +7,7 @@ check: ## Check source code issues
 	bandit -r . --configfile pyproject.toml
 	flake8 .
 	find . -iname "*.py" -not -path "./venv/*" -not -path "*/migrations/*" -not -path "*/node_modules/*" | xargs pylint
+	python manage.py makemigrations --dry-run --check
 
 deps: ## Install dependencies
 	pip install -r requirements.txt
@@ -15,8 +16,8 @@ fmt: ## Format code
 	black .
 	isort --atomic .
 
-test: check ## Run tests
-	git status -s
+test: ## Run tests
+	python manage.py test
 
 help: ## Show this help
 	@echo 'Usage: make [target]'

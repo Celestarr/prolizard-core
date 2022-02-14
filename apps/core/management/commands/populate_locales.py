@@ -12,7 +12,7 @@ def populate_locales():
     new_items = []
 
     for item in supported_locales:
-        qs = SupportedLocale.objects.filter(locale_tag=item["locale_tag"])
+        queryset = SupportedLocale.objects.filter(locale_tag=item["locale_tag"])
         payload = {
             "locale_tag": item["locale_tag"],
             "iso_639_1_code": item["iso_639_1_code"],
@@ -21,8 +21,8 @@ def populate_locales():
             "native_name": item["native_name"],
         }
 
-        if qs.exists():
-            qs.update(**payload)
+        if queryset.exists():
+            queryset.update(**payload)
         else:
             new_items.append(SupportedLocale(**payload))
 

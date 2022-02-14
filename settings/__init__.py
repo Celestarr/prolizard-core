@@ -1,12 +1,7 @@
 """
 Django settings for this project.
 """
-# pylint: disable=wrong-import-position
 # flake8: noqa
-
-from dotenv import load_dotenv
-
-load_dotenv()
 
 from .apps import *
 from .auth import *

@@ -1,5 +1,6 @@
-from django.contrib.auth.views import LoginView as BaseLoginView, LogoutView as BaseLogoutView
 from django.conf import settings
+from django.contrib.auth.views import LoginView as BaseLoginView
+from django.contrib.auth.views import LogoutView as BaseLogoutView
 from django.db import transaction
 from django.forms import ModelForm
 from django.views.generic import CreateView
@@ -24,7 +25,7 @@ class RegistrationView(CreateView):
         ctx = super().get_context_data(**kwargs)
         return {
             **ctx,
-            'APP_LOGIN_URL': settings.APP_LOGIN_URL,
+            "APP_LOGIN_URL": settings.APP_LOGIN_URL,
         }
 
     @transaction.atomic

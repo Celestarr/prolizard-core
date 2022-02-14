@@ -8,7 +8,7 @@ def populate_countries():
     new_items = []
 
     for item in pycountry.countries:
-        qs = Country.objects.filter(iso_3166_1_alpha_3_code=item.alpha_3)
+        queryset = Country.objects.filter(iso_3166_1_alpha_3_code=item.alpha_3)
 
         payload = {
             "iso_3166_1_alpha_2_code": item.alpha_2,
@@ -20,8 +20,8 @@ def populate_countries():
             "formal_name": getattr(item, "official_name", item.name),
         }
 
-        if qs.exists():
-            qs.update(**payload)
+        if queryset.exists():
+            queryset.update(**payload)
         else:
             new_items.append(Country(**payload))
 

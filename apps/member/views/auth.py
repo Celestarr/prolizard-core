@@ -77,8 +77,8 @@ class MemberSignUpViewSet(CreateModelMixin, GenericViewSet):
                         expires_at=timezone.now() + timezone.timedelta(days=1),
                     )
                     break
-                except IntegrityError as e:
-                    if hasattr(e, "__cause__") and isinstance(e.__cause__, UniqueViolation):
+                except IntegrityError as exception:
+                    if hasattr(exception, "__cause__") and isinstance(exception.__cause__, UniqueViolation):
                         continue
                     raise
 
@@ -104,14 +104,14 @@ class MemberSignUpViewSet(CreateModelMixin, GenericViewSet):
         try:
             with transaction.atomic():
                 self.perform_create(serializer)
-        except (IntegrityError, ValidationError) as e:
-            print(e)
+        except (IntegrityError, ValidationError) as exception:
+            print(exception)
             return Response(
                 {"detail": gettext("Something went wrong.")},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
-        except Exception as e:
-            print(e)
+        except Exception as exception:
+            print(exception)
             return Response(
                 {"detail": gettext("Something went wrong.")},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,

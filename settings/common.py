@@ -1,8 +1,9 @@
-from os import getenv
 from pathlib import Path
 
+from decouple import config
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = getenv("DEBUG", "false").lower() == "true"
+DEBUG = config("DEBUG", default=False, cast=bool)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -11,6 +12,6 @@ DATA_DIR = BASE_DIR / "data"
 
 CV_TEMPLATE_TEMPORARY_DIR = BASE_DIR / "cv_templates"
 
-APP_URL = getenv("APP_URL")
+APP_URL = config("APP_URL")
 
-USE_S3 = getenv("USE_S3", "false").lower() == "true"
+USE_S3 = config("USE_S3", default=False, cast=bool)

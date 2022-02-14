@@ -1,3 +1,5 @@
+from typing import Optional
+
 from rest_framework import serializers
 
 from apps.core.models import User
@@ -69,7 +71,7 @@ class MemberProfileSerializerForResumeTemplate(MemberProfileSerializer):
     class Meta(MemberProfileSerializer.Meta):
         pass
 
-    def get_location(self, obj: User) -> str:
+    def get_location(self, obj: User) -> Optional[str]:  # pylint: disable=no-self-use
         if obj.address and obj.country:
             return "{}, {}".format(obj.address, obj.country.name)
 

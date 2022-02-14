@@ -24,7 +24,7 @@ class Command(BaseCommand):
 
         try:
             with connection.cursor() as cursor:
-                cursor.execute("CREATE SEQUENCE {} INCREMENT {} START {};".format(name, increment, start))
+                cursor.execute(f"CREATE SEQUENCE {name} INCREMENT {increment} START {start};")
                 print("SUCCESS: sequence created")
-        except ProgrammingError as e:
-            print("ERROR: {}".format(str(e)))
+        except ProgrammingError as exception:
+            print("ERROR: {}".format(str(exception)))

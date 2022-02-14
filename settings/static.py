@@ -1,6 +1,4 @@
-import os
-
-from .common import BASE_DIR, DEBUG, USE_S3
+from .common import BASE_DIR, USE_S3
 
 TEMPLATES = [
     {

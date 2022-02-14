@@ -41,7 +41,7 @@ class AcademicRecordSerializerForResumeTemplate(AcademicRecordSerializer):
 
         return f"{start_line} - {end_line}"
 
-    def get_degree_line(self, obj: AcademicRecord):
+    def get_degree_line(self, obj: AcademicRecord):  # pylint: disable=no-self-use
         if obj.degree and obj.field_of_study:
             return f"{obj.degree}, {obj.field_of_study}"
 
@@ -96,7 +96,7 @@ class WebLinkSerializerForResumeTemplate(WebLinkSerializer):
     class Meta(WebLinkSerializer.Meta):
         pass
 
-    def get_icon_class(self, obj: WebLink):
+    def get_icon_class(self, obj: WebLink):  # pylint: disable=no-self-use
         if "github.com" in obj.href:
             return "fab fa-github-alt"
 
@@ -131,7 +131,7 @@ class WorkExperienceSerializerForResumeTemplate(WorkExperienceSerializer):
     class Meta(WorkExperienceSerializer.Meta):
         pass
 
-    def get_date_line(self, obj: WorkExperience):
+    def get_date_line(self, obj: WorkExperience):  # pylint: disable=no-self-use
         start_line = obj.start_date.strftime("%b %Y")
         end_line = "Present" if obj.is_ongoing else obj.end_date.strftime("%b %Y")
 
@@ -175,7 +175,7 @@ class ProjectSerializerForResumeTemplate(ProjectSerializer):
     class Meta(ProjectSerializer.Meta):
         pass
 
-    def get_date_line(self, obj: Project):
+    def get_date_line(self, obj: Project):  # pylint: disable=no-self-use
         start_line = obj.start_date.strftime("%b %Y")
         end_line = "Present" if obj.is_ongoing else obj.end_date.strftime("%b %Y")
 
@@ -200,7 +200,7 @@ class PublicationSerializerForResumeTemplate(PublicationSerializer):
     class Meta(PublicationSerializer.Meta):
         pass
 
-    def get_date_line(self, obj: Publication):
+    def get_date_line(self, obj: Publication):  # pylint: disable=no-self-use
         if obj.publication_date:
             return obj.publication_date.strftime("%b %Y")
 
@@ -223,7 +223,7 @@ class HonorOrAwardSerializerForResumeTemplate(HonorOrAwardSerializer):
     class Meta(HonorOrAwardSerializer.Meta):
         pass
 
-    def get_date_line(self, obj: HonorOrAward):
+    def get_date_line(self, obj: HonorOrAward):  # pylint: disable=no-self-use
         if obj.issue_date:
             return obj.issue_date.strftime("%b %Y")
 
@@ -246,7 +246,7 @@ class CertificationSerializerForResumeTemplate(CertificationSerializer):
     class Meta(CertificationSerializer.Meta):
         pass
 
-    def get_date_line(self, obj: Certification):
+    def get_date_line(self, obj: Certification):  # pylint: disable=no-self-use
         if obj.issue_date:
             return obj.issue_date.strftime("%b %Y")
 

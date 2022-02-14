@@ -1,13 +1,13 @@
-from os import getenv
+from decouple import config
 
 DATABASES = {
     "default": {
-        "NAME": getenv("RDS_DB_NAME") or getenv("DB_NAME"),
+        "NAME": config("DB_NAME"),
         "ENGINE": "django.db.backends.postgresql",
-        "USER": getenv("RDS_USERNAME") or getenv("DB_USER"),
-        "PASSWORD": getenv("RDS_PASSWORD") or getenv("DB_PASSWORD"),
-        "HOST": getenv("RDS_HOSTNAME") or getenv("DB_HOST"),
-        "PORT": getenv("RDS_PORT") or getenv("DB_PORT"),
+        "USER": config("DB_USER"),
+        "PASSWORD": config("DB_PASSWORD"),
+        "HOST": config("DB_HOST"),
+        "PORT": config("DB_PORT"),
     }
 }
 

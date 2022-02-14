@@ -12,7 +12,7 @@ def populate_time_zones():
     new_items = []
 
     for item in time_zones:
-        qs = TimeZone.objects.filter(name=item["name"])
+        queryset = TimeZone.objects.filter(name=item["name"])
         payload = {
             "abbreviation": item["abbreviation"],
             "name": item["name"],
@@ -22,8 +22,8 @@ def populate_time_zones():
             "offset_minutes": item["offset_minutes"],
         }
 
-        if qs.exists():
-            qs.update(**payload)
+        if queryset.exists():
+            queryset.update(**payload)
         else:
             new_items.append(TimeZone(**payload))
 

@@ -7,7 +7,7 @@ from apps.member.constants import UI_MODE_DARK, UI_MODE_LIGHT, UI_MODE_SYSTEM
 
 
 def get_default_resume_template():
-    ResumeTemplate = apps.get_model("member", "ResumeTemplate")
+    ResumeTemplate = apps.get_model("member", "ResumeTemplate")  # pylint: disable=invalid-name
     template = ResumeTemplate.objects.all().first()
 
     return template.id if template else None

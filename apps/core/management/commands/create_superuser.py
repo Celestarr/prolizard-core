@@ -27,5 +27,5 @@ class Command(BaseCommand):
         try:
             User.objects.create_superuser(username, email, password, is_active=True)
             print("SUCCESS: username={}".format(username))
-        except IntegrityError as e:
-            print("ERROR: {}".format(str(e)))
+        except IntegrityError as exception:
+            print("ERROR: {}".format(str(exception)))

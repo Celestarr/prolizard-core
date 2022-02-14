@@ -52,9 +52,9 @@ class ModelViewSet(BaseModelViewSet):
         lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
 
         assert lookup_url_kwarg in self.kwargs, (
-            "Expected view %s to be called with a URL keyword argument "
-            'named "%s". Fix your URL conf, or set the `.lookup_field` '
-            "attribute on the view correctly." % (self.__class__.__name__, lookup_url_kwarg)
+            f"Expected view {self.__class__.__name__} to be called with a URL keyword argument "
+            f'named "{lookup_url_kwarg}". Fix your URL conf, or set the `.lookup_field` '
+            "attribute on the view correctly."
         )
 
         if self.lookup_fields:
@@ -94,12 +94,12 @@ class ModelViewSet(BaseModelViewSet):
         """
         if write_only and self.serializer_class_write_only is not None:
             return self.serializer_class_write_only
-        else:
-            assert self.serializer_class is not None, (  # nosec
-                "'%s' should either include a `serializer_class` attribute, "
-                "or override the `get_serializer_class()` method." % self.__class__.__name__
-            )
-            return self.serializer_class
+
+        assert self.serializer_class is not None, (  # nosec
+            "'%s' should either include a `serializer_class` attribute, "
+            "or override the `get_serializer_class()` method." % self.__class__.__name__
+        )
+        return self.serializer_class
 
     def perform_create(self, serializer):
         return serializer.save()

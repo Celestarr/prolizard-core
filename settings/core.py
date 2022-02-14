@@ -1,13 +1,12 @@
-from os import getenv
-
 import requests
+from decouple import config
 
 from .common import APP_URL
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = getenv("SECRET_KEY")
+SECRET_KEY = config("SECRET_KEY")
 
-ALLOWED_HOSTS = [host for host in getenv("ALLOWED_HOSTS", "").split(",") if host]
+ALLOWED_HOSTS = [host for host in config("ALLOWED_HOSTS").split(",") if host]
 
 EC2_PRIVATE_IP = None
 
@@ -30,14 +29,14 @@ APPEND_SLASH = False
 
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ALLOWED_ORIGINS = [host for host in getenv("CORS_ALLOWED_ORIGINS", "").split(",") if host]
+CORS_ALLOWED_ORIGINS = [host for host in config("CORS_ALLOWED_ORIGINS").split(",") if host]
 
 CORS_ALLOWED_ORIGINS.append(APP_URL)
 
-SESSION_COOKIE_DOMAIN = getenv("SESSION_COOKIE_DOMAIN")
+SESSION_COOKIE_DOMAIN = config("SESSION_COOKIE_DOMAIN")
 
-SESSION_COOKIE_SECURE = getenv("SESSION_COOKIE_SECURE", "false").lower() == "true"
+SESSION_COOKIE_SECURE = config("SESSION_COOKIE_SECURE", default=False, cast=bool)
 
-CSRF_COOKIE_DOMAIN = getenv("CSRF_COOKIE_DOMAIN")
+CSRF_COOKIE_DOMAIN = config("CSRF_COOKIE_DOMAIN")
 
-CSRF_COOKIE_SECURE = getenv("CSRF_COOKIE_SECURE", "false").lower() == "true"
+CSRF_COOKIE_SECURE = config("CSRF_COOKIE_SECURE", default=False, cast=bool)

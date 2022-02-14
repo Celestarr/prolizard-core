@@ -4,13 +4,13 @@ from storages.backends.s3boto3 import S3ManifestStaticStorage as BaseS3ManifestS
 
 class S3ManifestStaticStorage(BaseS3ManifestStaticStorage):
     def path(self, name):
-        return super().path(name)
+        pass
 
     def get_accessed_time(self, name):
-        return super().get_accessed_time(name)
+        pass
 
     def get_created_time(self, name):
-        return super().get_created_time(name)
+        pass
 
     def get_default_settings(self):
         default_settings = super().get_default_settings()

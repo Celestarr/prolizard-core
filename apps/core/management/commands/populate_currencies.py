@@ -12,7 +12,7 @@ def populate_currencies():
     new_items = []
 
     for item in currencies:
-        qs = Currency.objects.filter(iso_4217_code=item["iso_4217_code"])
+        queryset = Currency.objects.filter(iso_4217_code=item["iso_4217_code"])
         payload = {
             "iso_4217_code": item["iso_4217_code"],
             "iso_4217_numeric_code": item["iso_4217_numeric_code"],
@@ -20,8 +20,8 @@ def populate_currencies():
             "symbol": item["symbol"],
         }
 
-        if qs.exists():
-            qs.update(**payload)
+        if queryset.exists():
+            queryset.update(**payload)
         else:
             new_items.append(Currency(**payload))
 
