@@ -1,4 +1,5 @@
-from django.contrib.auth.views import LoginView as BaseLoginView
+from django.contrib.auth.views import LoginView as BaseLoginView, LogoutView as BaseLogoutView
+from django.conf import settings
 from django.db import transaction
 from django.forms import ModelForm
 from django.views.generic import CreateView
@@ -18,6 +19,13 @@ class RegistrationView(CreateView):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.object = None
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        return {
+            **ctx,
+            'APP_LOGIN_URL': settings.APP_LOGIN_URL,
+        }
 
     @transaction.atomic
     def form_valid(self, form: ModelForm):
@@ -57,3 +65,7 @@ class LoginView(BaseLoginView):
             self.request.session.modified = True
 
         return super().form_valid(form)
+
+
+class LogoutView(BaseLogoutView):
+    pass
