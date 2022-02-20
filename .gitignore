@@ -1,5 +1,5 @@
 # Django artifacts
-/cv_templates/
+/resume_templates/
 /media/
 /static/
 /static_build/

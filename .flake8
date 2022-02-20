@@ -6,7 +6,7 @@ exclude =
     .vscode,
     __pycache__,
     configs,
-    cv_templates,
+    resume_templates,
     data,
     docs,
     locale,

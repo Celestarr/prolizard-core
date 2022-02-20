@@ -6,7 +6,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "EXCEPTION_HANDLER": "apps.core.middleware.global_exception_handler",
+    "EXCEPTION_HANDLER": "middlewares.global_exception_handler.global_exception_handler",
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "DEFAULT_PARSER_CLASSES": ("rest_framework.parsers.JSONParser",),
@@ -14,8 +14,8 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "MyFoLab API",
-    "DESCRIPTION": "Primary API Service for MyFoLab.",
+    "TITLE": "MyFo API",
+    "DESCRIPTION": "Primary API Service for MyFo.",
     "VERSION": "0.0.1",
     "SERVERS": [
         {"url": "http://localhost:8000"},

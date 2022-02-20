@@ -17,9 +17,9 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "apps.AdminConfig",
-    "apps.core",
+    "apps.common",
     "apps.identity",
-    "apps.member",
+    "apps.profile",
     "apps.storage",
 ]
 

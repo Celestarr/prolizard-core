@@ -5,8 +5,8 @@ from django.db import transaction
 from django.forms import ModelForm
 from django.views.generic import CreateView
 
-from apps.core.models import User
-from apps.member.models.preference import MemberPreference
+from apps.identity.models import User
+from apps.profile.models import UserPreference
 
 from .forms import AuthenticationForm, UserRegistrationForm
 
@@ -31,7 +31,7 @@ class RegistrationView(CreateView):
     @transaction.atomic
     def form_valid(self, form: ModelForm):
         self.object = form.save()
-        MemberPreference.objects.create(user=form.save())
+        UserPreference.objects.create(user=form.save())
 
     def post(self, request, *args, **kwargs):
         """

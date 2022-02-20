@@ -1,5 +1,5 @@
 [tool.bandit]
-exclude_dirs = [".git", ".github", ".idea", ".vscode", "__pycache__", "configs", "cv_templates", "data", "docs", "locale", "media", "migrations", "node_modules", "static_build", "static_src", "templates", "venv"]
+exclude_dirs = [".git", ".github", ".idea", ".vscode", "__pycache__", "configs", "resume_templates", "data", "docs", "locale", "media", "migrations", "node_modules", "static_build", "static_src", "templates", "venv"]
 skips = ["B101"]
 
 [tool.black]
@@ -12,7 +12,7 @@ exclude = """/(
     |\\.vscode
     |__pycache__
     |configs
-    |cv_templates
+    |resume_templates
     |data
     |docs
     |locale
@@ -33,3 +33,4 @@ py_version = 39
 line_length = 119
 color_output = true
 known_first_party = ["apps", "middlewares", "services", "settings", "utils"]
+skip = ["migrations", "node_modules", "venv"]

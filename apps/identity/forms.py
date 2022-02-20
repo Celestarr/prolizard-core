@@ -6,8 +6,8 @@ from django.core.exceptions import ValidationError
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 
-from apps.core.models import User
-from apps.core.models.utils import get_username_sequence_value
+from apps.identity.models import User
+from utils.db import get_username_sequence_value
 
 
 class AuthenticationForm(BaseAuthenticationForm):

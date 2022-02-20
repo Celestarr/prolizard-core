@@ -1,9 +1,9 @@
 from rest_framework.routers import SimpleRouter
 
-from .views import DownloadResumeViewSet
+from .views import ResumeViewSet
 
 router = SimpleRouter()
 
-router.register(r"member-resume", DownloadResumeViewSet, basename="store-member-resume")
+router.register(r"resume", ResumeViewSet, basename="store-resume")
 
 urlpatterns = router.urls

@@ -20,9 +20,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = "core.User"
+AUTH_USER_MODEL = "identity.User"
 
-AUTHENTICATION_BACKENDS = ["apps.core.backends.ModelBackend"]
+AUTHENTICATION_BACKENDS = ["apps.identity.backends.ModelBackend"]
 
 PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.Argon2PasswordHasher",

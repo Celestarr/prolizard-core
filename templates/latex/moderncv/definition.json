@@ -1,5 +1,5 @@
 {
-  "type": "cv",
+  "type": "resume",
   "name": "Modern CV",
   "entrypoint": "template.tex"
 }
