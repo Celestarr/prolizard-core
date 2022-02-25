@@ -1,7 +1,6 @@
 """
 Django settings for this project.
 """
-# flake8: noqa
 
 from .apps import *
 from .auth import *

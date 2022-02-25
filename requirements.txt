@@ -1,7 +1,7 @@
 bandit==1.7.2
 beautifulsoup4==4.10.0
 black==22.1.0
-boto3==1.20.54
+boto3==1.21.7
 cryptography==36.0.1
 django[argon2]==4.0.2
 django-cors-headers==3.11.0
@@ -10,11 +10,10 @@ django-oauth-toolkit==1.7.0
 django-storages==1.12.3
 djangorestframework==3.13.1
 drf-spectacular==0.21.2
-Faker==12.3.0
-flake8==4.0.1
+Faker==13.2.0
 gunicorn==20.1.0
 isort[colors]==5.10.1
-lxml==4.7.1
+lxml==4.8.0
 pandas==1.4.1
 psycopg2==2.9.3
 pycountry==22.1.10

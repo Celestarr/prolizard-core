@@ -32,6 +32,8 @@ STATICFILES_DIRS = [
 
 if USE_S3:
     DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+else:
+    DEFAULT_FILE_STORAGE = "apps.storage.backends.FileSystemStorage"
 
 MEDIA_URL = "/media/"
 

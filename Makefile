@@ -5,7 +5,6 @@ check: ## Check source code issues
 	black --diff --check .
 	isort --diff --check .
 	bandit -r . --configfile pyproject.toml
-	flake8 .
 	find . -iname "*.py" -not -path "./venv/*" -not -path "*/migrations/*" -not -path "*/node_modules/*" | xargs pylint
 	python manage.py makemigrations --dry-run --check
 

@@ -6,9 +6,9 @@ from rest_framework.response import Response
 from apps.common.viewsets import ModelViewSet
 from apps.identity.models import User
 from apps.storage.models import Resume
-from services.resume import generate_resume_pdf
-from utils import hash_string
-from utils.django import build_file_field_download_url, remove_media_file
+from services.resume import ResumePDFGenerator
+from utils.django import build_file_field_download_url
+from utils.string import hash_string
 
 
 class ResumeViewSet(ModelViewSet):
@@ -43,19 +43,15 @@ class ResumeViewSet(ModelViewSet):
                 # Check pre-condition again because it's possible for columns
                 # to be changed by others during lock-acquiring period.
                 if self.should_update(resume, current_version):
-                    pdf_path = generate_resume_pdf(user, current_version)
+                    with ResumePDFGenerator(user, current_version) as resume_pdf_generator:
+                        pdf_path = resume_pdf_generator.pdf_path
+                        target_file_name = f"user_{user.id}.pdf"
+                        # remove_media_file(f"resume/{target_file_name}")
 
-                    if not pdf_path:
-                        raise Exception("Could not generate pdf.")
-
-                    target_file_name = f"user_{user.id}.pdf"
-
-                    remove_media_file(f"resume/{target_file_name}")
-
-                    with open(str(pdf_path.absolute()), "rb") as file:
-                        resume.pdf = File(file, name=target_file_name)
-                        resume.version = current_version
-                        resume.save()
+                        with open(str(pdf_path.absolute()), "rb") as file:
+                            resume.pdf = File(file, name=target_file_name)
+                            resume.version = current_version
+                            resume.save()
                 else:
                     # Reload the object in the event of an update during
                     # lock acquiring period.

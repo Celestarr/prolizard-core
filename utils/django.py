@@ -10,5 +10,5 @@ def build_file_field_download_url(request, file_field) -> str:
     return request.build_absolute_uri(url)
 
 
-def remove_media_file(file_path, silent=True):
+def remove_media_file(file_path: str, silent: bool = True) -> None:
     (settings.BASE_DIR / settings.MEDIA_ROOT / file_path).unlink(missing_ok=silent)

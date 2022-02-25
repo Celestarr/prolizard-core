@@ -3,8 +3,19 @@ from django.contrib import admin
 from apps.common.models import Country, Currency, Gender, TimeZone
 
 
+class ReadOnlyModelAdmin(admin.ModelAdmin):
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
 @admin.register(Country)
-class CountryAdmin(admin.ModelAdmin):
+class CountryAdmin(ReadOnlyModelAdmin):
     list_display = (
         "id",
         "name",
@@ -23,12 +34,9 @@ class CountryAdmin(admin.ModelAdmin):
     )
     ordering = ("-id",)
 
-    def has_change_permission(self, request, obj=None):
-        return False
-
 
 @admin.register(Currency)
-class CurrencyAdmin(admin.ModelAdmin):
+class CurrencyAdmin(ReadOnlyModelAdmin):
     list_display = (
         "id",
         "name",
@@ -44,12 +52,9 @@ class CurrencyAdmin(admin.ModelAdmin):
     )
     ordering = ("-id",)
 
-    def has_change_permission(self, request, obj=None):
-        return False
-
 
 @admin.register(Gender)
-class GenderAdmin(admin.ModelAdmin):
+class GenderAdmin(ReadOnlyModelAdmin):
     list_display = (
         "id",
         "name",
@@ -57,12 +62,9 @@ class GenderAdmin(admin.ModelAdmin):
     )
     ordering = ("-id",)
 
-    def has_change_permission(self, request, obj=None):
-        return False
-
 
 @admin.register(TimeZone)
-class TimeZoneAdmin(admin.ModelAdmin):
+class TimeZoneAdmin(ReadOnlyModelAdmin):
     list_display = (
         "id",
         "name",
@@ -72,6 +74,3 @@ class TimeZoneAdmin(admin.ModelAdmin):
     )
     search_fields = ("name", "abbreviation", "offset_display_text")
     ordering = ("offset_minutes",)
-
-    def has_change_permission(self, request, obj=None):
-        return False

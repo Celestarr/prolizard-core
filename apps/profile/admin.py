@@ -1,5 +1,7 @@
 from django.contrib import admin
 
+from apps.common.admin import ReadOnlyModelAdmin
+
 from .models import (
     AcademicRecord,
     Certification,
@@ -20,8 +22,14 @@ from .models import (
 
 
 @admin.register(EmploymentType)
-class EmploymentTypeAdmin(admin.ModelAdmin):
-    pass
+class EmploymentTypeAdmin(ReadOnlyModelAdmin):
+    list_display = (
+        "id",
+        "name",
+        "updated_at",
+    )
+    search_fields = ("name",)
+    ordering = ("-id",)
 
 
 @admin.register(UserPreference)
@@ -30,13 +38,27 @@ class UserPreferenceAdmin(admin.ModelAdmin):
 
 
 @admin.register(LanguageProficiencyLevel)
-class LanguageProficiencyLevelAdmin(admin.ModelAdmin):
-    pass
+class LanguageProficiencyLevelAdmin(ReadOnlyModelAdmin):
+    list_display = (
+        "id",
+        "name",
+        "value",
+        "updated_at",
+    )
+    search_fields = ("name",)
+    ordering = ("-id",)
 
 
 @admin.register(SkillProficiencyLevel)
-class SkillProficiencyLevelAdmin(admin.ModelAdmin):
-    pass
+class SkillProficiencyLevelAdmin(ReadOnlyModelAdmin):
+    list_display = (
+        "id",
+        "name",
+        "value",
+        "updated_at",
+    )
+    search_fields = ("name",)
+    ordering = ("-id",)
 
 
 @admin.register(AcademicRecord)
@@ -85,10 +107,26 @@ class HonorOrAwardAdmin(admin.ModelAdmin):
 
 
 @admin.register(PortfolioTemplate)
-class PortfolioTemplateAdmin(admin.ModelAdmin):
-    pass
+class PortfolioTemplateAdmin(ReadOnlyModelAdmin):
+    list_display = (
+        "id",
+        "name",
+        "updated_at",
+    )
+    search_fields = ("name",)
+    ordering = ("-id",)
 
 
 @admin.register(ResumeTemplate)
-class ResumeTemplateAdmin(admin.ModelAdmin):
-    pass
+class ResumeTemplateAdmin(ReadOnlyModelAdmin):
+    list_display = (
+        "id",
+        "name",
+        "slug",
+        "updated_at",
+    )
+    search_fields = (
+        "name",
+        "slug",
+    )
+    ordering = ("-id",)

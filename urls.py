@@ -11,11 +11,32 @@ if not settings.USE_S3:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
-    path("api/", include("apps.common.urls")),
-    path("api/profile/", include("apps.profile.urls")),
-    path("api/store/", include("apps.storage.urls")),
-    path("identity/", include("apps.identity.urls")),
-    path("identity/oauth2/", include("oauth2_provider.urls", namespace="oauth2_provider")),
-    path("identity/dj/", include("django.contrib.auth.urls")),
-    path("internal/admin/", admin.site.urls),
+    path(
+        "api/",
+        include(
+            [
+                path("", include("apps.common.urls")),
+                path("profile/", include("apps.profile.urls")),
+                path("storage/", include("apps.storage.urls")),
+            ]
+        ),
+    ),
+    path(
+        "identity/",
+        include(
+            [
+                path("", include("apps.identity.urls")),
+                path("oauth2/", include("oauth2_provider.urls", namespace="oauth2_provider")),
+                path("dj/", include("django.contrib.auth.urls")),
+            ]
+        ),
+    ),
+    path(
+        "internal/",
+        include(
+            [
+                path("admin/", admin.site.urls),
+            ]
+        ),
+    ),
 ]
