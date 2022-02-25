@@ -6,7 +6,7 @@ check: ## Check source code issues
 	isort --diff --check .
 	bandit -r . --configfile pyproject.toml
 	find . -iname "*.py" -not -path "./venv/*" -not -path "*/migrations/*" -not -path "*/node_modules/*" | xargs pylint
-	python manage.py makemigrations --dry-run --check
+# 	python manage.py makemigrations --dry-run --check
 
 deps: ## Install dependencies
 	pip install -r requirements.txt
