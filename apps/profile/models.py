@@ -39,7 +39,7 @@ class ResumeTemplate(TimeStampedModel):
 
 
 def get_default_resume_template():
-    _ResumeTemplate = apps.get_model("member", "ResumeTemplate")  # pylint: disable=invalid-name
+    _ResumeTemplate = apps.get_model("profile", "ResumeTemplate")  # pylint: disable=invalid-name
     template = _ResumeTemplate.objects.all().first()
 
     return template.id if template else None

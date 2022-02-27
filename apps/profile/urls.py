@@ -13,6 +13,8 @@ from .views import (
     WorkExperienceViewSet,
 )
 
+app_name = "profile"  # pylint: disable=invalid-name
+
 router = SimpleRouter()
 router.register(r"sections/academic-records", AcademicRecordViewSet)
 router.register(r"sections/certifications", CertificationViewSet)

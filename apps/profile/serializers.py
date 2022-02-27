@@ -287,15 +287,15 @@ class CertificationSerializerForResumeTemplate(CertificationSerializer):
 
 
 class MemberProfileSerializer(UserSerializer):
-    academic_records = AcademicRecordSerializer(many=True, read_only=True, source="member_academic_record_set")
-    certifications = CertificationSerializer(many=True, read_only=True, source="member_certification_set")
-    honors_or_awards = HonorOrAwardSerializer(many=True, read_only=True, source="member_honor_or_award_set")
-    languages = LanguageSerializer(many=True, read_only=True, source="member_language_set")
-    projects = ProjectSerializer(many=True, read_only=True, source="member_project_set")
-    publications = PublicationSerializer(many=True, read_only=True, source="member_publication_set")
-    skills = SkillSerializer(many=True, read_only=True, source="member_skill_set")
-    web_links = WebLinkSerializer(many=True, read_only=True, source="member_web_link_set")
-    work_experiences = WorkExperienceSerializer(many=True, read_only=True, source="member_work_experience_set")
+    academic_records = AcademicRecordSerializer(many=True, read_only=True, source="academic_record_set")
+    certifications = CertificationSerializer(many=True, read_only=True, source="certification_set")
+    honors_or_awards = HonorOrAwardSerializer(many=True, read_only=True, source="honor_or_award_set")
+    languages = LanguageSerializer(many=True, read_only=True, source="language_set")
+    projects = ProjectSerializer(many=True, read_only=True, source="project_set")
+    publications = PublicationSerializer(many=True, read_only=True, source="publication_set")
+    skills = SkillSerializer(many=True, read_only=True, source="skill_set")
+    web_links = WebLinkSerializer(many=True, read_only=True, source="web_link_set")
+    work_experiences = WorkExperienceSerializer(many=True, read_only=True, source="work_experience_set")
 
     class Meta(UserSerializer.Meta):
         pass
