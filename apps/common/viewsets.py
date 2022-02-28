@@ -86,12 +86,9 @@ class ModelViewSet(BaseModelViewSet):
         return serializer.save()
 
     def get_serializer(self, *args, **kwargs):
-        instance = kwargs.get("instance")
+        write_only = kwargs.get("write_only")
 
-        if not instance and args:
-            instance = args[0]
-
-        if not instance and self.serializer_class_write_only:
+        if write_only and self.serializer_class_write_only:
             serializer_class = self.serializer_class_write_only
         else:
             serializer_class = self.serializer_class
@@ -110,7 +107,7 @@ class ModelViewSet(BaseModelViewSet):
         else:
             data = request.data
 
-        serializer = self.get_serializer(data=data)
+        serializer = self.get_serializer(data=data, write_only=True)
         serializer.is_valid(raise_exception=True)
         model_instance = self.perform_create(serializer)
         read_only_serializer = self.get_serializer(model_instance)
@@ -120,7 +117,7 @@ class ModelViewSet(BaseModelViewSet):
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop("partial", False)
         instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer = self.get_serializer(instance, data=request.data, partial=partial, write_only=True)
         serializer.is_valid(raise_exception=True)
         model_instance = self.perform_update(serializer)
         self.updated_instance = model_instance
