@@ -3,11 +3,80 @@ from typing import Optional
 from django.db.models import Q
 from django.http import Http404
 from rest_framework import status
+from rest_framework.mixins import CreateModelMixin as BaseCreateModelMixin
+from rest_framework.mixins import DestroyModelMixin as BaseDestroyModelMixin
+from rest_framework.mixins import ListModelMixin as BaseListModelMixin
+from rest_framework.mixins import RetrieveModelMixin as BaseRetrieveModelMixin
+from rest_framework.mixins import UpdateModelMixin as BaseUpdateModelMixin
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet as BaseModelViewSet
+from rest_framework.viewsets import GenericViewSet as BaseGenericViewSet
 
 
-class ModelViewSet(BaseModelViewSet):
+class CreateModelMixin(BaseCreateModelMixin):
+    """
+    Create a model instance.
+    """
+
+    def create(self, request, *args, **kwargs):
+        if hasattr(self, "_extra_create_kwargs"):
+            data = dict(**request.data, **self._extra_create_kwargs)
+        else:
+            data = request.data
+
+        serializer = self.get_serializer(data=data, write_only=True)
+        serializer.is_valid(raise_exception=True)
+        model_instance = self.perform_create(serializer)
+        read_only_serializer = self.get_serializer(model_instance)
+        headers = self.get_success_headers(read_only_serializer.data)
+        return Response(read_only_serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def perform_create(self, serializer):
+        return serializer.save()
+
+
+class RetrieveModelMixin(BaseRetrieveModelMixin):
+    pass
+
+
+class UpdateModelMixin(BaseUpdateModelMixin):
+    def __init__(self):
+        super().__init__()
+        # Holds the updated object after `perform_update` is called.
+        self.updated_instance = None
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop("partial", False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial, write_only=True)
+        serializer.is_valid(raise_exception=True)
+        model_instance = self.perform_update(serializer)
+        self.updated_instance = model_instance
+        read_only_serializer = self.get_serializer(model_instance)
+
+        if getattr(instance, "_prefetched_objects_cache", None):
+            # If 'prefetch_related' has been applied to a queryset, we need to
+            # forcibly invalidate the prefetch cache on the instance.
+            instance._prefetched_objects_cache = {}
+
+        return Response(read_only_serializer.data)
+
+    def perform_update(self, serializer):
+        return serializer.save()
+
+    def partial_update(self, request, *args, **kwargs):
+        kwargs["partial"] = True
+        return self.update(request, *args, **kwargs)
+
+
+class DestroyModelMixin(BaseDestroyModelMixin):
+    pass
+
+
+class ListModelMixin(BaseListModelMixin):
+    pass
+
+
+class GenericViewSet(BaseGenericViewSet):
     # permission_classes_by_action = {
     #     "create": [IsAuthenticated],
     #     "destroy": [IsAuthenticated, IsObjectOwner],
@@ -22,9 +91,6 @@ class ModelViewSet(BaseModelViewSet):
     # A value of none indicates that default `serializer_class` will be used
     #   for everything (retrieval, creation and updates).
     serializer_class_write_only = None
-
-    # Holds the updated object after `perform_update` is called.
-    updated_instance = None
 
     # List of lookup fields, e.g. ["pk", "username", "email"]
     # If default `lookup_field` is not enough and it is required to
@@ -82,9 +148,6 @@ class ModelViewSet(BaseModelViewSet):
 
         return obj
 
-    def perform_create(self, serializer):
-        return serializer.save()
-
     def get_serializer(self, *args, **kwargs):
         write_only = kwargs.get("write_only")
 
@@ -101,38 +164,20 @@ class ModelViewSet(BaseModelViewSet):
         kwargs.setdefault("context", self.get_serializer_context())
         return serializer_class(*args, **kwargs)  # pylint: disable=not-callable
 
-    def create(self, request, *args, **kwargs):
-        if hasattr(self, "_extra_create_kwargs"):
-            data = dict(**request.data, **self._extra_create_kwargs)
-        else:
-            data = request.data
 
-        serializer = self.get_serializer(data=data, write_only=True)
-        serializer.is_valid(raise_exception=True)
-        model_instance = self.perform_create(serializer)
-        read_only_serializer = self.get_serializer(model_instance)
-        headers = self.get_success_headers(read_only_serializer.data)
-        return Response(read_only_serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+class ModelViewSet(  # pylint: disable=too-many-ancestors
+    CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, ListModelMixin, GenericViewSet
+):
+    pass
 
-    def update(self, request, *args, **kwargs):
-        partial = kwargs.pop("partial", False)
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial, write_only=True)
-        serializer.is_valid(raise_exception=True)
-        model_instance = self.perform_update(serializer)
-        self.updated_instance = model_instance
-        read_only_serializer = self.get_serializer(model_instance)
 
-        if getattr(instance, "_prefetched_objects_cache", None):
-            # If 'prefetch_related' has been applied to a queryset, we need to
-            # forcibly invalidate the prefetch cache on the instance.
-            instance._prefetched_objects_cache = {}
+class ListOnlyModelViewSet(ListModelMixin, GenericViewSet):
+    pass
 
-        return Response(read_only_serializer.data)
 
-    def perform_update(self, serializer):
-        return serializer.save()
+class RetrieveOnlyModelViewSet(RetrieveModelMixin, GenericViewSet):
+    pass
 
-    def partial_update(self, request, *args, **kwargs):
-        kwargs["partial"] = True
-        return self.update(request, *args, **kwargs)
+
+class ReadOnlyModelViewSet(RetrieveModelMixin, ListOnlyModelViewSet):
+    pass

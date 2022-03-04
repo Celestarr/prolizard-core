@@ -5,7 +5,7 @@ from rest_framework.exceptions import APIException, ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from apps.common.viewsets import ModelViewSet
+from apps.common.viewsets import RetrieveOnlyModelViewSet
 from apps.identity.models import User
 from apps.identity.permissions import IsObjectOwner
 from apps.identity.serializers import UserSerializer, UserWriteOnlySerializer
@@ -42,7 +42,7 @@ from .serializers import (
 from .viewsets import ProfileSectionViewSet
 
 
-class MemberViewSet(ModelViewSet):
+class MemberViewSet(RetrieveOnlyModelViewSet):
     serializer_class = UserSerializer
     serializer_class_write_only = UserWriteOnlySerializer
     queryset = User.objects.all()
@@ -108,49 +108,49 @@ class MemberViewSet(ModelViewSet):
             raise APIException(gettext("Something went wrong.")) from exception
 
 
-class AcademicRecordViewSet(ProfileSectionViewSet):
+class AcademicRecordViewSet(ProfileSectionViewSet):  # pylint: disable=too-many-ancestors
     serializer_class = AcademicRecordSerializer
     queryset = AcademicRecord.objects.all()
 
 
-class SkillViewSet(ProfileSectionViewSet):
+class SkillViewSet(ProfileSectionViewSet):  # pylint: disable=too-many-ancestors
     serializer_class = SkillSerializer
     serializer_class_write_only = SkillWriteOnlySerializer
     queryset = Skill.objects.all()
 
 
-class WebLinkViewSet(ProfileSectionViewSet):
+class WebLinkViewSet(ProfileSectionViewSet):  # pylint: disable=too-many-ancestors
     serializer_class = WebLinkSerializer
     queryset = WebLink.objects.all()
 
 
-class WorkExperienceViewSet(ProfileSectionViewSet):
+class WorkExperienceViewSet(ProfileSectionViewSet):  # pylint: disable=too-many-ancestors
     serializer_class = WorkExperienceSerializer
     serializer_class_write_only = WorkExperienceWriteOnlySerializer
     queryset = WorkExperience.objects.all()
 
 
-class LanguageViewSet(ProfileSectionViewSet):
+class LanguageViewSet(ProfileSectionViewSet):  # pylint: disable=too-many-ancestors
     serializer_class = LanguageSerializer
     serializer_class_write_only = LanguageWriteOnlySerializer
     queryset = Language.objects.all()
 
 
-class ProjectViewSet(ProfileSectionViewSet):
+class ProjectViewSet(ProfileSectionViewSet):  # pylint: disable=too-many-ancestors
     serializer_class = ProjectSerializer
     queryset = Project.objects.all()
 
 
-class PublicationViewSet(ProfileSectionViewSet):
+class PublicationViewSet(ProfileSectionViewSet):  # pylint: disable=too-many-ancestors
     serializer_class = PublicationSerializer
     queryset = Publication.objects.all()
 
 
-class HonorOrAwardViewSet(ProfileSectionViewSet):
+class HonorOrAwardViewSet(ProfileSectionViewSet):  # pylint: disable=too-many-ancestors
     serializer_class = HonorOrAwardSerializer
     queryset = HonorOrAward.objects.all()
 
 
-class CertificationViewSet(ProfileSectionViewSet):
+class CertificationViewSet(ProfileSectionViewSet):  # pylint: disable=too-many-ancestors
     serializer_class = CertificationSerializer
     queryset = Certification.objects.all()

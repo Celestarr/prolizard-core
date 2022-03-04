@@ -5,7 +5,7 @@ from django.utils import timezone
 from apps.common.viewsets import ModelViewSet
 
 
-class ProfileSectionViewSet(ModelViewSet):
+class ProfileSectionViewSet(ModelViewSet):  # pylint: disable=too-many-ancestors
     @property
     def _extra_create_kwargs(self):
         return {"user": self.request.user.pk}

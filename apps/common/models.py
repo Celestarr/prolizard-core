@@ -29,6 +29,7 @@ class Country(SmallTimeStampedModel):
     class Meta:
         verbose_name = _("country")
         verbose_name_plural = _("countries")
+        ordering = ("id",)
 
 
 class Currency(SmallTimeStampedModel):
@@ -40,6 +41,7 @@ class Currency(SmallTimeStampedModel):
     class Meta:
         verbose_name = _("currency")
         verbose_name_plural = _("currencies")
+        ordering = ("id",)
 
 
 class Gender(SmallTimeStampedModel):
@@ -48,6 +50,7 @@ class Gender(SmallTimeStampedModel):
     class Meta:
         verbose_name = _("gender")
         verbose_name_plural = _("genders")
+        ordering = ("id",)
 
 
 class SupportedLocale(SmallTimeStampedModel):
@@ -60,6 +63,7 @@ class SupportedLocale(SmallTimeStampedModel):
     class Meta:
         verbose_name = _("supported locale")
         verbose_name_plural = _("supported locales")
+        ordering = ("id",)
 
 
 class TimeZone(SmallTimeStampedModel):

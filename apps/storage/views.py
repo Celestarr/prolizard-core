@@ -11,7 +11,7 @@ from utils.django import build_file_field_download_url
 from utils.string import hash_string
 
 
-class ResumeViewSet(ModelViewSet):
+class ResumeViewSet(ModelViewSet):  # pylint: disable=too-many-ancestors
     permission_classes_by_action = {}
     permission_classes = (IsAuthenticated,)
     http_method_names = ["get", "head", "options"]

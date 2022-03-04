@@ -16,7 +16,8 @@ fmt: ## Format code
 	isort --atomic .
 
 test: ## Run tests
-	python manage.py test
+	coverage run --source="." manage.py test
+	coverage report
 
 help: ## Show this help
 	@echo 'Usage: make [target]'
