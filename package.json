@@ -1,9 +1,8 @@
 {
-  "name": "confetti",
+  "name": "seoul",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:MyFoLab/confetti.git",
-  "author": "Mezbaul Haque <mezba109@gmail.com>",
+  "repository": "git@github.com:MyFoLab/seoul.git",
   "license": "MIT",
   "engines": {
     "node": ">=16.12"

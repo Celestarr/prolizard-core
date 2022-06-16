@@ -1,36 +1,28 @@
 [tool.bandit]
-exclude_dirs = [".git", ".github", ".idea", ".vscode", "__pycache__", "configs", "resume_templates", "data", "docs", "locale", "media", "migrations", "node_modules", "static_build", "static_src", "templates", "venv"]
+exclude_dirs = ["migrations", "node_modules", "venv"]
 skips = ["B101"]
 
 [tool.black]
+color = true
 line_length = 119
 target_version = ["py39"]
-exclude = """/(
-    |\\.git
-    |\\.github
-    |\\.idea
-    |\\.vscode
-    |__pycache__
-    |configs
-    |resume_templates
-    |data
-    |docs
-    |locale
-    |media
-    |migrations
-    |node_modules
-    |static_build
-    |static_src
-    |templates
-    |venv
-)/"""
-color_output = true
 
 [tool.isort]
-profile = "black"
-multi_line_output = 3
-py_version = 39
-line_length = 119
 color_output = true
-known_first_party = ["apps", "middlewares", "services", "settings", "utils"]
-skip = ["migrations", "node_modules", "venv"]
+line_length = 119
+multi_line_output = 3
+profile = "black"
+py_version = 39
+
+[tool.pytest.ini_options]
+addopts = "-ra --verbose"
+testpaths = ["test"]
+
+[tool.coverage.run]
+branch = true
+omit = ["seoul/__main__.py"]
+source = ["seoul"]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = ["if __name__ == .__main__.:"]

@@ -1,4 +1,4 @@
-# confetti
+# seoul
 
 MyFoLab's primary backend service.
 

@@ -1,11 +1,17 @@
+.PHONY: test
+
 reset:
 	@docker-compose down -v --remove-orphans
 
 check: ## Check source code issues
 	black --diff --check .
 	isort --diff --check .
-	bandit -r . --configfile pyproject.toml
-	find . -iname "*.py" -not -path "./venv/*" -not -path "*/migrations/*" -not -path "*/node_modules/*" | xargs pylint
+	bandit --recursive . --configfile pyproject.toml
+	find . -iname "*.py" \
+		-not -path "./venv/*" \
+		-not -path "./build/*" \
+		-not -path "./node_modules/*" \
+		-not -path "*/migrations/*" | xargs pylint
 # 	python manage.py makemigrations --dry-run --check
 
 deps: ## Install dependencies

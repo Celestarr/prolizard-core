@@ -2,17 +2,17 @@ version: "3.8"
 
 services:
   db:
-    container_name: myfo__confetti__db
+    container_name: myfo__seoul__db
     image: postgres:13.4
     environment:
       - "POSTGRES_DB=myfo"
       - "POSTGRES_PASSWORD=postgres"
 
-  confetti:
-    container_name: myfo__confetti
+  seoul:
+    container_name: myfo__seoul
     build:
       context: .
-      dockerfile: docker/confetti/confetti.dev.dockerfile
+      dockerfile: docker/seoul/seoul.dev.dockerfile
     env_file:
       - .env
     depends_on:
