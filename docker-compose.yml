@@ -5,7 +5,7 @@ services:
     container_name: myfo__seoul__db
     image: postgres:13.4
     environment:
-      - "POSTGRES_DB=myfo"
+      - "POSTGRES_DB=seoul"
       - "POSTGRES_PASSWORD=postgres"
 
   seoul:
@@ -20,4 +20,4 @@ services:
     volumes:
       - ./:/project
     ports:
-      - "0.0.0.0:8000:9901"
+      - "0.0.0.0:8000:8000"

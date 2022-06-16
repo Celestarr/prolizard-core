@@ -210,7 +210,7 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "EXCEPTION_HANDLER": "middlewares.global_exception_handler.global_exception_handler",
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
-    "DEFAULT_PAGINATION_CLASS": "apps.common.pagination.PageNumberPagination",
+    "DEFAULT_PAGINATION_CLASS": "seoul.apps.common.pagination.PageNumberPagination",
     "DEFAULT_PARSER_CLASSES": ("rest_framework.parsers.JSONParser",),
     "PAGE_SIZE": 10,
 }

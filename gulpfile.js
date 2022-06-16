@@ -14,8 +14,7 @@ const DEST_BASE = "seoul/static/build";
 const SOURCE_BASE = "seoul/static/src";
 
 function js() {
-  const files = glob.sync(`${SOURCE_BASE}/js/**/*.js`);
-  files.concat(glob.sync(`${SOURCE_BASE}/js/**/*.jsx`));
+  const files = glob.sync(`${SOURCE_BASE}/js/**/*.+(js|jsx)`);
   const tasks = [];
 
   for (let i = 0; i < files.length; i += 1) {

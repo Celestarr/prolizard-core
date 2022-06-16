@@ -9,9 +9,9 @@ urlpatterns = [
         "api/",
         include(
             [
-                path("", include("apps.common.urls")),
-                path("profile/", include("apps.profile.urls")),
-                path("storage/", include("apps.storage.urls")),
+                path("", include("seoul.apps.common.urls")),
+                path("profile/", include("seoul.apps.profile.urls")),
+                path("storage/", include("seoul.apps.storage.urls")),
             ]
         ),
     ),
@@ -19,7 +19,7 @@ urlpatterns = [
         "identity/",
         include(
             [
-                path("", include("apps.identity.urls")),
+                path("", include("seoul.apps.identity.urls")),
                 path("oauth2/", include("oauth2_provider.urls", namespace="oauth2_provider")),
                 path("dj/", include("django.contrib.auth.urls")),
             ]
@@ -36,6 +36,6 @@ urlpatterns = [
 ]
 
 
-if not settings.USE_S3:
+if not settings.AWS_S3_SECRET_ACCESS_KEY and not settings.AWS_S3_ACCESS_KEY_ID:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -13,7 +13,7 @@ RUN yarn build
 
 FROM python:3.9.7-bullseye
 
-ENV PORT 9901
+ENV PORT 8000
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
@@ -34,6 +34,6 @@ WORKDIR /project
 RUN python -m pip install --upgrade pip
 RUN pip install --requirement requirements.txt
 
-EXPOSE 9901
+EXPOSE 8000
 
 ENTRYPOINT ["/usr/local/sbin/entrypoint.sh"]
