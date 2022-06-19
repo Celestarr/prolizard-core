@@ -22,7 +22,7 @@ class UserAdmin(BaseUserAdmin):
                 ),
             },
         ),
-        # (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+        (_("Important dates"), {"fields": ("last_login",)}),
     )
     list_display = (
         "id",

@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 import json
 import re
 from datetime import datetime, timedelta

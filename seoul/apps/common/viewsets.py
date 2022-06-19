@@ -39,11 +39,6 @@ class RetrieveModelMixin(BaseRetrieveModelMixin):
 
 
 class UpdateModelMixin(BaseUpdateModelMixin):
-    def __init__(self):
-        super().__init__()
-        # Holds the updated object after `perform_update` is called.
-        self.updated_instance = None
-
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop("partial", False)
         instance = self.get_object()
@@ -176,6 +171,10 @@ class ListOnlyModelViewSet(ListModelMixin, GenericViewSet):
 
 
 class RetrieveOnlyModelViewSet(RetrieveModelMixin, GenericViewSet):
+    pass
+
+
+class RetrieveUpdateModelViewSet(RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
     pass
 
 

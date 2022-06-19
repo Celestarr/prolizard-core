@@ -81,8 +81,8 @@ class User(AbstractUser, TimeStampedModel):
     )
 
     # Invalidate unused fields
-    date_joined = None
-    last_login = None
+    # date_joined = None
+    # last_login = None  # used by django-oauth-toolkit
 
     class Meta(AbstractUser.Meta):
         swappable = "AUTH_USER_MODEL"

@@ -33,7 +33,10 @@ WORKDIR /project
 
 RUN python -m pip install --upgrade pip
 RUN pip install --requirement requirements.txt
+RUN python manage.py compilemessages
+# RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
 
 ENTRYPOINT ["/usr/local/sbin/entrypoint.sh"]
+CMD ["gunicorn", "seoul.wsgi", "--config", "/etc/gunicorn.conf.py", "--name", "seoul", "--log-level", "debug"]

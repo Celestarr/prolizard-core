@@ -6,6 +6,7 @@ from pathlib import Path
 from urllib.parse import urljoin
 
 import requests
+from corsheaders.defaults import default_headers as cors_default_headers
 from decouple import config
 
 # Common variables
@@ -55,15 +56,22 @@ EMAIL_CONFIRMATION_REQUIRED = False  # Internal
 LOGIN_URL = "/identity/login/"
 
 OAUTH2_PROVIDER = {
-    "OAUTH2_BACKEND_CLASS": "oauth2_provider.oauth2_backends.JSONOAuthLibCore",
+    # 'ACCESS_TOKEN_EXPIRE_SECONDS': 60 + 15,
+    # "OAUTH2_BACKEND_CLASS": "oauth2_provider.oauth2_backends.JSONOAuthLibCore",
+    "OAUTH2_VALIDATOR_CLASS": "seoul.utils.oauth2.RequestValidator",
     # this is the list of available scopes
     "SCOPES": {
         "read": "Read scope",
         "write": "Write scope",
         "groups": "Access to your groups",
         "member": "Member access",
+        "openid": "OpenID Connect scope",
+        "profile": "Member access",
+        "email": "Member access",
     },
     "PKCE_REQUIRED": True,
+    "OIDC_ENABLED": True,
+    "OIDC_RSA_PRIVATE_KEY": config("OIDC_RSA_PRIVATE_KEY").replace("\\n", "\n"),
 }
 
 PASSWORD_HASHERS = ("django.contrib.auth.hashers.Argon2PasswordHasher",)
@@ -79,7 +87,7 @@ try:
 except requests.exceptions.RequestException:
     pass
 
-APPEND_SLASH = False
+APPEND_SLASH = True
 
 DATABASES = {
     "default": {
@@ -189,6 +197,8 @@ USE_TZ = True
 
 WSGI_APPLICATION = "seoul.wsgi.application"
 
+X_FRAME_OPTIONS = "SAMEORIGIN"
+
 
 # django-cors-headers
 # https://github.com/adamchainz/django-cors-headers#configuration
@@ -197,6 +207,9 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = (APP_URL, *(host for host in config("CORS_ALLOWED_ORIGINS").split(",") if host))
 
+CORS_ALLOW_HEADERS = list(cors_default_headers) + [
+    "auth0-client",
+]
 
 # Django REST framework
 
@@ -208,7 +221,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "EXCEPTION_HANDLER": "middlewares.global_exception_handler.global_exception_handler",
+    "EXCEPTION_HANDLER": "seoul.middlewares.global_exception_handler.global_exception_handler",
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     "DEFAULT_PAGINATION_CLASS": "seoul.apps.common.pagination.PageNumberPagination",
     "DEFAULT_PARSER_CLASSES": ("rest_framework.parsers.JSONParser",),
@@ -252,12 +265,12 @@ SESSION_COOKIE_SECURE = config("SESSION_COOKIE_SECURE", default=False, cast=bool
 
 AWS_QUERYSTRING_AUTH = False
 
-AWS_S3_ENDPOINT_URL = config("AWS_S3_ENDPOINT_URL", default="")
+AWS_S3_ENDPOINT_URL = config("AWS_S3_ENDPOINT_URL", default=None)
 
-AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME", default="")
+AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME", default=None)
 
 # Custom setting. Only used for static files with no queryauth.
-AWS_STATIC_BUCKET_NAME = config("AWS_STATIC_BUCKET_NAME")
+AWS_STATIC_BUCKET_NAME = config("AWS_STATIC_BUCKET_NAME", default=None)
 
 STATIC_ROOT = BASE_DIR / "static" / "dist"
 

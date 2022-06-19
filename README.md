@@ -36,13 +36,13 @@ Navigate to [localhost:8000/admin](http://localhost:8000/admin/) if everything r
 Check source code issues and try to resolve them:
 
 ```bash
-docker exec -it myfo__confetti make check
+docker exec -it myfo__seoul make check
 ```
 
 Finally format code:
 
 ```bash
-docker exec -it myfo__confetti make fmt
+docker exec -it myfo__seoul make fmt
 ```
 
 Commit and push if everything is alright.
@@ -52,34 +52,34 @@ Commit and push if everything is alright.
 To install a new pip package:
 
 ```bash
-docker exec -it myfo__confetti pip install <new-package>
+docker exec -it myfo__seoul pip install <new-package>
 ```
 
 Sync _requirements.txt_ after installing new packages:
 
 ```bash
-docker exec -it myfo__confetti pip freeze > requirements.txt
+docker exec -it myfo__seoul pip freeze > requirements.txt
 ```
 
 --
 
 Generate/Update Translation Files:
 ```bash
-docker exec -it myfo__confetti python app/manage.py makemessages --ignore "venv/**/*.py" --ignore "dev/**/*.py" --ignore "requirements.txt" --locale <locale_code>
+docker exec -it myfo__seoul python app/manage.py makemessages --ignore "venv/**/*.py" --ignore "dev/**/*.py" --ignore "requirements.txt" --locale <locale_code>
 ```
 
 --
 
 Generate Migrations:
 ```bash
-docker exec -it myfo__confetti python app/manage.py makemigrations
+docker exec -it myfo__seoul python app/manage.py makemigrations
 ```
 
 --
 
 Generate OpenAPI schema file:
 ```bash
-docker exec -it myfo__confetti python app/manage.py spectacular --file schema.yml
+docker exec -it myfo__seoul python app/manage.py spectacular --file schema.yml
 ```
 
 Visualize the schema using redoc:

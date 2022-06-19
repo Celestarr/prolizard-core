@@ -5,7 +5,7 @@ from rest_framework.exceptions import APIException, ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from seoul.apps.common.viewsets import RetrieveOnlyModelViewSet
+from seoul.apps.common.viewsets import RetrieveUpdateModelViewSet
 from seoul.apps.identity.models import User
 from seoul.apps.identity.permissions import IsObjectOwner
 from seoul.apps.identity.serializers import UserSerializer, UserWriteOnlySerializer
@@ -42,7 +42,7 @@ from .serializers import (
 from .viewsets import ProfileSectionViewSet
 
 
-class MemberViewSet(RetrieveOnlyModelViewSet):
+class MemberViewSet(RetrieveUpdateModelViewSet):  # pylint: disable=too-many-ancestors
     serializer_class = UserSerializer
     serializer_class_write_only = UserWriteOnlySerializer
     queryset = User.objects.all()
@@ -68,20 +68,15 @@ class MemberViewSet(RetrieveOnlyModelViewSet):
     )  # pylint: disable=invalid-name
     def me(self, request):
         user = request.user
-        extended_profile = None
 
         with transaction.atomic():
             if request.method == "PATCH":
                 self.kwargs["pk"] = user.pk
-                partial_update_res = self.partial_update(request, pk=user.pk)
+                self.partial_update(request, pk=user.pk)
 
-                extended_profile = MemberProfileExtendedSerializer(
-                    self.updated_instance if self.updated_instance else user
-                ).data
+                return Response(MemberProfileExtendedSerializer(self.updated_instance).data)
 
-                return partial_update_res
-
-        return Response(extended_profile if extended_profile else MemberProfileExtendedSerializer(user).data)
+        return Response(MemberProfileExtendedSerializer(user).data)
 
     @action(detail=False, methods=["patch"], url_name="update-current-user-preferences")
     def preferences(self, request):

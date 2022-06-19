@@ -3,6 +3,8 @@ from django.contrib.auth.views import LoginView as BaseLoginView
 from django.contrib.auth.views import LogoutView as BaseLogoutView
 from django.db import transaction
 from django.forms import ModelForm
+from django.http import HttpRequest, HttpResponseRedirect
+from django.urls import reverse
 from django.views.generic import CreateView
 
 from seoul.apps.identity.models import User
@@ -70,3 +72,8 @@ class LoginView(BaseLoginView):
 
 class LogoutView(BaseLogoutView):
     pass
+
+
+def auth0_token_redirect_view(request: HttpRequest) -> HttpResponseRedirect:
+    del request
+    return HttpResponseRedirect(reverse("oauth2_provider:token"))

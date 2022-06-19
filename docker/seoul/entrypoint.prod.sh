@@ -10,3 +10,5 @@ exec gunicorn wsgi \
     --name seoul \
     --log-level=debug \
     "$@"
+
+exec "$@"
