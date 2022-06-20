@@ -3,8 +3,7 @@ FROM python:3.9.7-bullseye
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN apt-get update && apt-get -y upgrade
-RUN apt-get install -y texlive gettext
+RUN apt-get update && apt-get install -y --no-install-recommends texlive gettext
 
 # Copy docker entrypoint script to appropriate location, give execute
 # permissions.
