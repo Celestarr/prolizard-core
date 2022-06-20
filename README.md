@@ -8,7 +8,7 @@ MyFoLab's primary backend service.
 
 ### Using Docker
 
-### Pre-requisites:
+#### Pre-requisites:
 1. [Docker Engine](https://docs.docker.com/engine/install/) `19.03.0+`
 2. [Docker Compose](https://docs.docker.com/compose/install/) `1.28.3+`
 
