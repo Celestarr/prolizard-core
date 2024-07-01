@@ -1,9 +1,4 @@
 services:
-  db:
-    image: postgres:14.12
-    environment:
-      - "POSTGRES_DB=app"
-      - "POSTGRES_PASSWORD=postgres"
   app:
     build:
       context: ../
@@ -12,5 +7,17 @@ services:
       - ../.env
     depends_on:
       - db
+      - storage
     ports:
       - "0.0.0.0:8000:8000"
+  db:
+    image: postgres:14.12
+    environment:
+      - "POSTGRES_DB=app"
+      - "POSTGRES_PASSWORD=postgres"
+  storage:
+    image: minio/minio:RELEASE.2024-06-29T01-20-47Z
+    entrypoint: sh
+    command: -c 'mkdir -p /export/static && mkdir -p /export/uploads && /usr/bin/minio server /export'
+    ports:
+      - "0.0.0.0:9000:9000"

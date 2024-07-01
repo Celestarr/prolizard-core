@@ -11,6 +11,8 @@ from decouple import config
 
 # Common variables
 
+APP_ENV = config("APP_ENV", default="development")
+
 APP_URL = config("APP_URL")
 
 AWS_S3_ACCESS_KEY_ID = config("AWS_S3_ACCESS_KEY_ID", default="")
@@ -25,10 +27,10 @@ RESUME_TEMPLATE_TEMPORARY_DIR = BASE_DIR / "resume_templates"
 
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # Auth
-# https://docs.djangoproject.com/en/4.0/ref/settings/#auth
+# https://docs.djangoproject.com/en/5.0/ref/settings/#auth
 
 APP_LOGIN_URL = urljoin(APP_URL, "/login")  # Internal
 
@@ -78,7 +80,7 @@ PASSWORD_HASHERS = ("django.contrib.auth.hashers.Argon2PasswordHasher",)
 
 
 # Core
-# https://docs.djangoproject.com/en/4.0/ref/settings/#core-settings
+# https://docs.djangoproject.com/en/5.0/ref/settings/#core-settings
 
 ALLOWED_HOSTS = [host for host in config("ALLOWED_HOSTS").split(",") if host]
 
@@ -103,11 +105,6 @@ DATABASES = {
 DEBUG = config("DEBUG", default=False, cast=bool)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-if AWS_S3_ACCESS_KEY_ID and AWS_S3_SECRET_ACCESS_KEY:
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-# else:
-#     DEFAULT_FILE_STORAGE = "app.services.storage.FileSystemStorage"
 
 FIELD_META = {
     "confirmation_key": {"max_length": 255, "min_length": 4},
@@ -239,13 +236,13 @@ SPECTACULAR_SETTINGS = {
 
 
 # Messages
-# https://docs.djangoproject.com/en/4.0/ref/settings/#messages
+# https://docs.djangoproject.com/en/5.0/ref/settings/#messages
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 
 
 # Security
-# https://docs.djangoproject.com/en/4.0/ref/settings/#security
+# https://docs.djangoproject.com/en/5.0/ref/settings/#security
 
 CSRF_COOKIE_DOMAIN = config("CSRF_COOKIE_DOMAIN")
 
@@ -253,7 +250,7 @@ CSRF_COOKIE_SECURE = config("CSRF_COOKIE_SECURE", default=False, cast=bool)
 
 
 # Sessions
-# https://docs.djangoproject.com/en/4.0/ref/settings/#sessions
+# https://docs.djangoproject.com/en/5.0/ref/settings/#sessions
 
 SESSION_COOKIE_DOMAIN = config("SESSION_COOKIE_DOMAIN")
 
@@ -261,30 +258,44 @@ SESSION_COOKIE_SECURE = config("SESSION_COOKIE_SECURE", default=False, cast=bool
 
 
 # Static files
-# https://docs.djangoproject.com/en/4.0/ref/settings/#static-files
+# https://docs.djangoproject.com/en/5.0/ref/settings/#static-files
 
-AWS_QUERYSTRING_AUTH = False
+AWS_S3_ACCESS_KEY_ID = config("AWS_S3_ENDPOINT_URL", default=None)
 
 AWS_S3_ENDPOINT_URL = config("AWS_S3_ENDPOINT_URL", default=None)
 
-AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME", default=None)
+AWS_S3_REGION_NAME = config("AWS_S3_ENDPOINT_URL", default=None)
+
+AWS_S3_SECRET_ACCESS_KEY = config("AWS_S3_ENDPOINT_URL", default=None)
+
+AWS_QUERYSTRING_AUTH = False
+
+AWS_STORAGE_BUCKET_NAME = config("AWS_S3_ENDPOINT_URL", default=None)
 
 # Custom setting. Only used for static files with no queryauth.
 AWS_STATIC_BUCKET_NAME = config("AWS_STATIC_BUCKET_NAME", default=None)
 
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {},
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
+if APP_ENV == "production":
+    STORAGES["staticfiles"]["BACKEND"] = "app.services.storage_backends.S3ManifestStaticStorage"
+
+# The absolute path to the directory where `collectstatic` will collect static files for deployment.
 STATIC_ROOT = BASE_DIR / "static" / "dist"
 
 STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static" / "assets",
-    BASE_DIR / "static" / "build",
+    BASE_DIR / "static" / "assets",  # Raw assets that do not require compilation.
+    BASE_DIR / "static" / "build",  # Built assets from static/src.
 ]
-
-if AWS_S3_ACCESS_KEY_ID and AWS_S3_SECRET_ACCESS_KEY:
-    # services.storage_backends.S3ManifestStaticStorage
-    STATICFILES_STORAGE = "storages.backends.s3boto3.S3ManifestStaticStorage"
-else:
-    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 MEDIA_MAX_SIZE = config("MEDIA_MAX_SIZE", cast=int, default=5 * 1024 * 1024)

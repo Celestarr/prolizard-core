@@ -17,8 +17,7 @@ python -m pip install --upgrade pip
 pip install --requirement requirements.txt
 
 python manage.py migrate
-python manage.py compilemessages
-python manage.py collectstatic --noinput
+python manage.py compilemessages --ignore "venv/**/*.py"
 
 # Define the file that will indicate if the commands have already been run
 FLAG_FILE="/project/.first_run_completed"

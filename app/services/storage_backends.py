@@ -1,5 +1,5 @@
 from django.conf import settings
-from storages.backends.s3boto3 import S3ManifestStaticStorage as BaseS3ManifestStaticStorage
+from storages.backends.s3 import S3ManifestStaticStorage as BaseS3ManifestStaticStorage
 
 
 class S3ManifestStaticStorage(BaseS3ManifestStaticStorage):
