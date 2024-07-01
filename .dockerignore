@@ -1,3 +1,8 @@
+docs
 node_modules
 venv
 .env
+.first_run_completed
+.git
+.github
+.idea

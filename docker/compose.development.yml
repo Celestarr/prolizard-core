@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres:14.12
+    environment:
+      - "POSTGRES_DB=app"
+      - "POSTGRES_PASSWORD=postgres"
+  app:
+    build:
+      context: ../
+      dockerfile: docker/app/app.development.dockerfile
+    env_file:
+      - ../.env
+    depends_on:
+      - db
+      - gulp
+    volumes:
+      - ../:/project
+    ports:
+      - "0.0.0.0:8000:8000"
+  gulp:
+    image: node:20.14
+    command: bash -c "
+      yarn install --frozen-lockfile
+      && yarn watch"
+    volumes:
+      - ../:/project
+      - /project/node_modules/
+    working_dir: /project

@@ -1,0 +1,13 @@
+-r requirements.txt
+bandit[toml]==1.7.9
+black[jupyter]==24.4.2
+build==1.2.1
+coverage==7.5.4
+factory-boy==3.3.0
+Faker==26.0.0
+isort[colors]==5.13.2
+mypy==1.10.1
+pylint==3.2.5
+#pylint-django==2.5.3
+pytest==8.2.2
+requests==2.32.3

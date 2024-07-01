@@ -2,36 +2,18 @@ root = true
 
 [*]
 charset = utf-8
+end_of_line = lf
 indent_size = 2
 indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[**.html]
-indent_size = 2
-
-[**.json]
-indent_size = 2
-insert_final_newline = ignore
-
 [**.min.js]
-indent_size = ignore
-indent_style = ignore
-insert_final_newline = ignore
+indent_style = unset
+insert_final_newline = unset
 
-[**.scss]
-indent_size = 2
-
-# Docstrings and comments use max_line_length = 79
 [**.py]
 indent_size = 4
-max_line_length = 119
-
-[**.yml]
-indent_size = 2
-
-[docs/**.txt]
-max_line_length = 79
 
 [Makefile]
 indent_style = tab

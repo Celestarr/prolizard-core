@@ -1,11 +1,11 @@
 {
-  "name": "seoul",
+  "name": "@prolizard/core",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:MyFoLab/seoul.git",
+  "repository": "git@github.com:MyFoLab/app.git",
   "license": "MIT",
   "engines": {
-    "node": ">=16.12"
+    "node": ">=20.14"
   },
   "scripts": {
     "build": "gulp build",
@@ -13,40 +13,20 @@
     "watch": "gulp watch"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.12",
-    "@babel/plugin-syntax-jsx": "^7.16.7",
-    "@babel/plugin-transform-react-jsx": "^7.16.7",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-react": "^7.16.7",
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
     "babelify": "^10.0.0",
     "browserify": "^17.0.0",
-    "event-stream": "^4.0.1",
-    "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0",
+    "gulp": "^5.0.0",
     "gulp-clean-css": "^4.3.0",
-    "gulp-plumber": "^1.2.1",
     "gulp-rename": "^2.0.0",
-    "gulp-sass": "^5.0.0",
-    "gulp-sourcemaps": "^3.0.0",
+    "gulp-sass": "^5.1.0",
     "gulp-uglify": "^3.0.2",
-    "gulp-util": "^3.0.8",
-    "node-sass": "^7.0.1",
+    "node-sass": "^9.0.0",
     "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^2.0.0",
-    "vinyl-transform": "^1.0.0"
+    "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@mui/icons-material": "^5.3.1",
-    "@mui/lab": "^5.0.0-alpha.66",
-    "@mui/material": "^5.3.1",
-    "bootstrap": "^5.1.3",
-    "formik": "^2.2.9",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-helmet-async": "^1.2.2",
-    "react-router-dom": "^6.2.1",
-    "yup": "^0.32.11"
+    "bootstrap": "^5.3.3"
   }
 }

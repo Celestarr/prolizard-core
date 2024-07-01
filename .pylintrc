@@ -76,7 +76,7 @@ limit-inference-results=100
 load-plugins=pylint_django
 
 # pylint_django configurations.
-django-settings-module=seoul.settings
+django-settings-module=app.settings
 
 # Pickle collected data for later comparisons.
 persistent=yes

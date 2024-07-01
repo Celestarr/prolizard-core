@@ -10,8 +10,8 @@ const source = require("vinyl-source-stream");
 const buffer = require("vinyl-buffer");
 const glob = require("glob");
 
-const DEST_BASE = "seoul/static/build";
-const SOURCE_BASE = "seoul/static/src";
+const DEST_BASE = "app/static/build";
+const SOURCE_BASE = "app/static/src";
 
 function js() {
   const files = glob.sync(`${SOURCE_BASE}/js/**/*.+(js|jsx)`);
@@ -23,10 +23,10 @@ function js() {
 
       browserify({
         entries: [entry],
-        extensions: [".js", ".jsx"],
+        extensions: [".js"],
         debug: true,
       })
-        .transform("babelify", { presets: ["@babel/preset-env", "@babel/preset-react"] })
+        .transform("babelify", { presets: ["@babel/preset-env"] })
         .bundle()
         .pipe(source(entry.split("/").pop()))
         .pipe(buffer())
