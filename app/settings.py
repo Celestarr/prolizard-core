@@ -132,9 +132,10 @@ INSTALLED_APPS = (
     # Project apps
     "app.apps.AdminConfig",
     "app.apps.common",
+    "app.apps.career",
     "app.apps.identity",
     "app.apps.profile",
-    "app.apps.scholar",
+    "app.apps.reference_management",
     "app.apps.storage",
 )
 

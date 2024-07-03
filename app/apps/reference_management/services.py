@@ -22,6 +22,7 @@ class GoogleScholarService:
 
         params = {
             "hl": "en",
+            "lookup": 0,
             "q": query,
             "start": (page - 1) * self.page_size,
         }

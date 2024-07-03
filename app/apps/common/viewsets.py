@@ -1,6 +1,6 @@
 from typing import Optional
 
-from django.db.models import Q
+from django.db.models import Q, QuerySet
 from django.http import Http404
 from rest_framework import status
 from rest_framework.mixins import CreateModelMixin as BaseCreateModelMixin
@@ -180,3 +180,25 @@ class RetrieveUpdateModelViewSet(RetrieveModelMixin, UpdateModelMixin, GenericVi
 
 class ReadOnlyModelViewSet(RetrieveModelMixin, ListOnlyModelViewSet):  # pylint: disable=too-many-ancestors
     pass
+
+
+class UserModelViewSet(ModelViewSet):  # pylint: disable=too-many-ancestors
+    @property
+    def _extra_create_kwargs(self):
+        return {"user": self.request.user.pk}
+
+    def get_queryset(self):
+        assert self.queryset is not None, (
+            f"'{self.__class__.__name__}' should either include a `queryset` attribute, "
+            "or override the `get_queryset()` method."
+        )
+
+        queryset = self.queryset
+
+        if isinstance(queryset, QuerySet):
+            # Ensure queryset is re-evaluated on each request.
+            queryset = queryset.all()
+
+        queryset = queryset.filter(user=self.request.user)
+
+        return queryset

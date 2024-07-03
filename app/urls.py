@@ -8,8 +8,9 @@ urlpatterns = [
         include(
             [
                 path("", include("app.apps.common.urls")),
+                path("career/", include("app.apps.career.urls")),
                 path("profile/", include("app.apps.profile.urls")),
-                path("scholar/", include("app.apps.scholar.urls")),
+                path("rm/", include("app.apps.reference_management.urls")),
                 path("storage/", include("app.apps.storage.urls")),
             ]
         ),

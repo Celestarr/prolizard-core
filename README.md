@@ -40,7 +40,8 @@ docker exec -it myfo-seoul pip install <new-package>
 docker exec -it myfo-seoul python manage.py makemessages --ignore "venv/**/*.py" --ignore "dev/**/*.py" --ignore "requirements.txt" --locale <locale_code>
 
 # Generate Migrations:
-docker exec -it myfo-seoul python manage.py makemigrations
+docker exec -it docker-app-1 python manage.py makemigrations
+docker exec -it docker-app-1 python manage.py migrate
 
 # Generate OpenAPI schema file:
 docker exec -it myfo-seoul python manage.py spectacular --file schema.yml

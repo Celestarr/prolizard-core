@@ -2,30 +2,10 @@ from django.db import transaction
 from django.db.models.query import QuerySet
 from django.utils import timezone
 
-from app.apps.common.viewsets import ModelViewSet
+from app.apps.common.viewsets import UserModelViewSet
 
 
-class ProfileSectionViewSet(ModelViewSet):  # pylint: disable=too-many-ancestors
-    @property
-    def _extra_create_kwargs(self):
-        return {"user": self.request.user.pk}
-
-    def get_queryset(self):
-        assert self.queryset is not None, (
-            f"'{self.__class__.__name__}' should either include a `queryset` attribute, "
-            "or override the `get_queryset()` method."
-        )
-
-        queryset = self.queryset
-
-        if isinstance(queryset, QuerySet):
-            # Ensure queryset is re-evaluated on each request.
-            queryset = queryset.all()
-
-        queryset = queryset.filter(user=self.request.user)
-
-        return queryset
-
+class ProfileSectionViewSet(UserModelViewSet):  # pylint: disable=too-many-ancestors
     @staticmethod
     def update_user_profile_version(user):
         user.updated_at = timezone.now()
