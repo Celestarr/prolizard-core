@@ -134,6 +134,7 @@ INSTALLED_APPS = (
     "app.apps.common",
     "app.apps.identity",
     "app.apps.profile",
+    "app.apps.scholar",
     "app.apps.storage",
 )
 

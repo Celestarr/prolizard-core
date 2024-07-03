@@ -9,6 +9,7 @@ urlpatterns = [
             [
                 path("", include("app.apps.common.urls")),
                 path("profile/", include("app.apps.profile.urls")),
+                path("scholar/", include("app.apps.scholar.urls")),
                 path("storage/", include("app.apps.storage.urls")),
             ]
         ),
