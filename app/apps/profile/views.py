@@ -29,6 +29,7 @@ from .serializers import (
     LanguageSerializer,
     LanguageWriteOnlySerializer,
     MemberProfileExtendedSerializer,
+    MemberProfileSerializer,
     ProjectSerializer,
     PublicationSerializer,
     SkillSerializer,
@@ -58,7 +59,9 @@ class MemberViewSet(RetrieveUpdateModelViewSet):  # pylint: disable=too-many-anc
         del request, args, kwargs
 
         instance = self.get_object()
-        serializer = MemberProfileExtendedSerializer(instance)
+
+        # NOTE: Do not serialize user preferences
+        serializer = MemberProfileSerializer(instance)
         return Response(serializer.data)
 
     @action(
