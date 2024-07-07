@@ -1,5 +1,6 @@
 from rest_framework.routers import SimpleRouter
 
+from ...utils.views.routers import HyphenatedSimpleRouter
 from .views import (
     CountryViewSet,
     EmploymentTypeViewSet,
@@ -13,7 +14,7 @@ from .views import (
 
 app_name = "common"  # pylint: disable=invalid-name
 
-router = SimpleRouter()
+router = HyphenatedSimpleRouter()
 router.register(r"countries", CountryViewSet, basename="country")
 router.register(r"genders", GenderViewSet, basename="gender")
 router.register(r"locales", LocaleViewSet, basename="locale")

@@ -165,7 +165,7 @@ class ModelViewSet(  # pylint: disable=too-many-ancestors
     CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, ListModelMixin, GenericViewSet
 ):
     @action(detail=False, methods=["get"])
-    def get_model_config(self, _):
+    def model_config(self, _):
         model_instance = self.get_queryset().model()
         field_config = model_instance.get_form_field_config()
         layout_config = model_instance.get_form_layout_config()

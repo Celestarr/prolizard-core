@@ -52,8 +52,8 @@ class MemberViewSet(RetrieveUpdateModelViewSet):  # pylint: disable=too-many-anc
         "me": [IsAuthenticated],
         "preferences": [IsAuthenticated],
     }
-    lookup_fields = ["username", "pk"]
-    allowed_actions = ["retrieve", "me", "preferences"]
+    lookup_fields = ["pk", "username"]
+    allowed_actions = ["me", "preferences", "retrieve"]
 
     def retrieve(self, request, *args, **kwargs):
         del request, args, kwargs
@@ -67,7 +67,6 @@ class MemberViewSet(RetrieveUpdateModelViewSet):  # pylint: disable=too-many-anc
     @action(
         detail=False,
         methods=["get", "patch"],
-        url_name="retrieve-or-update-current-user",
     )  # pylint: disable=invalid-name
     def me(self, request):
         user = request.user
@@ -81,7 +80,7 @@ class MemberViewSet(RetrieveUpdateModelViewSet):  # pylint: disable=too-many-anc
 
         return Response(MemberProfileExtendedSerializer(user).data)
 
-    @action(detail=False, methods=["patch"], url_name="update-current-user-preferences")
+    @action(detail=False, methods=["patch"])
     def preferences(self, request):
         user = request.user
 

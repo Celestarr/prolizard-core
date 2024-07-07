@@ -1,5 +1,6 @@
 from rest_framework.routers import SimpleRouter
 
+from ...utils.views.routers import HyphenatedSimpleRouter
 from .views import (
     AcademicRecordViewSet,
     CertificationViewSet,
@@ -15,7 +16,7 @@ from .views import (
 
 app_name = "profile"  # pylint: disable=invalid-name
 
-router = SimpleRouter()
+router = HyphenatedSimpleRouter()
 router.register(r"sections/academic-records", AcademicRecordViewSet)
 router.register(r"sections/certifications", CertificationViewSet)
 router.register(r"sections/honors-or-awards", HonorOrAwardViewSet)

@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
+    # Consumer/user API endpoints.
     path(
         "api/",
         include(
@@ -16,7 +17,7 @@ urlpatterns = [
         ),
     ),
     path(
-        "identity/",
+        "id/",
         include(
             [
                 path("oauth2/", include("oauth2_provider.urls", namespace="oauth2_provider")),
@@ -25,8 +26,9 @@ urlpatterns = [
             ]
         ),
     ),
+    # Routes related to the application's internal functionality.
     path(
-        "internal/",
+        "sys/",
         include(
             [
                 path("admin/", admin.site.urls),
