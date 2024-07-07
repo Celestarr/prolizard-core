@@ -4,10 +4,31 @@ from django.utils.translation import gettext_lazy as _
 
 
 class BaseModel(models.Model):
-    def get_field_config(self):
+    """
+    Base model
+
+    Attributes:
+        user_editable_fields: Fields that can be edited by the user.
+    """
+
+    user_editable_fields = []
+
+    @staticmethod
+    def get_field_type(field):
+        if isinstance(field, models.CharField):
+            return "string"
+        elif isinstance(field, models.EmailField):
+            return "email"
+        elif isinstance(field, models.IntegerField):
+            return "integer"
+        # Add more field types as needed
+        else:
+            return "unknown"
+
+    def get_form_field_config(self):
         field_configs = []
 
-        for field in self._meta.fields:
+        for field in self.user_editable_fields:  # self._meta.fields:
             field_config = {
                 "name": field.name,
                 "type": self.get_field_type(field),
@@ -27,17 +48,13 @@ class BaseModel(models.Model):
 
         return field_configs
 
-    @staticmethod
-    def get_field_type(field):
-        if isinstance(field, models.CharField):
-            return "string"
-        elif isinstance(field, models.EmailField):
-            return "email"
-        elif isinstance(field, models.IntegerField):
-            return "integer"
-        # Add more field types as needed
-        else:
-            return "unknown"
+    def get_form_layout_config(self):
+        # 'layout': [
+        #     {'row': 1, 'fields': ['username'], 'sizes': [100]},
+        #     {'row': 2, 'fields': ['email', 'first_name'], 'sizes': [50, 50]},
+        #     {'row': 3, 'fields': ['last_name'], 'sizes': [100]},
+        # ]
+        raise NotImplementedError
 
     class Meta:
         abstract = True
