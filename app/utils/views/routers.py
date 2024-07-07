@@ -1,3 +1,5 @@
+import re
+
 from rest_framework.routers import SimpleRouter
 
 
@@ -13,5 +15,5 @@ class HyphenatedSimpleRouter(SimpleRouter):
         return url
 
     @staticmethod
-    def replace_underscores_in_pattern(regex):
-        return regex.replace("_", "-")
+    def replace_underscores_in_pattern(regex: re.Pattern) -> re.Pattern:
+        return re.compile(regex.pattern.replace("_", "-"))

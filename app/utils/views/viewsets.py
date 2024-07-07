@@ -12,6 +12,8 @@ from rest_framework.mixins import UpdateModelMixin as BaseUpdateModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet as BaseGenericViewSet
 
+from app.utils.string import camel_to_capitalized
+
 
 class CreateModelMixin(BaseCreateModelMixin):
     """
@@ -173,6 +175,8 @@ class ModelViewSet(  # pylint: disable=too-many-ancestors
         config = {
             "fields": field_config,
             "layout": layout_config,
+            "name": model_instance.__class__.__name__,
+            "verbose_name": camel_to_capitalized(model_instance.__class__.__name__),
         }
 
         return Response(config)

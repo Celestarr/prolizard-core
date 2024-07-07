@@ -55,7 +55,7 @@ AUTH_USER_MODEL = "user_management.User"
 
 EMAIL_CONFIRMATION_REQUIRED = False  # Internal
 
-LOGIN_URL = "/user_management/login/"
+LOGIN_URL = "/id/login/"
 
 OAUTH2_PROVIDER = {
     # 'ACCESS_TOKEN_EXPIRE_SECONDS': 60 + 15,

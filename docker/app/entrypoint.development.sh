@@ -16,8 +16,9 @@ wait_for_port() {
 python -m pip install --upgrade pip
 pip install --requirement requirements.txt
 
+python manage.py makemigrations
 python manage.py migrate
-python manage.py compilemessages --ignore "venv/**/*.py"
+python manage.py compilemessages -i "venv*"
 
 # Define the file that will indicate if the commands have already been run
 FLAG_FILE="/project/.first_run_completed"

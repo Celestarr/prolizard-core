@@ -1,6 +1,5 @@
-from rest_framework.routers import SimpleRouter
+from app.utils.views.routers import HyphenatedSimpleRouter
 
-from ...utils.views.routers import HyphenatedSimpleRouter
 from .views import (
     CountryViewSet,
     EmploymentTypeViewSet,

@@ -10,11 +10,11 @@ from app.apps.profile.serializers import (
     ResumeTemplateSerializer,
     SkillProficiencyLevelSerializer,
 )
+from app.utils.views.pagination import PageNumberPaginationFull
+from app.utils.views.viewsets import ListOnlyModelViewSet
 
 from .models import Country, Gender, SupportedLocale, TimeZone
-from .pagination import PageNumberPaginationFull
 from .serializers import CountrySerializer, GenderSerializer, LocaleSerializer, TimeZoneSerializer
-from .viewsets import ListOnlyModelViewSet
 
 
 @extend_schema(exclude=True)

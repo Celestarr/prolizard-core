@@ -2,6 +2,8 @@ from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from app.utils.string import snake_to_capitalized
+
 
 class BaseModel(models.Model):
     """
@@ -17,6 +19,10 @@ class BaseModel(models.Model):
     def get_field_type(field):
         if isinstance(field, models.CharField):
             return "string"
+        elif isinstance(field, models.DateField):
+            return "date"
+        elif isinstance(field, models.DateTimeField):
+            return "datetime"
         elif isinstance(field, models.EmailField):
             return "email"
         elif isinstance(field, models.IntegerField):
@@ -28,12 +34,25 @@ class BaseModel(models.Model):
     def get_form_field_config(self):
         field_configs = []
 
-        for field in self.user_editable_fields:  # self._meta.fields:
+        for field in self._meta.fields:
+            if field.name not in self.user_editable_fields:
+                continue
+
             field_config = {
                 "name": field.name,
                 "type": self.get_field_type(field),
-                "required": not field.blank,
+                "required": not field.null,
+                "verbose_name": snake_to_capitalized(field.name),
             }
+
+            if field.choices:
+                field_config["choices"] = field.choices
+
+            if field.help_text:
+                field_config["help_text"] = field.help_text
+
+            # if field.verbose_name:
+            #     field_config["verbose_name"] = field.verbose_name
 
             if hasattr(field, "max_length") and field.max_length:
                 field_config["max_length"] = field.max_length

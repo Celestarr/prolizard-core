@@ -36,8 +36,27 @@ class JobTracker(TimeStampedModel):
 
     user = models.OneToOneField("user_management.User", on_delete=models.CASCADE, related_name="job_tracker")
 
+    user_editable_fields = [
+        "application_date",
+        "application_deadline",
+        "company_name",
+        "interview_round",
+        "notes",
+        "position_title",
+        "status",
+    ]
+
     def __str__(self):
         return f"{self.company_name} - {self.position_title} ({self.status})"
+
+    def get_form_layout_config(self):
+        return [
+            {"row": 1, "fields": ["position_title"], "sizes": [12]},
+            {"row": 2, "fields": ["company_name"], "sizes": [12]},
+            {"row": 3, "fields": ["application_date", "application_deadline"], "sizes": [6, 6]},
+            {"row": 4, "fields": ["interview_round", "status"], "sizes": [6, 6]},
+            {"row": 5, "fields": ["notes"], "sizes": [12]},
+        ]
 
 
 class JobTrackerHistory(TimeStampedModel):

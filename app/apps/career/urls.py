@@ -1,6 +1,5 @@
-from rest_framework.routers import SimpleRouter
+from app.utils.views.routers import HyphenatedSimpleRouter
 
-from ...utils.views.routers import HyphenatedSimpleRouter
 from .views import JobTrackerViewSet
 
 app_name = "career"  # pylint: disable=invalid-name

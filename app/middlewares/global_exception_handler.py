@@ -1,3 +1,5 @@
+import traceback
+
 from django.utils.translation import gettext_lazy as _
 from rest_framework import status
 from rest_framework.response import Response
@@ -7,7 +9,10 @@ from rest_framework.views import exception_handler
 def global_exception_handler(exc, context):
     # Call REST framework's default exception handler first,
     # to get the standard error response.
-    print(exc, context)
+
+    if exc:
+        traceback.print_exception(type(exc), exc, exc.__traceback__)
+
     response = exception_handler(exc, context)
 
     if response:
