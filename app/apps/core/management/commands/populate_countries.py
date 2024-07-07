@@ -2,7 +2,7 @@
 import pycountry
 from django.core.management.base import BaseCommand
 
-from app.apps.common.models import Country
+from app.apps.core.models import Country
 
 
 def populate_countries():

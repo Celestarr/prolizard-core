@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from app.apps.common.models import Gender
+from app.apps.core.models import Gender
 
 
 def populate_genders():

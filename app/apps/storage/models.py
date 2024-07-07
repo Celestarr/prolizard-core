@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from app.apps.common.models import TimeStampedModel
+from app.utils.db.models import TimeStampedModel
 
 
 def generate_resume_upload_path(instance, filename):

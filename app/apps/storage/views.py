@@ -3,12 +3,12 @@ from django.db import transaction
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from app.apps.common.viewsets import ModelViewSet
-from app.apps.identity.models import User
 from app.apps.storage.models import Resume
+from app.apps.user_management.models import User
 from app.services.resume import ResumePDFGenerator
 from app.utils.django import build_file_field_download_url
 from app.utils.string import hash_string
+from app.utils.views.viewsets import ModelViewSet
 
 
 class ResumeViewSet(ModelViewSet):  # pylint: disable=too-many-ancestors

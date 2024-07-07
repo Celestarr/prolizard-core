@@ -1,7 +1,7 @@
 from django.contrib.admin import AdminSite as BaseAdminSite
 from django.utils.translation import gettext_lazy as _
 
-from app.apps.identity.forms import AdminAuthenticationForm
+from app.apps.user_management.forms import AdminAuthenticationForm
 
 
 class AdminSite(BaseAdminSite):

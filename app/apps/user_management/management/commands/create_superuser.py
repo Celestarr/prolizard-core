@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.db import IntegrityError
 
-from app.apps.identity.models import User
+from app.apps.user_management.models import User
 from app.utils.db import get_username_sequence_value
 
 

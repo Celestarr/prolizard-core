@@ -7,8 +7,8 @@ from django.http import HttpRequest, HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import CreateView
 
-from app.apps.identity.models import User
 from app.apps.profile.models import UserPreference
+from app.apps.user_management.models import User
 
 from .forms import AuthenticationForm, UserRegistrationForm
 

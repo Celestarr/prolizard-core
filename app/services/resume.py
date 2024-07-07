@@ -3,7 +3,7 @@ import shutil
 from django.conf import settings
 from django.template.loader import render_to_string
 
-from app.apps.identity.models import User
+from app.apps.user_management.models import User
 
 from .latex import latex_compiler
 

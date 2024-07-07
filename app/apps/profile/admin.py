@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from app.apps.common.admin import ReadOnlyModelAdmin
+from app.apps.core.admin import ReadOnlyModelAdmin
 
 from .models import (
     AcademicRecord,

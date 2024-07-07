@@ -2,7 +2,7 @@ from django.db import transaction
 from django.db.models.query import QuerySet
 from django.utils import timezone
 
-from app.apps.common.viewsets import UserModelViewSet
+from app.utils.views.viewsets import UserModelViewSet
 
 
 class ProfileSectionViewSet(UserModelViewSet):  # pylint: disable=too-many-ancestors

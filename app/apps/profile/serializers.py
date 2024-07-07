@@ -2,8 +2,8 @@ from typing import Optional
 
 from rest_framework import serializers
 
-from app.apps.identity.models import User
-from app.apps.identity.serializers import UserSerializer
+from app.apps.user_management.models import User
+from app.apps.user_management.serializers import UserSerializer
 
 from .models import (
     AcademicRecord,

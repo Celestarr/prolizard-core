@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from app.apps.common.models import Country, Currency, Gender, TimeZone
+from app.apps.core.models import Country, Currency, Gender, TimeZone
 
 
 class ReadOnlyModelAdmin(admin.ModelAdmin):

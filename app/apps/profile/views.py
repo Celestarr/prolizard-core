@@ -5,10 +5,10 @@ from rest_framework.exceptions import APIException, ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from app.apps.common.viewsets import RetrieveUpdateModelViewSet
-from app.apps.identity.models import User
-from app.apps.identity.permissions import IsObjectOwner
-from app.apps.identity.serializers import UserSerializer, UserWriteOnlySerializer
+from app.apps.user_management.models import User
+from app.apps.user_management.permissions import IsObjectOwner
+from app.apps.user_management.serializers import UserSerializer, UserWriteOnlySerializer
+from app.utils.views.viewsets import RetrieveUpdateModelViewSet
 
 from .models import (
     AcademicRecord,

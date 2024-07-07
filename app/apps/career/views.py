@@ -3,7 +3,8 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from ..common.viewsets import UserModelViewSet
+from app.utils.views.viewsets import UserModelViewSet
+
 from .models import JobTracker, JobTrackerHistory
 from .serializers import JobTrackerWriteSerializer
 

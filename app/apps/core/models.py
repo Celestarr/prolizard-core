@@ -1,25 +1,11 @@
+from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-
-class TimeStampedModel(models.Model):
-    created_at = models.DateTimeField(_("creation time"), auto_now_add=True)
-    updated_at = models.DateTimeField(_("last update time"), auto_now=True)
-
-    objects = models.Manager()
-
-    class Meta:
-        abstract = True
+from app.utils.db.models import TimeStampedModelWithSmallId
 
 
-class SmallTimeStampedModel(TimeStampedModel):
-    id = models.SmallAutoField(primary_key=True)
-
-    class Meta:
-        abstract = True
-
-
-class Country(SmallTimeStampedModel):
+class Country(TimeStampedModelWithSmallId):
     iso_3166_1_alpha_2_code = models.CharField(blank=True, max_length=2, unique=True)
     iso_3166_1_alpha_3_code = models.CharField(blank=True, max_length=3, unique=True)
     iso_3166_1_numeric_code = models.CharField(blank=True, max_length=10, unique=True)
@@ -32,7 +18,7 @@ class Country(SmallTimeStampedModel):
         ordering = ("id",)
 
 
-class Currency(SmallTimeStampedModel):
+class Currency(TimeStampedModelWithSmallId):
     iso_4217_code = models.CharField(blank=True, max_length=3, unique=True)
     iso_4217_numeric_code = models.CharField(blank=True, max_length=10, unique=True)
     name = models.CharField(blank=True, max_length=100, unique=True)
@@ -44,7 +30,7 @@ class Currency(SmallTimeStampedModel):
         ordering = ("id",)
 
 
-class Gender(SmallTimeStampedModel):
+class Gender(TimeStampedModelWithSmallId):
     name = models.CharField(blank=True, max_length=50, unique=True)
 
     class Meta:
@@ -53,7 +39,7 @@ class Gender(SmallTimeStampedModel):
         ordering = ("id",)
 
 
-class SupportedLocale(SmallTimeStampedModel):
+class SupportedLocale(TimeStampedModelWithSmallId):
     locale_tag = models.CharField(blank=True, max_length=20, unique=True)
     iso_639_1_code = models.CharField(blank=True, max_length=2)
     iso_639_2_code = models.CharField(blank=True, max_length=3)
@@ -66,7 +52,7 @@ class SupportedLocale(SmallTimeStampedModel):
         ordering = ("id",)
 
 
-class TimeZone(SmallTimeStampedModel):
+class TimeZone(TimeStampedModelWithSmallId):
     abbreviation = models.CharField(blank=True, db_index=True, max_length=20)
     name = models.CharField(blank=True, max_length=150, unique=True)
     offset_display_text = models.CharField(blank=True, max_length=20)

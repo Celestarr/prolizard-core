@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app.apps.common.serializers import CountrySerializer, GenderSerializer
+from app.apps.core.serializers import CountrySerializer, GenderSerializer
 
 from .models import User
 

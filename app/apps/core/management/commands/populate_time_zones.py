@@ -3,7 +3,7 @@ import json
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from app.apps.common.models import TimeZone
+from app.apps.core.models import TimeZone
 
 
 def populate_time_zones():

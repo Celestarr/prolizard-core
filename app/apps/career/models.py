@@ -1,6 +1,6 @@
 from django.db import models
 
-from app.apps.common.models import TimeStampedModel
+from app.utils.db.models import TimeStampedModel
 
 
 class JobTracker(TimeStampedModel):
@@ -8,11 +8,11 @@ class JobTracker(TimeStampedModel):
     Model to track personal job applications.
     """
 
-    company_name = models.CharField(blank=True, max_length=255)
-
     # Use DateField for application date and deadline (if applicable)
     application_date = models.DateField(blank=True, null=True)
     application_deadline = models.DateField(blank=True, null=True)
+
+    company_name = models.CharField(blank=True, max_length=255)
 
     # Add an optional field for interview round details
     interview_round = models.CharField(blank=True, max_length=50, null=True)

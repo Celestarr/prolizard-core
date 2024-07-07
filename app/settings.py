@@ -34,7 +34,7 @@ RESUME_TEMPLATE_TEMPORARY_DIR = BASE_DIR / "resume_templates"
 
 APP_LOGIN_URL = urljoin(APP_URL, "/login")  # Internal
 
-AUTHENTICATION_BACKENDS = ("app.apps.identity.backends.ModelBackend",)
+AUTHENTICATION_BACKENDS = ("app.apps.user_management.backends.ModelBackend",)
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -131,9 +131,9 @@ INSTALLED_APPS = (
     "oauth2_provider",
     # Project apps
     "app.apps.AdminConfig",
-    "app.apps.common",
+    "app.apps.core",
     "app.apps.career",
-    "app.apps.identity",
+    "app.apps.user_management",
     "app.apps.profile",
     "app.apps.reference_management",
     "app.apps.storage",
@@ -222,7 +222,7 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "EXCEPTION_HANDLER": "app.middlewares.global_exception_handler.global_exception_handler",
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
-    "DEFAULT_PAGINATION_CLASS": "app.apps.common.pagination.PageNumberPagination",
+    "DEFAULT_PAGINATION_CLASS": "app.utils.views.pagination.PageNumberPagination",
     "DEFAULT_PARSER_CLASSES": ("rest_framework.parsers.JSONParser",),
     "PAGE_SIZE": 10,
 }

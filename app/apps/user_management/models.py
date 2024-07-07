@@ -4,7 +4,7 @@ from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from app.apps.common.models import TimeStampedModel
+from app.utils.db.models import TimeStampedModel
 
 from .validators import UsernameValidator
 
@@ -21,7 +21,7 @@ class User(AbstractUser, TimeStampedModel):
     about = models.CharField(blank=True, max_length=1000, null=True)
     address = models.CharField(blank=True, max_length=250, null=True)
     country = models.ForeignKey(
-        "common.Country",
+        "core.Country",
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
@@ -46,7 +46,7 @@ class User(AbstractUser, TimeStampedModel):
         validators=[MinLengthValidator(settings.FIELD_META["first_name"]["min_length"])],
     )
     gender = models.ForeignKey(
-        "common.Gender",
+        "core.Gender",
         blank=True,
         null=True,
         on_delete=models.SET_NULL,

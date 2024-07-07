@@ -3,7 +3,7 @@ import json
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from app.apps.common.models import Currency
+from app.apps.core.models import Currency
 
 
 def populate_currencies():

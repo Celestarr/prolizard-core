@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 
-from app.apps.identity.models import User
+from app.apps.user_management.models import User
 from app.utils.db import get_username_sequence_value
 
 

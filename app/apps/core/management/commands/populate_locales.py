@@ -3,7 +3,7 @@ import json
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from app.apps.common.models import SupportedLocale
+from app.apps.core.models import SupportedLocale
 
 
 def populate_locales():

@@ -5,7 +5,7 @@ import django.core.validators
 import django.db.models.deletion
 from django.db import migrations, models
 
-import app.apps.identity.validators
+import app.apps.user_management.validators
 
 
 class Migration(migrations.Migration):
@@ -96,7 +96,7 @@ class Migration(migrations.Migration):
                         unique=True,
                         validators=[
                             django.core.validators.MinLengthValidator(1),
-                            app.apps.identity.validators.UsernameValidator(),
+                            app.apps.user_management.validators.UsernameValidator(),
                         ],
                         verbose_name="username",
                     ),

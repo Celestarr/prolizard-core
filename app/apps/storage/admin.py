@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
-from app.apps.common.admin import ReadOnlyModelAdmin
+from app.apps.core.admin import ReadOnlyModelAdmin
 
 from .models import Resume
 

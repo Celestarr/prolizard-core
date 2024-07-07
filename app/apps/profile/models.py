@@ -3,12 +3,12 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from app.apps.common.models import SmallTimeStampedModel, TimeStampedModel
+from app.utils.db.models import TimeStampedModel, TimeStampedModelWithSmallId
 
 from .constants import UI_MODE_DARK, UI_MODE_LIGHT, UI_MODE_SYSTEM
 
 
-class EmploymentType(SmallTimeStampedModel):
+class EmploymentType(TimeStampedModelWithSmallId):
     name = models.CharField(_("name of employment type"), blank=True, max_length=100, unique=True)
 
     class Meta:
@@ -81,7 +81,7 @@ class LanguageProficiencyLevel(SmallTimeStampedModel):
         ordering = ("value",)
 
 
-class SkillProficiencyLevel(SmallTimeStampedModel):
+class SkillProficiencyLevel(TimeStampedModelWithSmallId):
     name = models.CharField(_("name of skill proficiency level"), blank=True, max_length=100, unique=True)
     value = models.PositiveIntegerField(_("mathematical value"), blank=True)
 

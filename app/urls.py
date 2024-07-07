@@ -7,11 +7,11 @@ urlpatterns = [
         "api/",
         include(
             [
-                path("", include("app.apps.common.urls")),
                 path("career/", include("app.apps.career.urls")),
                 path("profile/", include("app.apps.profile.urls")),
                 path("rm/", include("app.apps.reference_management.urls")),
                 path("storage/", include("app.apps.storage.urls")),
+                path("", include("app.apps.core.urls")),
             ]
         ),
     ),
@@ -19,9 +19,9 @@ urlpatterns = [
         "identity/",
         include(
             [
-                path("", include("app.apps.identity.urls")),
                 path("oauth2/", include("oauth2_provider.urls", namespace="oauth2_provider")),
                 path("dj/", include("django.contrib.auth.urls")),
+                path("", include("app.apps.user_management.urls")),
             ]
         ),
     ),
