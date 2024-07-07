@@ -46,7 +46,7 @@ def get_default_resume_template():
 
 
 class UserPreference(TimeStampedModel):
-    user = models.OneToOneField("identity.User", on_delete=models.CASCADE, related_name="preference")
+    user = models.OneToOneField("user_management.User", on_delete=models.CASCADE, related_name="preference")
     UI_MODE_CHOICES = (
         (UI_MODE_DARK, UI_MODE_DARK),
         (UI_MODE_LIGHT, UI_MODE_LIGHT),
@@ -71,7 +71,7 @@ class UserPreference(TimeStampedModel):
         verbose_name_plural = _("preferences")
 
 
-class LanguageProficiencyLevel(SmallTimeStampedModel):
+class LanguageProficiencyLevel(TimeStampedModelWithSmallId):
     name = models.CharField(_("name of language proficiency level"), blank=True, max_length=100, unique=True)
     value = models.PositiveIntegerField(_("mathematical value"), blank=True)
 
@@ -101,7 +101,7 @@ class AcademicRecord(TimeStampedModel):
     location = models.CharField(_("location of school"), blank=True, default=None, max_length=150, null=True)
     school = models.CharField(_("school"), blank=True, max_length=150)
     start_date = models.DateField(_("start date"), blank=True)
-    user = models.ForeignKey("identity.User", on_delete=models.CASCADE, related_name="academic_record_set")
+    user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="academic_record_set")
 
     def clean(self):
         if self.is_ongoing:
@@ -133,7 +133,7 @@ class Skill(TimeStampedModel):
         on_delete=models.CASCADE,
         related_name="proficiency_skill_set",
     )
-    user = models.ForeignKey("identity.User", on_delete=models.CASCADE, related_name="skill_set")
+    user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="skill_set")
 
     class Meta:
         verbose_name = _("skill")
@@ -143,7 +143,7 @@ class Skill(TimeStampedModel):
 class WebLink(TimeStampedModel):
     href = models.CharField(_("target address"), blank=True, max_length=250)
     label = models.CharField(_("text to display"), blank=True, default=None, max_length=150, null=True)
-    user = models.ForeignKey("identity.User", on_delete=models.CASCADE, related_name="web_link_set")
+    user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="web_link_set")
 
     class Meta:
         verbose_name = _("web link")
@@ -163,7 +163,7 @@ class WorkExperience(TimeStampedModel):
     job_title = models.CharField(_("job title"), blank=True, max_length=150)
     location = models.CharField(_("location of company"), blank=True, default=None, max_length=150, null=True)
     start_date = models.DateField(_("start date"), blank=True)
-    user = models.ForeignKey("identity.User", on_delete=models.CASCADE, related_name="work_experience_set")
+    user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="work_experience_set")
 
     def clean(self):
         if self.is_ongoing:
@@ -195,7 +195,7 @@ class Language(TimeStampedModel):
         on_delete=models.CASCADE,
         related_name="proficiency_language_set",
     )
-    user = models.ForeignKey("identity.User", on_delete=models.CASCADE, related_name="language_set")
+    user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="language_set")
 
     class Meta:
         verbose_name = _("language")
@@ -209,7 +209,7 @@ class Project(TimeStampedModel):
     name = models.CharField(_("name"), blank=True, max_length=150)
     start_date = models.DateField(_("start date"), blank=True)
     url = models.CharField(_("url"), blank=True, default=None, max_length=150, null=True)
-    user = models.ForeignKey("identity.User", on_delete=models.CASCADE, related_name="project_set")
+    user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="project_set")
 
     def clean(self):
         if self.is_ongoing:
@@ -240,7 +240,7 @@ class Publication(TimeStampedModel):
     publisher = models.CharField(_("publisher"), blank=True, max_length=150)
     title = models.CharField(_("title"), blank=True, max_length=300)
     url = models.CharField(_("url"), blank=True, default=None, max_length=150, null=True)
-    user = models.ForeignKey("identity.User", on_delete=models.CASCADE, related_name="publication_set")
+    user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="publication_set")
 
     class Meta:
         verbose_name = _("publication")
@@ -252,7 +252,7 @@ class HonorOrAward(TimeStampedModel):
     issue_date = models.DateField(_("issue date"), blank=True, default=None, null=True)
     issuer = models.CharField(_("issuer"), blank=True, max_length=150)
     title = models.CharField(_("title"), blank=True, max_length=300)
-    user = models.ForeignKey("identity.User", on_delete=models.CASCADE, related_name="honor_or_award_set")
+    user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="honor_or_award_set")
 
     class Meta:
         verbose_name = _("user honor or award")
@@ -264,7 +264,7 @@ class Certification(TimeStampedModel):
     issue_date = models.DateField(_("issue date"), blank=True, default=None, null=True)
     issuer = models.CharField(_("issuer"), blank=True, max_length=150)
     title = models.CharField(_("title"), blank=True, max_length=300)
-    user = models.ForeignKey("identity.User", on_delete=models.CASCADE, related_name="certification_set")
+    user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="certification_set")
 
     class Meta:
         verbose_name = _("user certification")

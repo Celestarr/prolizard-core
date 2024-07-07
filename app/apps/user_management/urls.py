@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import LoginView, LogoutView, RegistrationView
 
-app_name = "identity"  # pylint: disable=invalid-name
+app_name = "user_management"  # pylint: disable=invalid-name
 
 urlpatterns = [
     path("login/", LoginView.as_view(), name="login"),

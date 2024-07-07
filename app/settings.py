@@ -51,11 +51,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = "identity.User"
+AUTH_USER_MODEL = "user_management.User"
 
 EMAIL_CONFIRMATION_REQUIRED = False  # Internal
 
-LOGIN_URL = "/identity/login/"
+LOGIN_URL = "/user_management/login/"
 
 OAUTH2_PROVIDER = {
     # 'ACCESS_TOKEN_EXPIRE_SECONDS': 60 + 15,

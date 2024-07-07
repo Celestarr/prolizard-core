@@ -10,7 +10,7 @@ def generate_resume_upload_path(instance, filename):
 
 
 class Resume(TimeStampedModel):
-    user = models.OneToOneField("identity.User", on_delete=models.CASCADE, related_name="resume")
+    user = models.OneToOneField("user_management.User", on_delete=models.CASCADE, related_name="resume")
     pdf = models.FileField(max_length=300, blank=True, null=True, upload_to=generate_resume_upload_path)
     version = models.CharField(max_length=300, blank=True, null=True)
 

@@ -34,7 +34,7 @@ class JobTracker(TimeStampedModel):
     )
     status = models.CharField(blank=True, max_length=20, choices=STATUS_CHOICES)
 
-    user = models.OneToOneField("identity.User", on_delete=models.CASCADE, related_name="job_tracker")
+    user = models.OneToOneField("user_management.User", on_delete=models.CASCADE, related_name="job_tracker")
 
     def __str__(self):
         return f"{self.company_name} - {self.position_title} ({self.status})"

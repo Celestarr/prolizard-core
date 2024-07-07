@@ -14,8 +14,8 @@ from .forms import AuthenticationForm, UserRegistrationForm
 
 
 class RegistrationView(CreateView):
-    template_name = "identity/registration.html"
-    success_template_name = "identity/registration_success.html"
+    template_name = "apps/user_management/registration.html"
+    success_template_name = "apps/user_management/registration_success.html"
     model = User
     form_class = UserRegistrationForm
 
@@ -57,7 +57,7 @@ class RegistrationView(CreateView):
 
 class LoginView(BaseLoginView):
     form_class = AuthenticationForm
-    template_name = "identity/login.html"
+    template_name = "apps/user_management/login.html"
     redirect_authenticated_user = True
 
     def form_valid(self, form):
