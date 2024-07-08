@@ -34,7 +34,7 @@ class JobTracker(TimeStampedModel):
     )
     status = models.CharField(blank=True, max_length=20, choices=STATUS_CHOICES)
 
-    user = models.OneToOneField("user_management.User", on_delete=models.CASCADE, related_name="job_tracker")
+    user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="job_tracker_set")
 
     user_editable_fields = [
         "application_date",
@@ -45,6 +45,9 @@ class JobTracker(TimeStampedModel):
         "position_title",
         "status",
     ]
+
+    class Meta:
+        ordering = ["-created_at"]
 
     def __str__(self):
         return f"{self.company_name} - {self.position_title} ({self.status})"

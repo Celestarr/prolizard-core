@@ -27,6 +27,8 @@ class BaseModel(models.Model):
             return "email"
         elif isinstance(field, models.IntegerField):
             return "integer"
+        elif isinstance(field, models.TextField):
+            return "text"
         # Add more field types as needed
         else:
             return "unknown"
