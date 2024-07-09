@@ -1,8 +1,9 @@
-from typing import Optional
+from typing import List, Optional
 
+from django.db import transaction
 from django.db.models import Q, QuerySet
 from django.http import Http404
-from rest_framework import status
+from rest_framework import filters, status
 from rest_framework.decorators import action
 from rest_framework.mixins import CreateModelMixin as BaseCreateModelMixin
 from rest_framework.mixins import DestroyModelMixin as BaseDestroyModelMixin
@@ -75,6 +76,20 @@ class ListModelMixin(BaseListModelMixin):
 
 
 class GenericViewSet(BaseGenericViewSet):
+    # List of allowed actions, e.g. ["list", "retrieve"]
+    # A value of None indicates that all actions are allowed.
+    allowed_actions: Optional[list] = None
+
+    filter_backends = [filters.OrderingFilter]
+
+    # List of lookup fields, e.g. ["pk", "username", "email"]
+    # If default `lookup_field` is not enough and it is required to
+    #   match object against multiple fields, use this.
+    # A value of None indicates that default `lookup_field` will be used.
+    lookup_fields: Optional[list] = None
+
+    ordering_fields = "__all__"
+
     # permission_classes_by_action = {
     #     "create": [IsAuthenticated],
     #     "destroy": [IsAuthenticated, IsObjectOwner],
@@ -89,16 +104,6 @@ class GenericViewSet(BaseGenericViewSet):
     # A value of none indicates that default `serializer_class` will be used
     #   for everything (retrieval, creation and updates).
     serializer_class_write_only = None
-
-    # List of lookup fields, e.g. ["pk", "username", "email"]
-    # If default `lookup_field` is not enough and it is required to
-    #   match object against multiple fields, use this.
-    # A value of None indicates that default `lookup_field` will be used.
-    lookup_fields: Optional[list] = None
-
-    # List of allowed actions, e.g. ["list", "retrieve"]
-    # A value of None indicates that all actions are allowed.
-    allowed_actions: Optional[list] = None
 
     def check_permissions(self, request):
         # pylint: disable=unsupported-membership-test
@@ -166,6 +171,37 @@ class GenericViewSet(BaseGenericViewSet):
 class ModelViewSet(  # pylint: disable=too-many-ancestors
     CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, ListModelMixin, GenericViewSet
 ):
+    @action(detail=False, methods=["post"])
+    def bulk_delete(self, request):
+        ids: List[int] = request.data.get("ids") or []
+
+        if not ids:
+            return Response({"error": "No IDs provided"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Get the queryset based on the filtered queryset of the viewset
+        queryset = self.filter_queryset(self.get_queryset())
+
+        # Further filter the queryset to only include the objects with the given IDs
+        objects_to_delete = queryset.filter(id__in=ids)
+
+        # Check permissions
+        # for obj in objects_to_delete:
+        #     if not self.has_permission(request, 'destroy', obj):
+        #         raise PermissionDenied("You do not have permission to delete one or more of these objects.")
+
+        # Perform the deletion within a transaction
+        try:
+            with transaction.atomic():
+                deleted_count = objects_to_delete.delete()[0]
+
+            return Response(
+                {"message": f"Successfully deleted {deleted_count} objects", "deleted_count": deleted_count},
+                status=status.HTTP_200_OK,
+            )
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     @action(detail=False, methods=["get"])
     def model_config(self, _):
         model_instance = self.get_queryset().model()
