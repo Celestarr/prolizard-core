@@ -80,7 +80,7 @@ class GenericViewSet(BaseGenericViewSet):
     # A value of None indicates that all actions are allowed.
     allowed_actions: Optional[list] = None
 
-    filter_backends = [filters.OrderingFilter]
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
 
     # List of lookup fields, e.g. ["pk", "username", "email"]
     # If default `lookup_field` is not enough and it is required to
@@ -99,6 +99,8 @@ class GenericViewSet(BaseGenericViewSet):
     #     "update": [IsAuthenticated, IsObjectOwner],
     # }
     permission_classes_by_action = None
+
+    search_fields = []
 
     # Serializer to be used when performing creation/update.
     # A value of none indicates that default `serializer_class` will be used
@@ -176,7 +178,7 @@ class ModelViewSet(  # pylint: disable=too-many-ancestors
         ids: List[int] = request.data.get("ids") or []
 
         if not ids:
-            return Response({"error": "No IDs provided"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message": "No IDs provided"}, status=status.HTTP_400_BAD_REQUEST)
 
         # Get the queryset based on the filtered queryset of the viewset
         queryset = self.filter_queryset(self.get_queryset())
@@ -190,17 +192,13 @@ class ModelViewSet(  # pylint: disable=too-many-ancestors
         #         raise PermissionDenied("You do not have permission to delete one or more of these objects.")
 
         # Perform the deletion within a transaction
-        try:
-            with transaction.atomic():
-                deleted_count = objects_to_delete.delete()[0]
+        with transaction.atomic():
+            deleted_count = objects_to_delete.delete()[0]
 
-            return Response(
-                {"message": f"Successfully deleted {deleted_count} objects", "deleted_count": deleted_count},
-                status=status.HTTP_200_OK,
-            )
-
-        except Exception as e:
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response(
+            {"message": f"Successfully deleted {deleted_count} objects", "count": deleted_count},
+            status=status.HTTP_200_OK,
+        )
 
     @action(detail=False, methods=["get"])
     def model_config(self, _):

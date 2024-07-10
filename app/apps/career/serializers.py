@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import JobTracker, JobTrackerHistory
+from .models import JobTracker
 
 
 class JobTrackerReadSerializer(serializers.ModelSerializer):
