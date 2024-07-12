@@ -48,6 +48,7 @@ class JobTracker(TimeStampedModel):
     user_editable_fields = [
         "application_date",
         "application_deadline",
+        "country",
         "interview_round",
         "notes",
         "organization_name",
@@ -64,7 +65,7 @@ class JobTracker(TimeStampedModel):
     def get_form_layout_config(self):
         return [
             {"row": 1, "fields": ["position_title"], "sizes": [12]},
-            {"row": 2, "fields": ["organization_name"], "sizes": [12]},
+            {"row": 2, "fields": ["organization_name", "country"], "sizes": [6, 6]},
             {"row": 3, "fields": ["application_date", "application_deadline"], "sizes": [6, 6]},
             {"row": 4, "fields": ["interview_round", "status"], "sizes": [6, 6]},
             {"row": 5, "fields": ["notes"], "sizes": [12]},

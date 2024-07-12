@@ -25,6 +25,8 @@ class BaseModel(models.Model):
             return "datetime"
         elif isinstance(field, models.EmailField):
             return "email"
+        elif isinstance(field, models.ForeignKey):
+            return "related"
         elif isinstance(field, models.IntegerField):
             return "integer"
         elif isinstance(field, models.TextField):
@@ -47,7 +49,10 @@ class BaseModel(models.Model):
                 "verbose_name": snake_to_capitalized(field.name),
             }
 
-            if field.choices:
+            if field_config["type"] == "related":
+                field_config["related_model"] = field.related_model.__name__
+
+            if hasattr(field, "choices") and field.choices:
                 field_config["choices"] = field.choices
 
             if field.help_text:

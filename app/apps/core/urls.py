@@ -11,7 +11,7 @@ from .views import (
     TimeZoneViewSet,
 )
 
-app_name = "common"  # pylint: disable=invalid-name
+app_name = "core"  # pylint: disable=invalid-name
 
 router = HyphenatedSimpleRouter()
 router.register(r"countries", CountryViewSet, basename="country")
