@@ -30,15 +30,6 @@ class Currency(TimeStampedModelWithSmallId):
         ordering = ("id",)
 
 
-class Gender(TimeStampedModelWithSmallId):
-    name = models.CharField(blank=True, max_length=50, unique=True)
-
-    class Meta:
-        verbose_name = _("gender")
-        verbose_name_plural = _("genders")
-        ordering = ("id",)
-
-
 class SupportedLocale(TimeStampedModelWithSmallId):
     locale_tag = models.CharField(blank=True, max_length=20, unique=True)
     iso_639_1_code = models.CharField(blank=True, max_length=2)

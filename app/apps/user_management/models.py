@@ -45,13 +45,19 @@ class User(AbstractUser, TimeStampedModel):
         max_length=settings.FIELD_META["first_name"]["max_length"],
         validators=[MinLengthValidator(settings.FIELD_META["first_name"]["min_length"])],
     )
-    gender = models.ForeignKey(
-        "core.Gender",
+
+    GENDER_CHOICES = [
+        ("MALE", "Male"),
+        ("FEMALE", "Female"),
+        ("OTHER", "Other"),
+    ]
+    gender = models.CharField(
         blank=True,
+        choices=GENDER_CHOICES,
+        max_length=20,
         null=True,
-        on_delete=models.SET_NULL,
-        related_name="user_set",
     )
+
     headline = models.CharField(blank=True, max_length=250, null=True)
     is_active = models.BooleanField(
         _("active"),

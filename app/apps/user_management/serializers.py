@@ -1,13 +1,12 @@
 from rest_framework import serializers
 
-from app.apps.core.serializers import CountrySerializer, GenderSerializer
+from app.apps.core.serializers import CountrySerializer
 
 from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
     country = CountrySerializer(read_only=True)
-    gender = GenderSerializer(read_only=True)
     joined_at = serializers.DateTimeField(source="created_at")
 
     class Meta:

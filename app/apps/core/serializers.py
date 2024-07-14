@@ -1,7 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from .models import Country, Currency, Gender, SupportedLocale, TimeZone
+from .models import Country, Currency, SupportedLocale, TimeZone
 
 
 class CountrySerializer(serializers.ModelSerializer):
@@ -14,12 +14,6 @@ class CurrencySerializer(serializers.ModelSerializer):
     class Meta:
         model = Currency
         fields = ("id", "iso_4217_code", "name", "symbol")
-
-
-class GenderSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Gender
-        fields = ("id", "name")
 
 
 class LocaleSerializer(serializers.ModelSerializer):

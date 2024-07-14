@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from app.apps.core.models import Country, Currency, Gender, TimeZone
+from app.apps.core.models import Country, Currency, TimeZone
 
 
 class ReadOnlyModelAdmin(admin.ModelAdmin):
@@ -49,16 +49,6 @@ class CurrencyAdmin(ReadOnlyModelAdmin):
         "name",
         "iso_4217_code",
         "iso_4217_numeric_code",
-    )
-    ordering = ("-id",)
-
-
-@admin.register(Gender)
-class GenderAdmin(ReadOnlyModelAdmin):
-    list_display = (
-        "id",
-        "name",
-        "updated_at",
     )
     ordering = ("-id",)
 

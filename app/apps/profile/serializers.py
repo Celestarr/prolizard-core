@@ -8,32 +8,16 @@ from app.apps.user_management.serializers import UserSerializer
 from .models import (
     AcademicRecord,
     Certification,
-    EmploymentType,
     HonorOrAward,
     Language,
-    LanguageProficiencyLevel,
-    PortfolioTemplate,
     Project,
     Publication,
     ResumeTemplate,
     Skill,
-    SkillProficiencyLevel,
     UserPreference,
     WebLink,
     WorkExperience,
 )
-
-
-class EmploymentTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        exclude = ("created_at", "updated_at")
-        model = EmploymentType
-
-
-class PortfolioTemplateSerializer(serializers.ModelSerializer):
-    class Meta:
-        exclude = ("created_at", "updated_at")
-        model = PortfolioTemplate
 
 
 class ResumeTemplateSerializer(serializers.ModelSerializer):
@@ -43,7 +27,6 @@ class ResumeTemplateSerializer(serializers.ModelSerializer):
 
 
 class UserPreferenceSerializer(serializers.ModelSerializer):
-    portfolio_template = PortfolioTemplateSerializer()
     resume_template = ResumeTemplateSerializer()
 
     class Meta:
@@ -59,18 +42,6 @@ class UserPreferenceSerializer(serializers.ModelSerializer):
 class UserPreferenceWriteOnlySerializer(serializers.ModelSerializer):
     class Meta(UserPreferenceSerializer.Meta):
         pass
-
-
-class SkillProficiencyLevelSerializer(serializers.ModelSerializer):
-    class Meta:
-        exclude = ("created_at", "updated_at")
-        model = SkillProficiencyLevel
-
-
-class LanguageProficiencyLevelSerializer(serializers.ModelSerializer):
-    class Meta:
-        exclude = ("created_at", "updated_at")
-        model = LanguageProficiencyLevel
 
 
 class AcademicRecordSerializer(serializers.ModelSerializer):
@@ -109,8 +80,6 @@ class AcademicRecordSerializerForResumeTemplate(AcademicRecordSerializer):
 
 
 class SkillSerializer(serializers.ModelSerializer):
-    proficiency = SkillProficiencyLevelSerializer()
-
     class Meta:
         exclude = ("created_at", "updated_at")
         model = Skill
@@ -154,8 +123,6 @@ class WebLinkSerializerForResumeTemplate(WebLinkSerializer):
 
 
 class WorkExperienceSerializer(serializers.ModelSerializer):
-    employment_type = EmploymentTypeSerializer()
-
     class Meta:
         exclude = ("created_at", "updated_at")
         model = WorkExperience
@@ -183,8 +150,6 @@ class WorkExperienceSerializerForResumeTemplate(WorkExperienceSerializer):
 
 
 class LanguageSerializer(serializers.ModelSerializer):
-    proficiency = LanguageProficiencyLevelSerializer()
-
     class Meta:
         exclude = ("created_at", "updated_at")
         model = Language

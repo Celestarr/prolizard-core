@@ -3,18 +3,13 @@ from drf_spectacular.utils import extend_schema
 from rest_framework.exceptions import NotFound
 from rest_framework.generics import ListAPIView
 
-from app.apps.profile.models import EmploymentType, LanguageProficiencyLevel, ResumeTemplate, SkillProficiencyLevel
-from app.apps.profile.serializers import (
-    EmploymentTypeSerializer,
-    LanguageProficiencyLevelSerializer,
-    ResumeTemplateSerializer,
-    SkillProficiencyLevelSerializer,
-)
+from app.apps.profile.models import ResumeTemplate
+from app.apps.profile.serializers import ResumeTemplateSerializer
 from app.utils.views.pagination import PageNumberPaginationFull
 from app.utils.views.viewsets import ListOnlyModelViewSet
 
-from .models import Country, Gender, SupportedLocale, TimeZone
-from .serializers import CountrySerializer, GenderSerializer, LocaleSerializer, TimeZoneSerializer
+from .models import Country, SupportedLocale, TimeZone
+from .serializers import CountrySerializer, LocaleSerializer, TimeZoneSerializer
 
 
 @extend_schema(exclude=True)
@@ -30,12 +25,6 @@ class CountryViewSet(ListOnlyModelViewSet):
     pagination_class = PageNumberPaginationFull
 
 
-class GenderViewSet(ListOnlyModelViewSet):
-    queryset = Gender.objects.all()
-    serializer_class = GenderSerializer
-    pagination_class = PageNumberPaginationFull
-
-
 class LocaleViewSet(ListOnlyModelViewSet):
     queryset = SupportedLocale.objects.all()
     serializer_class = LocaleSerializer
@@ -48,25 +37,7 @@ class TimeZoneViewSet(ListOnlyModelViewSet):
     pagination_class = PageNumberPaginationFull
 
 
-class EmploymentTypeViewSet(ListOnlyModelViewSet):
-    queryset = EmploymentType.objects.all()
-    serializer_class = EmploymentTypeSerializer
-    pagination_class = PageNumberPaginationFull
-
-
-class SkillProficiencyLevelViewSet(ListOnlyModelViewSet):
-    queryset = SkillProficiencyLevel.objects.all()
-    serializer_class = SkillProficiencyLevelSerializer
-    pagination_class = PageNumberPaginationFull
-
-
 class ResumeTemplateViewSet(ListOnlyModelViewSet):
     queryset = ResumeTemplate.objects.all()
     serializer_class = ResumeTemplateSerializer
-    pagination_class = PageNumberPaginationFull
-
-
-class LanguageProficiencyLevelViewSet(ListOnlyModelViewSet):
-    queryset = LanguageProficiencyLevel.objects.all()
-    serializer_class = LanguageProficiencyLevelSerializer
     pagination_class = PageNumberPaginationFull

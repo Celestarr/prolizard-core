@@ -5,24 +5,6 @@ from django.utils.translation import gettext_lazy as _
 
 from app.utils.db.models import TimeStampedModel, TimeStampedModelWithSmallId
 
-from .constants import UI_MODE_DARK, UI_MODE_LIGHT, UI_MODE_SYSTEM
-
-
-class EmploymentType(TimeStampedModelWithSmallId):
-    name = models.CharField(_("name of employment type"), blank=True, max_length=100, unique=True)
-
-    class Meta:
-        verbose_name = _("employment type")
-        verbose_name_plural = _("employment types")
-
-
-class PortfolioTemplate(TimeStampedModel):
-    name = models.CharField(_("name of template"), blank=True, max_length=100, unique=True)
-
-    class Meta:
-        verbose_name = _("portfolio template")
-        verbose_name_plural = _("portfolio templates")
-
 
 class ResumeTemplate(TimeStampedModel):
     slug = models.CharField(_("slug/unique id of template"), blank=True, max_length=100, unique=True)
@@ -47,18 +29,14 @@ def get_default_resume_template():
 
 class UserPreference(TimeStampedModel):
     user = models.OneToOneField("user_management.User", on_delete=models.CASCADE, related_name="preference")
+
     UI_MODE_CHOICES = (
-        (UI_MODE_DARK, UI_MODE_DARK),
-        (UI_MODE_LIGHT, UI_MODE_LIGHT),
-        (UI_MODE_SYSTEM, UI_MODE_SYSTEM),
+        ("DARK", "Dark"),
+        ("LIGHT", "Light"),
+        ("SYSTEM", "System"),
     )
-    ui_mode = models.CharField(blank=True, choices=UI_MODE_CHOICES, max_length=20, default=UI_MODE_SYSTEM)
-    portfolio_template = models.ForeignKey(
-        "PortfolioTemplate",
-        null=True,
-        on_delete=models.SET_NULL,
-        related_name="user_preference_set",
-    )
+    ui_mode = models.CharField(blank=True, choices=UI_MODE_CHOICES, default=UI_MODE_CHOICES[-1][0], max_length=20)
+
     resume_template = models.ForeignKey(
         "ResumeTemplate",
         on_delete=models.PROTECT,
@@ -69,26 +47,6 @@ class UserPreference(TimeStampedModel):
     class Meta:
         verbose_name = _("preference")
         verbose_name_plural = _("preferences")
-
-
-class LanguageProficiencyLevel(TimeStampedModelWithSmallId):
-    name = models.CharField(_("name of language proficiency level"), blank=True, max_length=100, unique=True)
-    value = models.PositiveIntegerField(_("mathematical value"), blank=True)
-
-    class Meta:
-        verbose_name = _("language proficiency level")
-        verbose_name_plural = _("language proficiency levels")
-        ordering = ("value",)
-
-
-class SkillProficiencyLevel(TimeStampedModelWithSmallId):
-    name = models.CharField(_("name of skill proficiency level"), blank=True, max_length=100, unique=True)
-    value = models.PositiveIntegerField(_("mathematical value"), blank=True)
-
-    class Meta:
-        verbose_name = _("skill proficiency level")
-        verbose_name_plural = _("skill proficiency levels")
-        ordering = ("value",)
 
 
 class AcademicRecord(TimeStampedModel):
@@ -128,11 +86,21 @@ class AcademicRecord(TimeStampedModel):
 
 class Skill(TimeStampedModel):
     name = models.CharField(_("name of skill"), blank=True, max_length=150)
-    proficiency = models.ForeignKey(
-        SkillProficiencyLevel,
-        on_delete=models.CASCADE,
-        related_name="proficiency_skill_set",
+
+    # NOTE: Order matters.
+    PROFICIENCY_LEVEL_CHOICES = [
+        ("novice", "Novice"),
+        ("advanced_beginner", "Advanced Beginner"),
+        ("competent", "Competent"),
+        ("proficient", "Proficient"),
+        ("expert", "Expert"),
+    ]
+    proficiency = models.CharField(
+        blank=True,
+        choices=PROFICIENCY_LEVEL_CHOICES,
+        max_length=50,
     )
+
     user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="skill_set")
 
     class Meta:
@@ -153,11 +121,20 @@ class WebLink(TimeStampedModel):
 class WorkExperience(TimeStampedModel):
     company = models.CharField(_("company"), blank=True, max_length=150)
     description = models.TextField(_("additional information"), blank=True, default=None, null=True)
-    employment_type = models.ForeignKey(
-        EmploymentType,
-        on_delete=models.CASCADE,
-        related_name="employment_type_work_experience_set",
+
+    EMPLOYMENT_TYPE_CHOICES = [
+        ("CASUAL", "Casual"),
+        ("FULL_TIME", "Full-time"),
+        ("CONTRACT", "Contract/Fixed term"),
+        ("PART_TIME", "Part-time"),
+        ("TRAINEE", "Trainee/Apprentice"),
+    ]
+    employment_type = models.CharField(
+        blank=True,
+        choices=EMPLOYMENT_TYPE_CHOICES,
+        max_length=50,
     )
+
     end_date = models.DateField(_("end date"), blank=True, default=None, null=True)
     is_ongoing = models.BooleanField(_("currently working"), blank=True, default=False)
     job_title = models.CharField(_("job title"), blank=True, max_length=150)
@@ -190,10 +167,19 @@ class WorkExperience(TimeStampedModel):
 
 class Language(TimeStampedModel):
     name = models.CharField(_("name of language"), blank=True, max_length=100)
-    proficiency = models.ForeignKey(
-        LanguageProficiencyLevel,
-        on_delete=models.CASCADE,
-        related_name="proficiency_language_set",
+
+    # NOTE: Order matters.
+    PROFICIENCY_LEVEL_CHOICES = [
+        ("ELEMENTARY", "Elementary Proficiency"),
+        ("LIMITED_WORKING", "Limited Working Proficiency"),
+        ("PROFESSIONAL", "Professional Working Proficiency"),
+        ("FULL_PROFESSIONAL", "Full Professional Proficiency"),
+        ("NATIVE", "Native/Bilingual Proficiency"),
+    ]
+    proficiency = models.CharField(
+        blank=True,
+        choices=PROFICIENCY_LEVEL_CHOICES,
+        max_length=50,
     )
     user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="language_set")
 

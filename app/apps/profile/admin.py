@@ -5,60 +5,21 @@ from app.apps.core.admin import ReadOnlyModelAdmin
 from .models import (
     AcademicRecord,
     Certification,
-    EmploymentType,
     HonorOrAward,
     Language,
-    LanguageProficiencyLevel,
-    PortfolioTemplate,
     Project,
     Publication,
     ResumeTemplate,
     Skill,
-    SkillProficiencyLevel,
     UserPreference,
     WebLink,
     WorkExperience,
 )
 
 
-@admin.register(EmploymentType)
-class EmploymentTypeAdmin(ReadOnlyModelAdmin):
-    list_display = (
-        "id",
-        "name",
-        "updated_at",
-    )
-    search_fields = ("name",)
-    ordering = ("-id",)
-
-
 @admin.register(UserPreference)
 class UserPreferenceAdmin(admin.ModelAdmin):
     pass
-
-
-@admin.register(LanguageProficiencyLevel)
-class LanguageProficiencyLevelAdmin(ReadOnlyModelAdmin):
-    list_display = (
-        "id",
-        "name",
-        "value",
-        "updated_at",
-    )
-    search_fields = ("name",)
-    ordering = ("-id",)
-
-
-@admin.register(SkillProficiencyLevel)
-class SkillProficiencyLevelAdmin(ReadOnlyModelAdmin):
-    list_display = (
-        "id",
-        "name",
-        "value",
-        "updated_at",
-    )
-    search_fields = ("name",)
-    ordering = ("-id",)
 
 
 @admin.register(AcademicRecord)
@@ -104,17 +65,6 @@ class PublicationAdmin(admin.ModelAdmin):
 @admin.register(HonorOrAward)
 class HonorOrAwardAdmin(admin.ModelAdmin):
     pass
-
-
-@admin.register(PortfolioTemplate)
-class PortfolioTemplateAdmin(ReadOnlyModelAdmin):
-    list_display = (
-        "id",
-        "name",
-        "updated_at",
-    )
-    search_fields = ("name",)
-    ordering = ("-id",)
 
 
 @admin.register(ResumeTemplate)

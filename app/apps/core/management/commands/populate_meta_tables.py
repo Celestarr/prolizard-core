@@ -12,7 +12,4 @@ class Command(BaseCommand):
         call_command("populate_locales")
         call_command("populate_time_zones")
         call_command("populate_countries")
-        call_command("populate_genders")
-        call_command("populate_employment_types")
-        call_command("populate_proficiency_levels")
         call_command("populate_resume_templates")
