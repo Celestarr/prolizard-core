@@ -1,3 +1,4 @@
+from redis.exceptions import LockError
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
@@ -20,6 +21,9 @@ class ArticleSearchViewSet(viewsets.GenericViewSet):
         params = params_serializer.data
         query = params.pop("query")
 
-        res = google_scholar_service.search(query, **params)
+        try:
+            res = google_scholar_service.search(query, **params)
+        except LockError:
+            raise Exception("Service is busy at the moment. Try again later.")
 
         return Response(res)

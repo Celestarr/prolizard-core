@@ -86,6 +86,17 @@ class User(AbstractUser, TimeStampedModel):
         },
     )
 
+    user_editable_fields = [
+        "about",
+        "address",
+        "country",
+        "date_of_birth",
+        "first_name",
+        "gender",
+        "headline",
+        "last_name",
+    ]
+
     # Invalidate unused fields
     # date_joined = None
     # last_login = None  # used by django-oauth-toolkit
@@ -93,10 +104,14 @@ class User(AbstractUser, TimeStampedModel):
     class Meta(AbstractUser.Meta):
         swappable = "AUTH_USER_MODEL"
 
-    def save(self, *args, **kwargs):
-        self.email = self.email.lower()
-
-        return super().save(*args, **kwargs)
+    def get_form_layout_config(self):
+        return [
+            {"row": 1, "fields": ["first_name", "last_name"], "sizes": [6, 6]},
+            {"row": 2, "fields": ["gender", "date_of_birth"], "sizes": [6, 6]},
+            {"row": 3, "fields": ["address", "country"], "sizes": [6, 6]},
+            {"row": 4, "fields": ["headline"], "sizes": [12]},
+            {"row": 5, "fields": ["about"], "sizes": [12]},
+        ]
 
     @property
     def location(self):
@@ -104,3 +119,8 @@ class User(AbstractUser, TimeStampedModel):
             return f"{self.address}, {self.country}"
 
         return self.address or self.country or None
+
+    def save(self, *args, **kwargs):
+        self.email = self.email.lower()
+
+        return super().save(*args, **kwargs)

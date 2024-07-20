@@ -1,30 +1,32 @@
 import re
+import time
 from typing import Any, Dict, List, Optional
 
 import requests
 from bs4 import BeautifulSoup
 
+from app.utils.cache import redis_lock
+
 
 class GoogleScholarService:
     base_url = "https://scholar.google.com/scholar"
-    meta_pattern = re.compile(r"(\d+) results \(([\d.]+)\s*sec\)")  # Compile the regex pattern for efficiency
-    page_size = 10
+    meta_pattern = re.compile(r"([,\d]+) results \(([\d.]+)\s*sec\)")  # Compile the regex pattern for efficiency
+    MAX_PAGE_COUNT = 100
+    PAGE_SIZE = 10
     SORT_BY_DATE = "date"
     SORT_BY_RELEVANCE = "relevance"
     SORTING_CRITERIA = [SORT_BY_DATE, SORT_BY_RELEVANCE]
 
+    @redis_lock("google-scholar-search", timeout=10)
     def search(self, query: str, page: int = 1, sorting: Optional[str] = None) -> Dict[str, Any]:
         if not sorting:
             sorting = self.SORT_BY_RELEVANCE
-
-        if sorting not in self.SORTING_CRITERIA:
-            raise ValueError(f"Sorting criteria {sorting} is not supported")
 
         params = {
             "hl": "en",
             "lookup": 0,
             "q": query,
-            "start": (page - 1) * self.page_size,
+            "start": (page - 1) * self.PAGE_SIZE,
         }
 
         if sorting == self.SORT_BY_DATE:
@@ -43,7 +45,7 @@ class GoogleScholarService:
 
         # Use pattern.search() to find the pattern in the text
         match = self.meta_pattern.search(gs_ab_mdw_text)
-        num_results = int(match.group(1))  # Extract the number of results
+        num_results = int(match.group(1).replace(",", ""))  # Extract the number of results
         took = float(match.group(2))  # Extract the time taken
 
         # Create the dictionary
@@ -104,6 +106,7 @@ class GoogleScholarService:
             articles.append(data)
 
         return {
-            "data": articles,
+            "count": min(self.MAX_PAGE_COUNT * self.PAGE_SIZE, num_results),
+            "results": articles,
             "meta": meta,
         }

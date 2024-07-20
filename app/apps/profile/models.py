@@ -28,7 +28,12 @@ def get_default_resume_template():
 
 
 class UserPreference(TimeStampedModel):
-    user = models.OneToOneField("user_management.User", on_delete=models.CASCADE, related_name="preference")
+    resume_template = models.ForeignKey(
+        "ResumeTemplate",
+        on_delete=models.PROTECT,
+        related_name="user_preference_set",
+        default=get_default_resume_template,
+    )
 
     UI_MODE_CHOICES = (
         ("DARK", "Dark"),
@@ -37,12 +42,12 @@ class UserPreference(TimeStampedModel):
     )
     ui_mode = models.CharField(blank=True, choices=UI_MODE_CHOICES, default=UI_MODE_CHOICES[-1][0], max_length=20)
 
-    resume_template = models.ForeignKey(
-        "ResumeTemplate",
-        on_delete=models.PROTECT,
-        related_name="user_preference_set",
-        default=get_default_resume_template,
-    )
+    user = models.OneToOneField("user_management.User", on_delete=models.CASCADE, related_name="preference")
+
+    user_editable_fields = [
+        "resume_template",
+        "ui_mode",
+    ]
 
     class Meta:
         verbose_name = _("preference")
@@ -60,6 +65,18 @@ class AcademicRecord(TimeStampedModel):
     school = models.CharField(_("school"), blank=True, max_length=150)
     start_date = models.DateField(_("start date"), blank=True)
     user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="academic_record_set")
+
+    user_editable_fields = [
+        "degree",
+        "description",
+        "end_date",
+        "field_of_study",
+        "grade",
+        "is_ongoing",
+        "location",
+        "school",
+        "start_date",
+    ]
 
     def clean(self):
         if self.is_ongoing:
@@ -83,6 +100,15 @@ class AcademicRecord(TimeStampedModel):
         verbose_name = _("academic record")
         verbose_name_plural = _("academic records")
 
+    def get_form_layout_config(self):
+        return [
+            {"row": 1, "fields": ["school", "location"], "sizes": [6, 6]},
+            {"row": 2, "fields": ["degree", "field_of_study"], "sizes": [6, 6]},
+            {"row": 3, "fields": ["start_date", "end_date"], "sizes": [6, 6]},
+            {"row": 4, "fields": ["grade"], "sizes": [12]},
+            {"row": 5, "fields": ["description"], "sizes": [12]},
+        ]
+
 
 class Skill(TimeStampedModel):
     name = models.CharField(_("name of skill"), blank=True, max_length=150)
@@ -103,9 +129,20 @@ class Skill(TimeStampedModel):
 
     user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="skill_set")
 
+    user_editable_fields = [
+        "name",
+        "proficiency",
+    ]
+
     class Meta:
         verbose_name = _("skill")
         verbose_name_plural = _("skills")
+
+    def get_form_layout_config(self):
+        return [
+            {"row": 1, "fields": ["name"], "sizes": [12]},
+            {"row": 2, "fields": ["proficiency"], "sizes": [12]},
+        ]
 
 
 class WebLink(TimeStampedModel):
@@ -113,9 +150,17 @@ class WebLink(TimeStampedModel):
     label = models.CharField(_("text to display"), blank=True, default=None, max_length=150, null=True)
     user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="web_link_set")
 
+    user_editable_fields = ["href", "label"]
+
     class Meta:
         verbose_name = _("web link")
         verbose_name_plural = _("web links")
+
+    def get_form_layout_config(self):
+        return [
+            {"row": 1, "fields": ["label"], "sizes": [12]},
+            {"row": 2, "fields": ["href"], "sizes": [12]},
+        ]
 
 
 class WorkExperience(TimeStampedModel):
@@ -142,6 +187,17 @@ class WorkExperience(TimeStampedModel):
     start_date = models.DateField(_("start date"), blank=True)
     user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="work_experience_set")
 
+    user_editable_fields = [
+        "company",
+        "description",
+        "employment_type",
+        "end_date",
+        "is_ongoing",
+        "job_title",
+        "location",
+        "start_date",
+    ]
+
     def clean(self):
         if self.is_ongoing:
             self.end_date = None
@@ -164,6 +220,14 @@ class WorkExperience(TimeStampedModel):
         verbose_name = _("work experience")
         verbose_name_plural = _("work experiences")
 
+    def get_form_layout_config(self):
+        return [
+            {"row": 1, "fields": ["company", "location"], "sizes": [6, 6]},
+            {"row": 2, "fields": ["job_title", "employment_type"], "sizes": [6, 6]},
+            {"row": 3, "fields": ["start_date", "end_date"], "sizes": [6, 6]},
+            {"row": 4, "fields": ["description"], "sizes": [12]},
+        ]
+
 
 class Language(TimeStampedModel):
     name = models.CharField(_("name of language"), blank=True, max_length=100)
@@ -183,9 +247,20 @@ class Language(TimeStampedModel):
     )
     user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="language_set")
 
+    user_editable_fields = [
+        "name",
+        "proficiency",
+    ]
+
     class Meta:
         verbose_name = _("language")
         verbose_name_plural = _("languages")
+
+    def get_form_layout_config(self):
+        return [
+            {"row": 1, "fields": ["name"], "sizes": [12]},
+            {"row": 2, "fields": ["proficiency"], "sizes": [12]},
+        ]
 
 
 class Project(TimeStampedModel):
@@ -196,6 +271,15 @@ class Project(TimeStampedModel):
     start_date = models.DateField(_("start date"), blank=True)
     url = models.CharField(_("url"), blank=True, default=None, max_length=150, null=True)
     user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="project_set")
+
+    user_editable_fields = [
+        "description",
+        "end_date",
+        "is_ongoing",
+        "name",
+        "start_date",
+        "url",
+    ]
 
     def clean(self):
         if self.is_ongoing:
@@ -219,6 +303,14 @@ class Project(TimeStampedModel):
         verbose_name = _("project")
         verbose_name_plural = _("projects")
 
+    def get_form_layout_config(self):
+        return [
+            {"row": 1, "fields": ["name"], "sizes": [12]},
+            {"row": 2, "fields": ["url"], "sizes": [12]},
+            {"row": 3, "fields": ["start_date", "end_date"], "sizes": [6, 6]},
+            {"row": 4, "fields": ["description"], "sizes": [12]},
+        ]
+
 
 class Publication(TimeStampedModel):
     description = models.TextField(_("additional information"), blank=True, default=None, null=True)
@@ -228,9 +320,25 @@ class Publication(TimeStampedModel):
     url = models.CharField(_("url"), blank=True, default=None, max_length=150, null=True)
     user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="publication_set")
 
+    user_editable_fields = [
+        "description",
+        "publication_date",
+        "publisher",
+        "title",
+        "url",
+    ]
+
     class Meta:
         verbose_name = _("publication")
         verbose_name_plural = _("publications")
+
+    def get_form_layout_config(self):
+        return [
+            {"row": 1, "fields": ["title"], "sizes": [12]},
+            {"row": 2, "fields": ["url"], "sizes": [12]},
+            {"row": 3, "fields": ["publisher", "publication_date"], "sizes": [6, 6]},
+            {"row": 4, "fields": ["description"], "sizes": [12]},
+        ]
 
 
 class HonorOrAward(TimeStampedModel):
@@ -240,9 +348,23 @@ class HonorOrAward(TimeStampedModel):
     title = models.CharField(_("title"), blank=True, max_length=300)
     user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="honor_or_award_set")
 
+    user_editable_fields = [
+        "description",
+        "issue_date",
+        "issuer",
+        "title",
+    ]
+
     class Meta:
         verbose_name = _("user honor or award")
         verbose_name_plural = _("user honors or awards")
+
+    def get_form_layout_config(self):
+        return [
+            {"row": 1, "fields": ["title"], "sizes": [12]},
+            {"row": 2, "fields": ["issuer", "issue_date"], "sizes": [6, 6]},
+            {"row": 3, "fields": ["description"], "sizes": [12]},
+        ]
 
 
 class Certification(TimeStampedModel):
@@ -252,6 +374,20 @@ class Certification(TimeStampedModel):
     title = models.CharField(_("title"), blank=True, max_length=300)
     user = models.ForeignKey("user_management.User", on_delete=models.CASCADE, related_name="certification_set")
 
+    user_editable_fields = [
+        "description",
+        "issue_date",
+        "issuer",
+        "title",
+    ]
+
     class Meta:
         verbose_name = _("user certification")
         verbose_name_plural = _("user certifications")
+
+    def get_form_layout_config(self):
+        return [
+            {"row": 1, "fields": ["title"], "sizes": [12]},
+            {"row": 2, "fields": ["issuer", "issue_date"], "sizes": [6, 6]},
+            {"row": 3, "fields": ["description"], "sizes": [12]},
+        ]

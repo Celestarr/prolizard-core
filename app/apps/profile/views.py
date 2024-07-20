@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from app.apps.user_management.models import User
 from app.apps.user_management.permissions import IsObjectOwner
 from app.apps.user_management.serializers import UserSerializer, UserWriteOnlySerializer
-from app.utils.views.viewsets import RetrieveUpdateModelViewSet
+from app.utils.views.viewsets import ModelViewSet, RetrieveUpdateModelViewSet
 
 from .models import (
     AcademicRecord,
@@ -43,17 +43,18 @@ from .serializers import (
 from .viewsets import ProfileSectionViewSet
 
 
-class MemberViewSet(RetrieveUpdateModelViewSet):  # pylint: disable=too-many-ancestors
+class MemberViewSet(ModelViewSet):  # pylint: disable=too-many-ancestors
     serializer_class = UserSerializer
     serializer_class_write_only = UserWriteOnlySerializer
     queryset = User.objects.all()
     permission_classes_by_action = {
-        "retrieve": [IsAuthenticated, IsObjectOwner],
         "me": [IsAuthenticated],
+        "model_config": [IsAuthenticated],
         "preferences": [IsAuthenticated],
+        "retrieve": [IsAuthenticated, IsObjectOwner],
     }
     lookup_fields = ["pk", "username"]
-    allowed_actions = ["me", "preferences", "retrieve"]
+    allowed_actions = ["me", "model_config", "preferences", "retrieve"]
 
     def retrieve(self, request, *args, **kwargs):
         del request, args, kwargs

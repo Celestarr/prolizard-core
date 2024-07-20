@@ -91,6 +91,13 @@ except requests.exceptions.RequestException:
 
 APPEND_SLASH = True
 
+CACHES = {
+    "default": {
+        "BACKEND": "app.utils.cache.RedisCache",
+        "LOCATION": config("REDIS_URLS").split(","),
+    }
+}
+
 DATABASES = {
     "default": {
         "NAME": config("DB_NAME"),

@@ -16,4 +16,5 @@ pycountry==24.6.1
 pytest==8.2.2
 python-dateutil==2.9.0
 python-decouple==3.8
+redis==5.0.7
 requests==2.32.3
