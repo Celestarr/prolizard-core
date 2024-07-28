@@ -1,6 +1,6 @@
 import re
 import time
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import requests
 from bs4 import BeautifulSoup
@@ -18,16 +18,30 @@ class GoogleScholarService:
     SORTING_CRITERIA = [SORT_BY_DATE, SORT_BY_RELEVANCE]
 
     @redis_lock("google-scholar-search", timeout=10)
-    def search(self, query: str, page: int = 1, sorting: Optional[str] = None) -> Dict[str, Any]:
+    def search(
+        self,
+        query: str,
+        page: int = 1,
+        sorting: Optional[str] = None,
+        year_max: Optional[int] = None,
+        year_min: Optional[int] = None,
+    ) -> Dict[str, Any]:
         if not sorting:
             sorting = self.SORT_BY_RELEVANCE
 
         params = {
+            "as_vis": 1,  # Exclude citations.
             "hl": "en",
             "lookup": 0,
             "q": query,
             "start": (page - 1) * self.PAGE_SIZE,
         }
+
+        if year_max:
+            params["as_yhi"] = year_max
+
+        if year_min:
+            params["as_ylo"] = year_min
 
         if sorting == self.SORT_BY_DATE:
             params["scisbd"] = 1
